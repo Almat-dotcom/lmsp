@@ -1,6 +1,6 @@
 export class AbstractNotPersistentEntity {
   static NAME = "sys$AbstractNotPersistentEntity";
-  id?: any | null;
+  id?: string;
 }
 export type AbstractNotPersistentEntityViewName =
   | "_base"

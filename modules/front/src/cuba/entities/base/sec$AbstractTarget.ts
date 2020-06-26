@@ -1,6 +1,6 @@
 export class AbstractPermissionTarget {
   static NAME = "sec$AbstractTarget";
-  id?: string | null;
+  id?: string;
   caption?: string | null;
   permissionValue?: string | null;
 }

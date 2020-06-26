@@ -1,45 +1,44 @@
 import * as React from "react";
 import "./App.css";
 
-import { Icon, Layout, Menu } from "antd";
-import { observer } from "mobx-react";
+import {Icon, Layout, Menu} from "antd";
+import {observer} from "mobx-react";
 import Login from "./login/Login";
 import Centered from "./common/Centered";
 import AppHeader from "./header/AppHeader";
-import { NavLink, Route, Switch } from "react-router-dom";
+import {NavLink, Route, Switch} from "react-router-dom";
 import HomePage from "./home/HomePage";
-import { menuItems } from "../routing";
+import {menuItems} from "../routing";
 import {
   injectMainStore,
   MainStoreInjected,
   RouteItem,
   SubMenu
 } from "@cuba-platform/react";
-import { CenteredLoader } from "./CenteredLoader";
+import {CenteredLoader} from "./CenteredLoader";
 import {
   FormattedMessage,
   injectIntl,
   IntlFormatters,
   WrappedComponentProps
 } from "react-intl";
+import {IMenuItem, topMenu} from "../menu";
 
 @injectMainStore
 @observer
-class AppComponent extends React.Component<
-  MainStoreInjected & WrappedComponentProps
-> {
+class AppComponent extends React.Component<MainStoreInjected & WrappedComponentProps> {
   render() {
     const mainStore = this.props.mainStore!;
-    const { initialized, locale, loginRequired } = mainStore;
+    const {initialized, locale, loginRequired} = mainStore;
 
     if (!initialized || !locale) {
-      return <CenteredLoader />;
+      return <CenteredLoader/>;
     }
 
     if (loginRequired) {
       return (
         <Centered>
-          <Login />
+          <Login/>
         </Centered>
       );
     }
@@ -49,38 +48,32 @@ class AppComponent extends React.Component<
     return (
       <Layout className="main-layout">
         <Layout.Header>
-          <AppHeader />
+          <AppHeader/>
         </Layout.Header>
         <Layout>
-          <Layout.Sider
-            width={200}
-            breakpoint="sm"
-            collapsedWidth={0}
-            style={{ background: "#fff" }}
-          >
-            <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
-              <Menu.Item key={menuIdx}>
-                <NavLink to={"/"}>
-                  <Icon type="home" />
-                  <FormattedMessage id="router.home" />
-                </NavLink>
-              </Menu.Item>
-              {menuItems.map((item, idx) =>
-                menuItem(item, "" + (idx + 1 + menuIdx), this.props.intl)
-              )}
-            </Menu>
-          </Layout.Sider>
-          <Layout style={{ padding: "24px 24px 24px" }}>
+          {/*<Layout.Sider*/}
+          {/*  width={200}*/}
+          {/*  breakpoint="sm"*/}
+          {/*  collapsedWidth={0}*/}
+          {/*  style={{ background: "#fff" }}*/}
+          {/*>*/}
+          {/*  <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>*/}
+          {/*    <Menu.Item key={menuIdx}>*/}
+          {/*      <NavLink to={"/"}>*/}
+          {/*        <Icon type="home" />*/}
+          {/*        <FormattedMessage id="router.home" />*/}
+          {/*      </NavLink>*/}
+          {/*    </Menu.Item>*/}
+          {/*    {menuItems.map((item, idx) =>*/}
+          {/*      menuItem(item, "" + (idx + 1 + menuIdx), this.props.intl)*/}
+          {/*    )}*/}
+          {/*  </Menu>*/}
+          {/*</Layout.Sider>*/}
+          <Layout style={{padding: "24px 24px 24px"}}>
             <Layout.Content>
               <Switch>
-                <Route exact={true} path="/" component={HomePage} />
-                {collectRouteItems(menuItems).map(route => (
-                  <Route
-                    key={route.pathPattern}
-                    path={route.pathPattern}
-                    component={route.component}
-                  />
-                ))}
+                <Route exact={true} path="/" component={HomePage}/>
+                {mapToNavigation(topMenu)}
               </Switch>
             </Layout.Content>
           </Layout>
@@ -88,6 +81,21 @@ class AppComponent extends React.Component<
       </Layout>
     );
   }
+}
+
+function mapToNavigation(menuItem: IMenuItem[]): any {
+  const navigationList: IMenuItem[] = [];
+  collectNavigation(menuItem, navigationList);
+  return navigationList.map(el => (<Route key={el.path} path={el.path} component={el.component}/>));
+}
+
+function collectNavigation(menuItem: IMenuItem[], allNavigations: IMenuItem[]): void {
+  menuItem.forEach(el => {
+    if (el.items) {
+      collectNavigation(el.items, allNavigations);
+    }
+    allNavigations.push(el);
+  })
 }
 
 function menuItem(
@@ -115,13 +123,13 @@ function menuItem(
 
   // Route Item
 
-  const { menuLink } = item as RouteItem;
+  const {menuLink} = item as RouteItem;
 
   return (
     <Menu.Item key={keyString}>
       <NavLink to={menuLink}>
-        <Icon type="bars" />
-        <FormattedMessage id={"router." + item.caption} />
+        <Icon type="bars"/>
+        <FormattedMessage id={"router." + item.caption}/>
       </NavLink>
     </Menu.Item>
   );

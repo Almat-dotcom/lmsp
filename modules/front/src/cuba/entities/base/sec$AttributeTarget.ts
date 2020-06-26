@@ -1,6 +1,6 @@
 export class AttributeTarget {
   static NAME = "sec$AttributeTarget";
-  id?: string | null;
+  id?: string;
   permissionVariant?: any | null;
 }
 export type AttributeTargetViewName = "_base" | "_local" | "_minimal";

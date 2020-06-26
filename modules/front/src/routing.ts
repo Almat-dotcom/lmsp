@@ -1,3 +1,4 @@
+import { LoginButton } from "./app/common/buttons/LoginButton";
 import { getMenuItems } from "@cuba-platform/react";
 
 export const menuItems = getMenuItems();
@@ -20,3 +21,10 @@ const userSettingsSubMenu = {
 // Add sub menu item to menu config
 menuItems.push(userSettingsSubMenu);
 */
+
+// menuItems.push({
+//   pathPattern: "/loginButton",
+//   menuLink: "/loginButton",
+//   component: LoginButton,
+//   caption: "LoginButton"
+// });

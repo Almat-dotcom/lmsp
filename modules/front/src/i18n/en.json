@@ -82,5 +82,21 @@
   "antd.form.validation.array.min": "%s shall have no less than %s elements.",
   "antd.form.validation.array.max":  "%s shall have no more than %s elements.",
   "antd.form.validation.array.range": "%s shall have from %s to %s elements.",
-  "antd.form.validation.pattern.mismatch":  "%s has value %s that doesn't match pattern %s."
+  "antd.form.validation.pattern.mismatch":  "%s has value %s that doesn't match pattern %s.",
+  "project.name": "Virtual school",
+  "menu.myTraining": "My learning",
+  "menu.myTraining.current": "Current courses",
+  "menu.myTraining.history": "History",
+  "menu.myTraining.tests": "Tests",
+  "menu.calendar": "Calendar",
+  "menu.calendar.open": "Open",
+  "menu.knowledgeBase": "Knowledge base",
+  "menu.knowledgeBase.courses": "Courses",
+  "menu.knowledgeBase.books": "Books",
+  "menu.knowledgeBase.articles": "Articles",
+  "menu.knowledgeBase.videos": "Video",
+  "menu.myPage": "My page",
+  "menu.myPage.notifications": "Notifications",
+  "menu.myPage.password": "Password",
+  "menu.myPage.progress": "My progress"
 }

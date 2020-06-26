@@ -17,7 +17,8 @@ import "moment/locale/ru";
 export const cubaREST = initializeApp({
   name: "lmsp",
   apiUrl: CUBA_APP_URL,
-  storage: window.localStorage
+  storage: window.localStorage,
+  defaultLocale: 'ru'
 });
 
 ReactDOM.render(
@@ -30,6 +31,6 @@ ReactDOM.render(
       <Route component={App} />
     </HashRouter>
   </CubaAppProvider>,
-  document.getElementById("root") as HTMLElement
+  document.getElementById("wrapper") as HTMLElement
 );
 // registerServiceWorker();

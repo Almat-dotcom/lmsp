@@ -1,0 +1,66 @@
+.menu-item {
+  text-transform: uppercase;
+  padding: 0 15px;
+}
+
+.menu-item:hover {
+  cursor: pointer;
+  background-color: rgba(204, 204, 204, .3);
+}
+
+.menu-item a {
+  color: #000;
+  font-weight: bold;
+}
+
+.menu-item a:hover {
+  color: #000;
+}
+
+ul.menu-item {
+  position: relative;
+}
+
+ul.menu-item, ul.menu-item ul {
+  list-style-type: none;
+}
+
+ul.menu-item ul {
+  position: absolute;
+  display: none;
+  background-color: rgba(204, 204, 204, .3);
+  width: 200px;
+  left: 0;
+  padding: 0;
+}
+
+ul.menu-item ul li {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+ul.menu-item ul li:hover {
+  color: rgba(0, 0, 0, .7);
+  border-left: 2px solid #ffc61a;
+}
+
+ul.menu-item:hover ul {
+  display: block;
+}
+
+ul.menu-item:hover ul li:hover{
+  background-color: rgba(204, 204, 204, .3);
+}
+/*.menu-item span:hover::after {*/
+/*  content: '';*/
+/*  position: absolute;*/
+/*  left: 42%;*/
+/*  top: 110%;*/
+/*  width: 0;*/
+/*  height: 0;*/
+/*  border-left: 10px solid transparent;*/
+/*  border-right: 10px solid transparent;*/
+/*  border-bottom: 10px solid #fff;*/
+/*  clear: both;*/
+/*}*/

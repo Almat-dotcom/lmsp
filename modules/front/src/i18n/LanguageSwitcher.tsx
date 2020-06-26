@@ -1,6 +1,6 @@
-import React, { CSSProperties } from "react";
-import { Select } from "antd";
-import { getMainStore } from "@cuba-platform/react";
+import React, {CSSProperties} from "react";
+import {Select} from "antd";
+import {getMainStore} from "@cuba-platform/react";
 import "./LanguageSwitcher.css";
 
 export interface LanguageSwitcherProps {
@@ -20,8 +20,7 @@ export class LanguageSwitcher extends React.Component<LanguageSwitcherProps> {
         onChange={this.handleChange}
         size={"small"}
         style={this.props.style}
-        className={this.props.className}
-      >
+        className={this.props.className}>
         <Select.Option value="en">English</Select.Option>
         <Select.Option value="ru">Русский</Select.Option>
       </Select>

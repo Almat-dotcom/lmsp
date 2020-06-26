@@ -1,7 +1,7 @@
 import { BaseDbGeneratedIdEntity } from "./sys$BaseDbGeneratedIdEntity";
 export class BaseIntIdentityIdEntity extends BaseDbGeneratedIdEntity {
   static NAME = "sys$BaseIntIdentityIdEntity";
-  id?: number | null;
+  id?: string;
 }
 export type BaseIntIdentityIdEntityViewName = "_base" | "_local" | "_minimal";
 export type BaseIntIdentityIdEntityView<

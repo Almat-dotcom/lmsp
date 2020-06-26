@@ -1,9 +1,32 @@
+header.ant-layout-header {
+  height: 120px;
+  line-height: 120px;
+  padding: 0 150px;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
 .app-header {
   display: flex;
   justify-content: space-between;
-  color: #CCCCCC;
+  color: #000;
 }
 
 .user-panel > .panelelement {
   margin: 6px;
+}
+
+.app-header .header-container {
+  display: inline-flex;
+}
+
+.app-header .header-container h1{
+  margin: 0 0 0 50px;
+  color: #000;
+  font-size: 32px;
+  text-transform: uppercase;
+}
+.app-header img.logo{
+  height: 100px;
+  width: 100px;
 }
