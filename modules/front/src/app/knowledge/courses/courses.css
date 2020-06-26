@@ -6,6 +6,7 @@ section.ant-layout {
   width: 100%;
   height: 100%;
   padding: 0 200px;
+  margin: 0 auto;
 }
 
 .courses-container-wrapper {
@@ -17,11 +18,16 @@ section.ant-layout {
   padding: 50px 100px;
 }
 
-.courses-container-wrapper {
-
-}
-
 .courses-container h1 {
   text-transform: uppercase;
   font-size: 50px;
+}
+
+.course-items {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.course-items-container {
+  padding: 0 70px;
 }

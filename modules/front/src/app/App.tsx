@@ -69,7 +69,7 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
           {/*    )}*/}
           {/*  </Menu>*/}
           {/*</Layout.Sider>*/}
-          <Layout style={{padding: "24px 24px 24px"}}>
+          <Layout className={"asd"}>
             <Layout.Content>
               <Switch>
                 <Route exact={true} path="/" component={HomePage}/>
