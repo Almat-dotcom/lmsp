@@ -1,4 +1,8 @@
-.search-input .ant-input{
+.search-input.ant-input-search {
+  margin-bottom: 40px;
+}
+
+.search-input .ant-input {
   border: 0;
   outline: 0;
   background-color: #eee;

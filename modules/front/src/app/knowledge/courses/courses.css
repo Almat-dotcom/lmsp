@@ -31,3 +31,9 @@ section.ant-layout {
 .course-items-container {
   padding: 0 70px;
 }
+
+.courses-container hr {
+  margin: 40px 0;
+  opacity: 1;
+  border-top: 0;
+}

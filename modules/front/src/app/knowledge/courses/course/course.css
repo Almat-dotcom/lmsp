@@ -40,3 +40,17 @@
 .course-item-title span {
   text-overflow: ellipsis;
 }
+
+.course-item .registration-button-container button {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: rgba(0, 0, 0, .65);
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+}
+
+.course-item .registration-button-container button:hover {
+  background-color: #ffc61a;
+  border: 0;
+}

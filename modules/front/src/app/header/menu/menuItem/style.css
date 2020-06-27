@@ -5,7 +5,7 @@
 
 .menu-item:hover {
   cursor: pointer;
-  background-color: rgba(204, 204, 204, .3);
+  background-color: #f0f0f0;
 }
 
 .menu-item a {
@@ -28,7 +28,7 @@ ul.menu-item, ul.menu-item ul {
 ul.menu-item ul {
   position: absolute;
   display: none;
-  background-color: rgba(204, 204, 204, .3);
+  background-color: #f0f0f0;
   width: 200px;
   left: 0;
   padding: 0;
@@ -37,12 +37,19 @@ ul.menu-item ul {
 ul.menu-item ul li {
   height: 50px;
   line-height: 50px;
+  width: 200px;
   text-align: center;
+  position: relative;
+  z-index: 999;
 }
 
+ul.menu-item ul li span {
+  position: absolute;
+}
+
+
 ul.menu-item ul li:hover {
-  color: rgba(0, 0, 0, .7);
-  border-left: 2px solid #ffc61a;
+  color: rgb(0, 0, 0);
 }
 
 ul.menu-item:hover ul {
@@ -50,7 +57,8 @@ ul.menu-item:hover ul {
 }
 
 ul.menu-item:hover ul li:hover{
-  background-color: rgba(204, 204, 204, .3);
+  /*background-color: #f0f0f0;*/
+  background-color: #ffc61a;
 }
 /*.menu-item span:hover::after {*/
 /*  content: '';*/

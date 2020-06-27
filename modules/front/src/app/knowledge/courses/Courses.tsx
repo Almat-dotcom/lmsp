@@ -7,6 +7,7 @@ import {Course} from "../../../cuba/entities/tsadv/tsadv$Course";
 import {collection, DataCollectionStore} from "@cuba-platform/react";
 import defaultImgSrc from './course/course-min.png';
 import CourseComponent from "./course/CourseComponent";
+import {Form} from "antd";
 
 @observer
 class Courses extends React.Component {
@@ -19,6 +20,7 @@ class Courses extends React.Component {
       <div className={"courses-container-wrapper"}>
         <div className={"courses-container-content"}>
           <h1 className={"courses-container-header"}>курсы</h1>
+          <hr/>
           <Search placeholder={"Введите название курса"}/>
           <div className={"course-items-container"}>
             <div className={"course-items"}>
