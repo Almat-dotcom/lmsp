@@ -7,5 +7,13 @@
     <context:component-scan base-package="kz.uco.lmsp"/>
     
     <gui:screens base-packages="kz.uco.lmsp.web"/>
+    <bean id="lmsp_proxyCreator" class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+        <property name="serverSelector" ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="tsadv_LmsService" value="kz.uco.lmsp.service.LmsService"/>
+            </map>
+        </property>
+    </bean>
 
 </beans>

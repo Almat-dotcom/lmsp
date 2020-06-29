@@ -1,5 +1,5 @@
 import React from "react";
-import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
+import {Course} from "../../../../../cuba/entities/tsadv/tsadv$Course";
 import defaultImgSrc from "./course-min.png";
 import './course.css'
 import {Button} from "antd";

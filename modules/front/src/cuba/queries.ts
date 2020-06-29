@@ -1,3 +1,8 @@
-import { CubaApp, FetchOptions } from "@cuba-platform/rest";
+import {
+  CubaApp,
+  FetchOptions,
+  SerializedEntity,
+  EntitiesWithCount
+} from "@cuba-platform/rest";
 
 export var restQueries = {};

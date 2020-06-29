@@ -1,4 +1,5 @@
-import Courses from "./app/knowledge/courses/Courses";
+import Courses from "./app/content/knowledge/courses/Courses";
+import CurrentCourses from "./app/content/training/current/CurrentCourses";
 
 export interface IMenuItem {
   id: string,
@@ -14,7 +15,7 @@ topMenu.push({
   id: 'myTraining',
   caption: 'myTraining',
   path: '/training',
-  items: [{id: 'current', caption: 'current', path: '/training/current'}, {
+  items: [{id: 'current', caption: 'current', path: '/training/current', component: CurrentCourses}, {
     id: 'history',
     caption: 'history',
     path: '/training/history'
