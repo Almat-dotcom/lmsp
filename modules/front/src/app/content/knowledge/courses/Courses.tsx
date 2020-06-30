@@ -5,7 +5,8 @@ import {observer} from "mobx-react";
 import {observable} from "mobx";
 import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
 import {collection, DataCollectionStore} from "@cuba-platform/react";
-import CourseComponent from "./course/CourseComponent";
+import Content from "../../Content";
+import CourseComponent from "../../../common/CourseWithButton/CourseComponent";
 
 @observer
 class Courses extends React.Component {
@@ -14,11 +15,9 @@ class Courses extends React.Component {
 
   render() {
     const {items} = this.coursesDcs;
-    return <div className={"courses-container"}>
-      <div className={"courses-container-wrapper"}>
-        <div className={"courses-container-content"}>
-          <h1 className={"courses-container-header"}>курсы</h1>
-          <hr/>
+    const CoursesBodyComponent = () => (
+      <>
+        <div className={"courses-container"}>
           <Search placeholder={"Введите название курса"}/>
           <div className={"course-items-container"}>
             <div className={"course-items"}>
@@ -26,8 +25,9 @@ class Courses extends React.Component {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </>);
+    const CoursesComponent = Content(CoursesBodyComponent);
+    return <CoursesComponent headerName={"курсы"}/>;
   }
 }
 

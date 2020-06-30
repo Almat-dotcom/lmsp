@@ -8,15 +8,12 @@ export interface Course {
 export var restServices = {
   tsadv_LmsService: {
     getPersonCourses: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
-      cubaApp.invokeService(
+      return cubaApp.invokeService(
         "tsadv_LmsService",
         "getPersonCourses",
         {},
         fetchOpts
-      ).then((response: string) => {
-        const courses: Course[] = JSON.parse(response);
-        return courses
-      });
+      );
     }
   }
 };

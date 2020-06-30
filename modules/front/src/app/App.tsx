@@ -98,58 +98,5 @@ function collectNavigation(menuItem: IMenuItem[], allNavigations: IMenuItem[]): 
   })
 }
 
-function menuItem(
-  item: RouteItem | SubMenu,
-  keyString: string,
-  intl: IntlFormatters
-) {
-  // Sub Menu
-
-  if ((item as any).items != null) {
-    //recursively walk through sub menus
-    return (
-      <Menu.SubMenu
-        key={keyString}
-        title={intl.formatMessage({
-          id: "router." + item.caption
-        })}
-      >
-        {(item as SubMenu).items.map((ri, index) =>
-          menuItem(ri, keyString + "-" + (index + 1), intl)
-        )}
-      </Menu.SubMenu>
-    );
-  }
-
-  // Route Item
-
-  const {menuLink} = item as RouteItem;
-
-  return (
-    <Menu.Item key={keyString}>
-      <NavLink to={menuLink}>
-        <Icon type="bars"/>
-        <FormattedMessage id={"router." + item.caption}/>
-      </NavLink>
-    </Menu.Item>
-  );
-}
-
-function collectRouteItems(items: Array<RouteItem | SubMenu>): RouteItem[] {
-  return items.reduce(
-    (acc, curr) => {
-      if ((curr as SubMenu).items == null) {
-        // Route item
-        acc.push(curr as RouteItem);
-      } else {
-        // Items from sub menu
-        acc.push(...collectRouteItems((curr as SubMenu).items));
-      }
-      return acc;
-    },
-    [] as Array<RouteItem>
-  );
-}
-
 const App = injectIntl(AppComponent);
 export default App;

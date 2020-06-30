@@ -5,6 +5,7 @@ export interface IMenuItem {
   id: string,
   caption: string,
   path: string,
+  disabled?: boolean,
   items?: Array<IMenuItem>,
   component?: any
 }
@@ -22,6 +23,7 @@ topMenu.push({
   }, {
     id: 'tests',
     caption: 'tests',
+    disabled: true,
     path: '/training/tests'
   }]
 });
@@ -30,34 +32,37 @@ topMenu.push({
   id: 'calendar',
   caption: 'calendar',
   path: '/calendar',
-  items: [{id: 'open', caption: 'open', path: '/calendar/open'}]
+  items: [{id: 'open', caption: 'open', disabled: true, path: '/calendar/open'}]
 });
 
 topMenu.push({
   id: 'knowledgeBase',
   caption: 'knowledgeBase',
-  path: '/knowledge', items: [{id: 'courses', caption: 'courses', path: '/knowledge/courses', component: Courses}, {
+  path: '/knowledge',
+  items: [{id: 'courses', caption: 'courses', path: '/knowledge/courses', component: Courses}, {
     id: 'books',
     caption: 'books',
+    disabled: true,
     path: '/knowledge/books'
   }, {
     id: 'articles',
     caption: 'articles',
+    disabled: true,
     path: '/knowledge/articles'
-  }, {id: 'videos', caption: 'videos', path: '/knowledge/videos'}]
+  }, {id: 'videos', caption: 'videos', disabled: true, path: '/knowledge/videos'}]
 });
 
 topMenu.push({
   id: 'myPage',
   caption: 'myPage',
   path: '/me',
-  items: [{id: 'notifications', caption: 'notifications', path: '/me/notifications'}, {
+  items: [{id: 'notifications', caption: 'notifications', disabled: true, path: '/me/notifications'}, {
     id: 'password',
     caption: 'password',
-    path: '/me/password'
+    disabled: true, path: '/me/password'
   }, {
     id: 'progress',
     caption: 'progress',
-    path: '/me/progress'
+    disabled: true, path: '/me/progress'
   }]
 });

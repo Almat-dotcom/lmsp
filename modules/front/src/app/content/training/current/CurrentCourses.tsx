@@ -1,19 +1,42 @@
 import React from 'react'
-import {Course, restServices} from "../../../../cuba/services";
 import {getCubaREST} from "@cuba-platform/react";
 import Content from "../../Content";
+import {restServices} from "../../../../cuba/services";
+import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
+import CourseComponent from "../../../common/CourseWithoutButton/CourseComponent";
+import {action, observable} from "mobx";
+import {observer} from "mobx-react";
+import LoadingComponent from "../../../common/loading/LoadingComponent";
 
+@observer
 class CurrentCourses extends React.Component {
-  render() {
-    const data = restServices.tsadv_LmsService.getPersonCourses(getCubaREST()!);
-    const bodyComponent = class extends React.Component {
-      render() {
-        return <div>test content</div>
-      }
-    };
 
-    const ContentComponent = Content(bodyComponent);
-    return <ContentComponent />;
+  @observable currentCourses: Course[];
+
+  componentDidMount(): void {
+    restServices.tsadv_LmsService.getPersonCourses(getCubaREST()!)().then((response: string) => {
+      const courses: Course[] = JSON.parse(response);
+      this.setCurrentCourses(courses);
+    });
+  }
+
+  @action setCurrentCourses = (currentCourses: any) => {
+    this.currentCourses = currentCourses;
+  };
+
+  render() {
+    const bodyComponent = (currentCourses: any) => () => {
+      return (
+        <div className={"course-items-container"}>
+          <div className={"course-items"}>
+            {currentCourses != undefined ? currentCourses.map((course: Course) => (
+              <CourseComponent course={course}/>)) : <LoadingComponent/>}
+          </div>
+        </div>)
+    };
+    console.log(this.currentCourses);
+    const ContentComponent = Content(bodyComponent(this.currentCourses));
+    return <ContentComponent headerName={"текущие курсы"}/>;
   }
 }
 
