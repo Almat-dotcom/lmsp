@@ -235,3 +235,9 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy", ":${modulePrefi
     }
 }
 
+task buildWar(type: CubaWarBuilding) {
+    singleWar = false
+    appProperties = ['cuba.automaticDatabaseUpdate': true]
+    appHome = '../app_home'
+    polymerBuildDir = '.'
+}
