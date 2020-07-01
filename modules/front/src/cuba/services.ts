@@ -14,6 +14,14 @@ export var restServices = {
         {},
         fetchOpts
       );
+    },
+    getPersonHistory: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+      return cubaApp.invokeService(
+        "tsadv_LmsService",
+        "getPersonHistory",
+        {},
+        fetchOpts
+      );
     }
   }
 };

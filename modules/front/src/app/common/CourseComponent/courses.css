@@ -1,3 +1,7 @@
+.courses-wrapper {
+  padding: 0 60px;
+}
+
 .course-item {
   display: inline-block;
   width: 250px;

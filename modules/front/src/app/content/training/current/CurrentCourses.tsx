@@ -3,10 +3,10 @@ import {getCubaREST} from "@cuba-platform/react";
 import Content from "../../Content";
 import {restServices} from "../../../../cuba/services";
 import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
-import CourseComponent from "../../../common/CourseWithoutButton/CourseComponent";
 import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
+import CourseComponent, {CourseType} from "../../../common/CourseComponent/CourseComponent";
 
 @observer
 class CurrentCourses extends React.Component {
@@ -29,8 +29,8 @@ class CurrentCourses extends React.Component {
       return (
         <div className={"course-items-container"}>
           <div className={"course-items"}>
-            {currentCourses != undefined ? currentCourses.map((course: Course) => (
-              <CourseComponent course={course}/>)) : <LoadingComponent/>}
+            {currentCourses != undefined ?
+              <CourseComponent courses={currentCourses} courseType={CourseType.NO_BUTTON}/> : <LoadingComponent/>}
           </div>
         </div>)
     };

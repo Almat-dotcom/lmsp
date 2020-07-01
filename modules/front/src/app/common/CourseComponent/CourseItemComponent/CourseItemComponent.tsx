@@ -2,13 +2,15 @@ import React from "react";
 import defaultImgSrc from "./course-min.png";
 import './course.css'
 import {Button} from "antd";
-import {Course} from "../../../cuba/entities/tsadv/tsadv$Course";
+import {CourseType} from "../CourseComponent";
+import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
 
 export interface CourseComponentProps {
-  course: Course
+  course: Course,
+  courseItemType: CourseType
 }
 
-class CourseComponent extends React.Component<CourseComponentProps> {
+class CourseItemComponent extends React.Component<CourseComponentProps> {
   render() {
     const {course} = this.props;
 
@@ -17,11 +19,10 @@ class CourseComponent extends React.Component<CourseComponentProps> {
       <div className={"course-item"}><img src={imgSrc} alt={course.name!}/>
         <div className={"course-item-title"}><span
           title={course.name!}>{course.name}</span></div>
-        <div className={"registration-button-container"}>
-          <Button ghost={false} type={'primary'}>Пройти</Button>
-        </div>
+        {this.props.courseItemType === CourseType.DEFAULT ? <div className={"registration-button-container"}>
+          <Button ghost={false} type={'primary'}>Пройти</Button></div> : <></>}
       </div>)
   }
 }
 
-export default CourseComponent;
+export default CourseItemComponent;

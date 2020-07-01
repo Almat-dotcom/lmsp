@@ -1,12 +1,11 @@
 import React from "react";
-import './courses.css';
 import Search from "../../../common/Search";
 import {observer} from "mobx-react";
 import {observable} from "mobx";
 import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
 import {collection, DataCollectionStore} from "@cuba-platform/react";
 import Content from "../../Content";
-import CourseComponent from "../../../common/CourseWithButton/CourseComponent";
+import CourseComponent, {CourseType} from "../../../common/CourseComponent/CourseComponent";
 
 @observer
 class Courses extends React.Component {
@@ -19,11 +18,7 @@ class Courses extends React.Component {
       <>
         <div className={"courses-container"}>
           <Search placeholder={"Введите название курса"}/>
-          <div className={"course-items-container"}>
-            <div className={"course-items"}>
-              {items.map(course => (<CourseComponent course={course}/>))}
-            </div>
-          </div>
+          <CourseComponent courses={items} courseType={CourseType.DEFAULT}/>
         </div>
       </>);
     const CoursesComponent = Content(CoursesBodyComponent);
