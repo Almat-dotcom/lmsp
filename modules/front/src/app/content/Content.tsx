@@ -1,15 +1,17 @@
-import React from "react";
+import React, {CSSProperties} from "react";
 import ContentHeader from "./ContentHeader";
 import './content.css'
 
 export interface ContentProps {
-  headerName: string
+  headerName: string,
+  wrapperCss?: CSSProperties,
+  contentWrapperCss?: CSSProperties
 }
 
 export function Content<T extends ContentProps>(BodyComponent: React.ComponentType<T>) {
   return (props: T) => {
-    return <div className={"wrapper"}>
-      <div className={"content-wrapper"}>
+    return <div className={"wrapper"} style={props.wrapperCss}>
+      <div className={"content-wrapper"} style={props.contentWrapperCss}>
         <div className={"content-container"}>
           <ContentHeader headerName={props.headerName}/>
           <BodyComponent {...props}/>
