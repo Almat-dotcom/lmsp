@@ -22,8 +22,8 @@ class Courses extends React.Component<WrappedComponentProps & RouteComponentProp
   };
 
   render() {
+    const {items} = this.coursesDcs;
     const CoursesBodyComponent = () => {
-      const {items} = this.coursesDcs;
       const BodyComponent = this.coursesDcs ? React.createElement(CourseComponent, {
         courses: items,
         boxType: BoxType.DEFAULT,
