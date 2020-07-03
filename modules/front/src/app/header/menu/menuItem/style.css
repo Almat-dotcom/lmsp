@@ -13,6 +13,10 @@
   font-weight: bold;
 }
 
+.menu-item a[disabled] {
+  color: rgba(0, 0, 0, .25);
+}
+
 .menu-item a:hover {
   color: #000;
 }
@@ -56,10 +60,11 @@ ul.menu-item:hover ul {
   display: block;
 }
 
-ul.menu-item:hover ul li:hover{
+ul.menu-item:hover ul li:hover {
   /*background-color: #f0f0f0;*/
   background-color: #ffc61a;
 }
+
 /*.menu-item span:hover::after {*/
 /*  content: '';*/
 /*  position: absolute;*/

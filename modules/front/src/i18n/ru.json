@@ -91,5 +91,8 @@
   "menu.myPage": "Моя страница",
   "menu.myPage.notifications": "Уведомления",
   "menu.myPage.password": "Пароль",
-  "menu.myPage.progress": "Мой прогресс"
+  "menu.myPage.progress": "Мой прогресс",
+  "knowledge.courses.modal.title": "Вы действительно хотите записаться на данный курс?",
+  "knowledge.courses.modal.ok": "Да",
+  "knowledge.courses.modal.cancel": "Нет"
 }

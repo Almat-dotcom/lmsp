@@ -23,6 +23,7 @@ import {
   WrappedComponentProps
 } from "react-intl";
 import {IMenuItem, topMenu} from "../menu";
+import Course from "./content/course/Course";
 
 @injectMainStore
 @observer
@@ -69,10 +70,11 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
           {/*    )}*/}
           {/*  </Menu>*/}
           {/*</Layout.Sider>*/}
-          <Layout className={"asd"}>
+          <Layout>
             <Layout.Content>
               <Switch>
                 <Route exact={true} path="/" component={HomePage}/>
+                <Route exact={true} path="/course/:id" component={Course}/>
                 {mapToNavigation(topMenu)}
               </Switch>
             </Layout.Content>

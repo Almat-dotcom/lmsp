@@ -98,5 +98,8 @@
   "menu.myPage": "My page",
   "menu.myPage.notifications": "Notifications",
   "menu.myPage.password": "Password",
-  "menu.myPage.progress": "My progress"
+  "menu.myPage.progress": "My progress",
+  "knowledge.courses.modal.title": "Enroll in a course?",
+  "knowledge.courses.modal.ok": "Yes",
+  "knowledge.courses.modal.cancel": "No"
 }

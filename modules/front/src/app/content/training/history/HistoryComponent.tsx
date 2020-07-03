@@ -7,6 +7,7 @@ import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
 import {restServices} from "../../../../cuba/services";
 import {getCubaREST} from "@cuba-platform/react";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
+import {BoxType} from "../../../common/CourseComponent/CourseItemComponent/CourseItemComponent";
 
 @observer
 class HistoryComponent extends React.Component {
@@ -27,7 +28,8 @@ class HistoryComponent extends React.Component {
   render() {
     const HistoryBody = (historyCourses: Course[]) => () => {
       return <div>{historyCourses ?
-        <CourseComponent courseType={CourseType.NO_BUTTON} courses={historyCourses}/> : <LoadingComponent/>}</div>
+        <CourseComponent courseType={CourseType.NO_BUTTON} boxType={BoxType.DEFAULT} courses={historyCourses}/> :
+        <LoadingComponent/>}</div>
     };
 
     const ContentComponent = Content(HistoryBody(this.historyCourses));
