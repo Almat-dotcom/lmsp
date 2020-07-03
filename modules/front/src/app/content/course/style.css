@@ -24,6 +24,16 @@
   border-radius: 10px;
 }
 
+.course-container .sections-container .sections-list .title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+}
+
+.course-container .sections-container .sections-list .format {
+  font-size: 12px;
+}
+
 .course-container .sections-container .sections-list li:not(:last-of-type) {
   border-bottom: 1px solid rgba(204, 204, 204, .3);
 }
@@ -33,17 +43,30 @@
   text-align: center;
 }
 
+.course-container .sections-container .sections-list li.section-active {
+  background-color: #ffc61a;
+}
+
 .course-container .sections-container .sections-list li:hover {
   cursor: pointer;
   background-color: #ffc61a;
 }
 
-.course-container .sections-container .sections-list li:last-of-type:hover {
+.course-container .sections-container .sections-list li:active:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 0 2px 10px 0 rgba(255, 198, 26, 0.745);
+  -moz-box-shadow: 0 2px 10px 0 rgba(255, 198, 26, 0.4);
+  box-shadow: 0 2px 10px 0 rgba(255, 198, 26, 0.4);
+}
+
+.course-container .sections-container .sections-list li:last-of-type:hover,
+.course-container .sections-container .sections-list li.section-active:last-of-type {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-.course-container .sections-container .sections-list li:first-of-type:hover {
+.course-container .sections-container .sections-list li:first-of-type:hover,
+.course-container .sections-container .sections-list li.section-active:first-of-type {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }

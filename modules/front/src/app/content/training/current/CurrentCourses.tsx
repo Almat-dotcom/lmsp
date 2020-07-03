@@ -8,9 +8,13 @@ import {observer} from "mobx-react";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import CourseComponent, {CourseType} from "../../../common/CourseComponent/CourseComponent";
 import {BoxType} from "../../../common/CourseComponent/CourseItemComponent/CourseItemComponent";
+import {MatchParams, RouteComponentProps} from "../../../common/model/RouteComponentProps";
+
+export interface Props extends RouteComponentProps<MatchParams> {
+}
 
 @observer
-class CurrentCourses extends React.Component {
+class CurrentCourses extends React.Component<Props> {
 
   @observable currentCourses: Course[];
 
@@ -25,13 +29,18 @@ class CurrentCourses extends React.Component {
     this.currentCourses = currentCourses;
   };
 
+  courseClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    this.props.history.push("/course/" + e.currentTarget.dataset.id);
+  };
+
   render() {
     const bodyComponent = (currentCourses: any) => () => {
       return (
         <div className={"course-items-container"}>
           <div className={"course-items"}>
             {currentCourses != undefined ?
-              <CourseComponent courses={currentCourses} courseType={CourseType.NO_BUTTON} boxType={BoxType.DEFAULT}/> :
+              <CourseComponent courses={currentCourses} courseType={CourseType.NO_BUTTON} boxType={BoxType.DEFAULT}
+                               courseClickHandler={this.courseClickHandler}/> :
               <LoadingComponent/>}
           </div>
         </div>)
