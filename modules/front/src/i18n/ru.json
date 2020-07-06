@@ -94,5 +94,11 @@
   "menu.myPage.progress": "Мой прогресс",
   "knowledge.courses.modal.title": "Вы действительно хотите записаться на данный курс?",
   "knowledge.courses.modal.ok": "Да",
-  "knowledge.courses.modal.cancel": "Нет"
+  "knowledge.courses.modal.cancel": "Нет",
+  "description": "Описание",
+  "section": "Раздел",
+  "sections": "Разделы",
+  "type": "Тип",
+  "course.author": "Тренер курса",
+  "follow": "Пройти"
 }

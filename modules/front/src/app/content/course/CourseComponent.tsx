@@ -1,5 +1,4 @@
 import React from "react";
-import {History, Location} from 'history'
 import Content from "../Content";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
@@ -8,40 +7,33 @@ import {Course} from "../../../cuba/entities/tsadv/tsadv$Course";
 import './style.css'
 import defaultImgSrc from "../../common/CourseComponent/CourseItemComponent/course-min.png";
 import {MatchParams, RouteComponentProps} from "../../common/model/RouteComponentProps";
-
+import {injectIntl, WrappedComponentProps} from "react-intl";
+import LoadingComponent from "../../common/loading/LoadingComponent";
+import TrainingComponent from "./training/TrainingComponent";
+import SectionListComponent from "./list/SectionListComponent";
+import {restServices} from "../../../cuba/services";
 
 interface Props extends RouteComponentProps<MatchParams> {
 }
 
 @observer
-class CourseComponent extends React.Component<Props> {
+class CourseComponent extends React.Component<Props & WrappedComponentProps> {
 
   @observable course: Course | undefined = undefined;
 
-  @observable selectedSectionElement: HTMLLIElement | null = null;
+  @observable isRegistered: boolean | undefined = undefined;
 
   componentDidMount(): void {
     getCubaREST()!.loadEntity(Course.NAME, this.props.match.params.id, {view: 'course.tree'}).then(response => {
-      console.log(response);
       this.setCourse(response as Course);
+    });
+    restServices.tsadv_LmsService.hasEnrollment(getCubaREST()!, {courseId: this.props.match.params.id})().then(response => {
+      this.setIsRegistered(response === 'true');
     })
   }
 
-  sectionClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
-    this.setSelectedSectionElement(e.currentTarget);
-  };
-
-  @action setSelectedSectionElement(value: HTMLLIElement) {
-    if (value === this.selectedSectionElement) {
-      this.selectedSectionElement.className = this.selectedSectionElement.className.split(' ').filter(el => el !== 'section-active').join(' ');
-      this.selectedSectionElement = null;
-    } else {
-      if (this.selectedSectionElement != null) {
-        this.selectedSectionElement.className = this.selectedSectionElement.className.split(' ').filter(el => el !== 'section-active').join(' ');
-      }
-      this.selectedSectionElement = value;
-      this.selectedSectionElement.className = this.selectedSectionElement.className + ' section-active';
-    }
+  @action setIsRegistered(value: boolean) {
+    this.isRegistered = value;
   }
 
   @action setCourse = (course: Course) => {
@@ -49,34 +41,22 @@ class CourseComponent extends React.Component<Props> {
   };
 
   render() {
-    let imgSrc: string;
-    if (this.course && this.course.logo) {
-      imgSrc = "data:image/png;base64," + this.course.logo;
-    } else {
-      imgSrc = defaultImgSrc;
-    }
-
-    const CourseComponent = () => {
+    const CourseComponent = (isRegistered: boolean | undefined, course: Course | undefined) => () => {
       return <div className={"course-container"}>
-        <div className={"sections-container"}>
-          <img src={imgSrc}/>
-          <ul className={"sections-list"}>
-            {this.course ? this.course.sections.map((section: any) => (<li onMouseUp={this.sectionClickHandler}>
-              <div className={"title"}>{section.sectionName}</div>
-              <div className={"format"}>{section.format.langValue1}</div>
-            </li>)) : <></>}
-          </ul>
-        </div>
-        <div className={"section-training-container"}>
-          <div></div>
-        </div>
+        {course ? <>
+            <div className={"sections-list-wrapper"}><SectionListComponent isRegistered={isRegistered} course={course}/>
+            </div>
+            <div className={"section-training-wrapper"}><TrainingComponent isRegistered={isRegistered}
+                                                                           course={course}/></div>
+          </> :
+          <LoadingComponent/>}
       </div>
     };
 
-    const ContentComponent = Content(CourseComponent);
+    const ContentComponent = Content(CourseComponent(this.isRegistered, this.course));
     return <ContentComponent headerName={"Курс: " + (this.course ? this.course.name! : "")} wrapperCss={{padding: 0}}
                              contentWrapperCss={{padding: '50px'}}/>;
   }
 }
 
-export default CourseComponent;
+export default injectIntl(CourseComponent);

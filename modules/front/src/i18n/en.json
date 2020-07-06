@@ -101,5 +101,11 @@
   "menu.myPage.progress": "My progress",
   "knowledge.courses.modal.title": "Enroll in a course?",
   "knowledge.courses.modal.ok": "Yes",
-  "knowledge.courses.modal.cancel": "No"
+  "knowledge.courses.modal.cancel": "No",
+  "description": "Description",
+  "section": "Section",
+  "sections": "Sections",
+  "type": "Type",
+  "course.author": "Course author",
+  "follow": "Follow"
 }

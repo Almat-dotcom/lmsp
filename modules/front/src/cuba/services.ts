@@ -5,6 +5,10 @@ export interface Course {
   name: string
 }
 
+interface CourseRegisteredParams {
+  courseId: string
+}
+
 export var restServices = {
   tsadv_LmsService: {
     getPersonCourses: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
@@ -20,6 +24,14 @@ export var restServices = {
         "tsadv_LmsService",
         "getPersonHistory",
         {},
+        fetchOpts
+      );
+    },
+    hasEnrollment: (cubaApp: CubaApp, params: CourseRegisteredParams, fetchOpts?: FetchOptions) => () => {
+      return cubaApp.invokeService(
+        "tsadv_LmsService",
+        "hasEnrollment",
+        {...params},
         fetchOpts
       );
     }
