@@ -32,6 +32,12 @@
   font-weight: bold;
 }
 
-.section-container-body {
+#google-map-container,
+.section-container-body{
   height: 800px;
+}
+
+.title-container span {
+  display: block;
+  margin-bottom: 5px;
 }

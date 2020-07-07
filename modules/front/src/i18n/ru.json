@@ -101,5 +101,8 @@
   "sections": "Разделы",
   "type": "Тип",
   "course.author": "Тренер курса",
-  "follow": "Пройти"
+  "follow": "Пройти",
+  "address": "Адрес",
+  "startDate": "Дата начала",
+  "endDate": "Дата окончания"
 }

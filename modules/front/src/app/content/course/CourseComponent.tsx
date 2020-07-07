@@ -62,7 +62,6 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   @action setCourseSection = (courseSectionId: string | null) => {
-    console.log(courseSectionId);
     if (courseSectionId) {
       getCubaREST()!.loadEntity<CourseSection>(CourseSection.NAME, courseSectionId, {view: 'course.section.with.format.session'}).then((response: CourseSection) => {
         this.selectedCourseSection = response;

@@ -45,7 +45,6 @@ class CurrentCourses extends React.Component<Props> {
           </div>
         </div>)
     };
-    console.log(this.currentCourses);
     const ContentComponent = Content(bodyComponent(this.currentCourses));
     return <ContentComponent headerName={"текущие курсы"}/>;
   }

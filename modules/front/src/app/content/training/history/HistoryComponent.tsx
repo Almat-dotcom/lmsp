@@ -21,7 +21,6 @@ class HistoryComponent extends React.Component<Props> {
   componentDidMount(): void {
     restServices.tsadv_LmsService.getPersonHistory(getCubaREST()!)().then((response: string) => {
       const courses: Course[] = JSON.parse(response);
-      console.log(response);
       this.setHistoryCourses(courses);
     })
   }
