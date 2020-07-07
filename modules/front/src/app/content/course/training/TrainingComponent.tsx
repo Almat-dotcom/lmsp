@@ -46,7 +46,20 @@ class TrainingComponent extends React.Component<TrainingComponentProps & Wrapped
     const {course, courseSection} = this.props;
     let TrainingBodyComponent: React.ReactElement | null = null;
     if (courseSection) {
-      if (courseSection.session && courseSection.session.length > 0) {
+      debugger;
+      if (courseSection.sectionObject && courseSection.sectionObject.content && (courseSection.sectionObject.content.contentType.toLowerCase() === 'html' || courseSection.sectionObject.content.contentType.toLowerCase() === 'url')) {
+        if (courseSection.sectionObject.content.contentType.toLowerCase() === 'html') {
+          TrainingBodyComponent = React.createElement("div", {
+            dangerouslySetInnerHTML: {__html: courseSection.sectionObject.content.html!},
+            className: 'section-container-body'
+          })
+        } else {
+          TrainingBodyComponent = React.createElement("iframe", {
+            src: courseSection.sectionObject.content.url!,
+            className: 'section-container-body'
+          })
+        }
+      } else if (courseSection.session && courseSection.session.length > 0) {
         const session = courseSection.session[0];
         TrainingBodyComponent = React.createElement("div", {
             className: 'section-container-body'
@@ -55,18 +68,13 @@ class TrainingComponent extends React.Component<TrainingComponentProps & Wrapped
           }, React.createElement("span", {}, this.props.intl.formatMessage({id: 'address'}) + ': ' + ''),
           React.createElement("span", {}, this.props.intl.formatMessage({id: 'startDate'}) + ': ' + session.startDate),
           React.createElement("span", {}, this.props.intl.formatMessage({id: 'endDate'}) + ': ' + session.endDate)),
-        React.createElement("div", {
-          id: 'google-map-container',
-        }));
+          React.createElement("div", {
+            id: 'google-map-container',
+          }));
 
         const learningCenter = courseSection.session[0].learningCenter;
 
         this.setCoordinates(learningCenter.latitude, learningCenter.longitude);
-      } else if (courseSection.sectionObject && courseSection.sectionObject.content && courseSection.sectionObject.content.contentType.toLowerCase() === 'html') {
-        TrainingBodyComponent = React.createElement("div", {
-          dangerouslySetInnerHTML: {__html: courseSection.sectionObject.content.html!},
-          className: 'section-container-body'
-        });
       }
     }
     return course.hasEnrollment && courseSection ?

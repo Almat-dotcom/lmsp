@@ -35,6 +35,7 @@
 #google-map-container,
 .section-container-body{
   height: 800px;
+  width: 100%;
 }
 
 .title-container span {
