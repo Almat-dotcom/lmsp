@@ -17,6 +17,11 @@
   font-size: 12px;
 }
 
+.sections-container .sections-list li.list.passed {
+  background-color: rgba(0, 255, 0, .7);
+}
+
+
 .sections-container .sections-list li.button-list {
   padding: 0;
 }

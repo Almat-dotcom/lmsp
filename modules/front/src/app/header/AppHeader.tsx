@@ -7,6 +7,7 @@ import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
 import {LanguageSwitcher} from "../../i18n/LanguageSwitcher";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import Menu from "./menu/Menu";
+import {NavLink} from "react-router-dom";
 
 @injectMainStore
 @observer
@@ -21,9 +22,9 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
             src={logo}
             alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
           />
-          <h1>{this.props.intl.formatMessage({
+          <NavLink to={"/"}><h1>{this.props.intl.formatMessage({
             id: 'project.name'
-          })}</h1>
+          })}</h1></NavLink>
         </div>
         <Menu/>
         <div className="user-panel">

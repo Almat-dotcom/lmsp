@@ -1,0 +1,16 @@
+section.ant-layout {
+  background-color: #fff;
+}
+
+.welcome-container {
+  height: 300px;
+  width: 100%;
+  display: inline-block;
+  padding: 100px;
+  background: #f0f2f5;
+  border-bottom: 1px solid #ccc;
+}
+
+.welcome-container h1 {
+  font-size: 32px;
+}

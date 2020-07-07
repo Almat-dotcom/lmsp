@@ -34,6 +34,22 @@ export var restServices = {
         {...params},
         fetchOpts
       );
+    },
+    loadCourseData: (cubaApp: CubaApp, params: CourseRegisteredParams, fetchOpts?: FetchOptions) => () => {
+      return cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadCourseData",
+        {...params},
+        fetchOpts
+      );
+    },
+    registerToCourse: (cubaApp: CubaApp, params: CourseRegisteredParams, fetchOpts?: FetchOptions) => () => {
+      return cubaApp.invokeService(
+        "tsadv_LmsService",
+        "registerToCourse",
+        {...params},
+        fetchOpts
+      );
     }
   }
 };

@@ -31,3 +31,7 @@
 .section-training-container .section-training-author p {
   font-weight: bold;
 }
+
+.section-container-body {
+  height: 800px;
+}

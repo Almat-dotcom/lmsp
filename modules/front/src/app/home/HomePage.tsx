@@ -1,11 +1,11 @@
 import * as React from "react";
-import { FormattedMessage } from "react-intl";
+import WelcomeComponent from "./welcome/WelcomeComponent";
 
 class HomePage extends React.Component {
   render() {
     return (
-      <div>
-        {/*<FormattedMessage id="home.welcome" />!*/}
+      <div className={""}>
+        <WelcomeComponent/>
       </div>
     );
   }

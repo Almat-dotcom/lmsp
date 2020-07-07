@@ -2,58 +2,93 @@ import React from "react";
 import Content from "../Content";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
-import {getCubaREST} from "@cuba-platform/react";
+import {DataInstanceStore, getCubaREST} from "@cuba-platform/react";
 import {Course} from "../../../cuba/entities/tsadv/tsadv$Course";
 import './style.css'
-import defaultImgSrc from "../../common/CourseComponent/CourseItemComponent/course-min.png";
 import {MatchParams, RouteComponentProps} from "../../common/model/RouteComponentProps";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import LoadingComponent from "../../common/loading/LoadingComponent";
 import TrainingComponent from "./training/TrainingComponent";
 import SectionListComponent from "./list/SectionListComponent";
 import {restServices} from "../../../cuba/services";
+import {CourseSection} from "../../../cuba/entities/tsadv/tsadv$CourseSection";
 
 interface Props extends RouteComponentProps<MatchParams> {
+}
+
+export interface CourseData {
+  id: string,
+  name?: string,
+  hasEnrollment: boolean,
+  description: string,
+  logo?: string,
+  sections?: CourseSectionItem[]
+}
+
+export interface CourseSectionItem {
+  id: string,
+  sectionName: string,
+  order: number,
+  isPassed: boolean,
+  langValue1: string
 }
 
 @observer
 class CourseComponent extends React.Component<Props & WrappedComponentProps> {
 
-  @observable course: Course | undefined = undefined;
+  @observable course: CourseData | undefined = undefined;
 
-  @observable isRegistered: boolean | undefined = undefined;
+  @observable selectedCourseSection: CourseSection | null = null;
 
   componentDidMount(): void {
-    getCubaREST()!.loadEntity(Course.NAME, this.props.match.params.id, {view: 'course.tree'}).then(response => {
-      this.setCourse(response as Course);
+    this.refreshCourseCard();
+  }
+
+  @action setCourse = (value: CourseData) => {
+    this.course = value;
+  };
+
+  @action refreshCourseCard = () => {
+    restServices.tsadv_LmsService.loadCourseData(getCubaREST()!, {courseId: this.props.match.params.id})().then(response => {
+      const course: CourseData = JSON.parse(response as string);
+      this.setCourse(course);
     });
-    restServices.tsadv_LmsService.hasEnrollment(getCubaREST()!, {courseId: this.props.match.params.id})().then(response => {
-      this.setIsRegistered(response === 'true');
-    })
-  }
+  };
 
-  @action setIsRegistered(value: boolean) {
-    this.isRegistered = value;
-  }
+  @action followToCourse = () => {
+    restServices.tsadv_LmsService.registerToCourse(getCubaREST()!, {courseId: this.props.match.params.id})().then(response => {
+      this.refreshCourseCard();
+    });
+  };
 
-  @action setCourse = (course: Course) => {
-    this.course = course;
+  @action setCourseSection = (courseSectionId: string | null) => {
+    console.log(courseSectionId);
+    if (courseSectionId) {
+      getCubaREST()!.loadEntity<CourseSection>(CourseSection.NAME, courseSectionId, {view: 'course.section.with.format.session'}).then((response: CourseSection) => {
+        this.selectedCourseSection = response;
+      });
+    } else {
+      this.selectedCourseSection = null;
+    }
   };
 
   render() {
-    const CourseComponent = (isRegistered: boolean | undefined, course: Course | undefined) => () => {
+    const CourseComponent = (course: CourseData | undefined, courseSection: CourseSection | null, selectedCourseSection: CourseSection | null) => () => {
       return <div className={"course-container"}>
         {course ? <>
-            <div className={"sections-list-wrapper"}><SectionListComponent isRegistered={isRegistered} course={course}/>
+            <div className={"sections-list-wrapper"}><SectionListComponent course={course}
+                                                                           selectedCourseSection={selectedCourseSection}
+                                                                           followToCourse={this.followToCourse}
+                                                                           setCourseSection={this.setCourseSection}/>
             </div>
-            <div className={"section-training-wrapper"}><TrainingComponent isRegistered={isRegistered}
-                                                                           course={course}/></div>
+            <div className={"section-training-wrapper"}><TrainingComponent course={course} courseSection={courseSection}/>
+            </div>
           </> :
           <LoadingComponent/>}
       </div>
     };
 
-    const ContentComponent = Content(CourseComponent(this.isRegistered, this.course));
+    const ContentComponent = Content(CourseComponent(this.course, this.selectedCourseSection, this.selectedCourseSection));
     return <ContentComponent headerName={"Курс: " + (this.course ? this.course.name! : "")} wrapperCss={{padding: 0}}
                              contentWrapperCss={{padding: '50px'}}/>;
   }

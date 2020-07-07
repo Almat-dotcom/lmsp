@@ -84,6 +84,7 @@
   "antd.form.validation.array.range": "%s shall have from %s to %s elements.",
   "antd.form.validation.pattern.mismatch":  "%s has value %s that doesn't match pattern %s.",
   "project.name": "Virtual school",
+  "welcome.project.name": "Welcome to Virtual school",
   "menu.myTraining": "My learning",
   "menu.myTraining.current": "Current courses",
   "menu.myTraining.history": "History",

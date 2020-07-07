@@ -77,6 +77,7 @@
   "antd.form.validation.array.range": "Поле %s должно содержать от %s до %s элементов.",
   "antd.form.validation.pattern.mismatch": "Поле %s имеет значение %s, не подходящее под паттерн %s.",
   "project.name": "Виртуальная школа",
+  "welcome.project.name": "Добро пожаловать в Виртуальную Школу",
   "menu.myTraining": "Мое обучение",
   "menu.myTraining.current": "Текущие курсы",
   "menu.myTraining.history": "История",
