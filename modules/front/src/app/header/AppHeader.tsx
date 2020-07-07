@@ -34,7 +34,7 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
             className="panelelement"
             ghost={true}
             icon="logout"
-            style={{border: 0}}
+            style={{border: 0, color: 'black'}}
             onClick={this.showLogoutConfirm}
           />
         </div>
