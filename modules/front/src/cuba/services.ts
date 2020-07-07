@@ -50,6 +50,14 @@ export var restServices = {
         {...params},
         fetchOpts
       );
+    },
+    loadCourses: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+      return cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadCourses",
+        {},
+        fetchOpts
+      );
     }
   }
 };
