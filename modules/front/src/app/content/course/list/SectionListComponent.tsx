@@ -53,8 +53,6 @@ class SectionListComponent extends React.Component<SectionListComponentProps & W
     } else {
       imgSrc = defaultImgSrc;
     }
-    if (selectedCourseSection)
-      console.log(selectedCourseSection.id);
 
     return <div className={"sections-container"}>
       <img src={imgSrc}/>

@@ -1,5 +1,6 @@
 import {AbstractParentEntity} from "../base/uco/AbstractParentEntity";
 import {Course} from "./tsadv$Course";
+import {CourseSectionObject} from "./tsadv$CourseSectionObject";
 
 export class CourseSection extends AbstractParentEntity {
   static NAME = "tsadv$CourseSection";
@@ -7,12 +8,11 @@ export class CourseSection extends AbstractParentEntity {
   mandatory?: boolean | null;
   sectionName?: string | null;
   order?: number | null;
-  sectionObject?: any | null;
+  sectionObject?: CourseSectionObject | null;
   format?: any | null;
   description?: string | null;
   session?: any | null;
   courseSectionAttempts?: any | null;
-
 }
 
 export type CourseSectionViewName = "_base" | "_local" | "_minimal";
