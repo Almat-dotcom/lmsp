@@ -1,4 +1,4 @@
-import {CubaApp, FetchOptions} from "@cuba-platform/rest";
+import {CubaApp, EntityFilter, FetchOptions} from "@cuba-platform/rest";
 
 export interface Course {
   id: string,
@@ -51,7 +51,7 @@ export var restServices = {
         fetchOpts
       );
     },
-    loadCourses: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+    loadCourses: (cubaApp: CubaApp, params: EntityFilter, fetchOpts?: FetchOptions) => () => {
       return cubaApp.invokeService(
         "tsadv_LmsService",
         "loadCourses",

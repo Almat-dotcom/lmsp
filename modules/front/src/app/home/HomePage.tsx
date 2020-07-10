@@ -16,7 +16,7 @@ class HomePage extends React.Component<RouteComponentProps> {
   @observable currentCourses: Course[];
 
   componentDidMount(): void {
-    restServices.tsadv_LmsService.loadCourses(getCubaREST()!)().then((response: string) => {
+    restServices.tsadv_LmsService.loadCourses(getCubaREST()!, {conditions: []})().then((response: string) => {
       const courses: Course[] = JSON.parse(response);
       this.setCurrentCourses(courses);
     });

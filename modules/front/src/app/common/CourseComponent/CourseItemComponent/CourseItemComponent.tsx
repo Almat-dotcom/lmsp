@@ -6,8 +6,8 @@ import {CourseType} from "../CourseComponent";
 import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
 
 export enum BoxType {
-  DEFAULT = "default",
-  NO_BOX = "no-box",
+  DEFAULT = "DEFAULT",
+  NO_BOX = "NO-BOX",
 }
 
 export interface CourseComponentProps {
@@ -25,7 +25,7 @@ class CourseItemComponent extends React.Component<CourseComponentProps & CourseH
   render() {
     const {course} = this.props;
     const imgSrc = course.logo ? "data:image/png;base64," + course.logo : defaultImgSrc;
-    const courseItemClassName = "course-item course-item-" + this.props.boxType;
+    const courseItemClassName = "course-item course-item-" + this.props.boxType.toLowerCase();
 
     return (
       <div className={courseItemClassName} onMouseUp={this.props.courseClickHandler} data-id={course.id}><img src={imgSrc} alt={course.name!}/>
