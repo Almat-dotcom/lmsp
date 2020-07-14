@@ -83,13 +83,13 @@
 }
 
 .sections-container .sections-list li.list:last-of-type:hover,
-.sections-container .sections-list li.list.section-active:last-of-type {
+.sections-container .sections-list li.list:last-of-type {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
 .sections-container .sections-list li.list:first-of-type:hover,
-.sections-container .sections-list li.list.section-active:first-of-type {
+.sections-container .sections-list li.list:first-of-type {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }

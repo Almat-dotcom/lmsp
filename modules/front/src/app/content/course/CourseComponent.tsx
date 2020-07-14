@@ -2,8 +2,7 @@ import React from "react";
 import Content from "../Content";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
-import {DataInstanceStore, getCubaREST} from "@cuba-platform/react";
-import {Course} from "../../../cuba/entities/tsadv/tsadv$Course";
+import {getCubaREST} from "@cuba-platform/react";
 import './style.css'
 import {MatchParams, RouteComponentProps} from "../../common/model/RouteComponentProps";
 import {injectIntl, WrappedComponentProps} from "react-intl";
@@ -19,7 +18,7 @@ interface Props extends RouteComponentProps<MatchParams> {
 export interface CourseData {
   id: string,
   name?: string,
-  hasEnrollment: boolean,
+  enrollmentId: string | null,
   description: string,
   logo?: string,
   sections?: CourseSectionItem[]
@@ -69,6 +68,13 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
     } else {
       this.selectedCourseSection = null;
     }
+  };
+
+  passCourseSection = (enrollmentId: string): void => {
+    restServices.tsadv_LmsService.loadCourseData(getCubaREST()!, {courseId: this.props.match.params.id})().then(response => {
+      const course: CourseData = JSON.parse(response as string);
+      this.refreshCourseCard();
+    });
   };
 
   render() {

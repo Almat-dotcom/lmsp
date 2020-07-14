@@ -58,9 +58,6 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
             alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
             className="logo"
           />
-          {this.props.intl.formatMessage({
-            id: "project.name"
-          })}
         </div>
         <hr/>
         <Form layout="vertical" onSubmit={this.doLogin}>
@@ -72,7 +69,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
               })}
               onChange={this.changeLogin}
               value={this.login}
-              prefix={<Icon type="user" style={{color: "rgba(255,255,255,1)"}}/>}
+              prefix={<Icon type="user" style={{color: "rgba(0,0,0,1)"}}/>}
               size="large"
             />
           </Form.Item>
@@ -85,7 +82,7 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
               onChange={this.changePassword}
               value={this.password}
               type="password"
-              prefix={<Icon type="lock" style={{color: "rgba(255,255,255,1)"}}/>}
+              prefix={<Icon type="lock" style={{color: "rgba(0,0,0,1)"}}/>}
               size="large"
             />
           </Form.Item>

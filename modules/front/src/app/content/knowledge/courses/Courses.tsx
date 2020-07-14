@@ -11,31 +11,40 @@ import LoadingComponent from "../../../common/loading/LoadingComponent";
 import {withRouter} from 'react-router-dom'
 import {RouteComponentProps} from "react-router";
 import {BoxType} from "../../../common/CourseComponent/CourseItemComponent/CourseItemComponent";
-import {Condition} from "@cuba-platform/rest";
+import {Condition, EntityFilter} from "@cuba-platform/rest";
 import {restServices} from "../../../../cuba/services";
 
 @observer
 class Courses extends React.Component<WrappedComponentProps & RouteComponentProps> {
+  componentDidMount(): void {
+    this.reloadData();
+  }
 
   searchProperty: string = 'name';
 
   @observable courses: Course[];
 
-  @observable coursesCondition: Condition;
-
-  componentDidMount(): void {
-    restServices.tsadv_LmsService.loadCourses(getCubaREST()!, {conditions: [this.coursesCondition]})().then((response: string) => {
-      const courses: Course[] = JSON.parse(response);
-      this.setCurrentCourses(courses);
-    });
-  }
+  @observable coursesConditions: EntityFilter;
 
   @action setCurrentCourses = (currentCourses: any) => {
     this.courses = currentCourses;
   };
 
-  @action setCoursesCondition = (value: Condition) => {
-    this.coursesCondition = value;
+  @action setCoursesConditions = (value: EntityFilter) => {
+    this.coursesConditions = value;
+  };
+
+  setSingleCondition = (value: Condition | null) => {
+    // this.setCoursesConditions({conditions: [value]});
+    const conditions = value === null ? [] : [value];
+    this.setCoursesConditions({conditions: conditions});
+  };
+
+  reloadData = () => {
+    restServices.tsadv_LmsService.loadCourses(getCubaREST()!, this.coursesConditions)().then((response: string) => {
+      const courses: Course[] = JSON.parse(response);
+      this.setCurrentCourses(courses);
+    });
   };
 
   courseClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -43,12 +52,18 @@ class Courses extends React.Component<WrappedComponentProps & RouteComponentProp
   };
 
   @action onSearch = (value: string, event?: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    if (value.trim() === '') {
+      this.setSingleCondition(null);
+      this.reloadData()
+    }
+
     const searchCondition: Condition = {
       property: this.searchProperty,
       operator: 'contains',
       value: value
     };
-    this.setCoursesCondition(searchCondition);
+    this.setSingleCondition(searchCondition);
+    this.reloadData();
   };
 
   render() {

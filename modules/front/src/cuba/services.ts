@@ -51,11 +51,11 @@ export var restServices = {
         fetchOpts
       );
     },
-    loadCourses: (cubaApp: CubaApp, params: EntityFilter, fetchOpts?: FetchOptions) => () => {
-      return cubaApp.invokeService(
+    loadCourses: (cubaApp: CubaApp, params: EntityFilter, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
         "tsadv_LmsService",
         "loadCourses",
-        {},
+        {...params},
         fetchOpts
       );
     }

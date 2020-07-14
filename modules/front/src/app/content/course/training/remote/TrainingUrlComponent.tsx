@@ -2,6 +2,7 @@ import React from "react";
 import {LearningObject} from "../../../../../cuba/entities/tsadv/tsadv$LearningObject";
 
 interface TrainingUrlComponentProps {
+  sectionId: string,
   content: LearningObject;
 }
 

@@ -2,7 +2,7 @@ import {Button, Modal} from "antd";
 import * as React from "react";
 import {observer} from "mobx-react";
 import "./AppHeader.css";
-import logo from "./logo.png";
+import logo from "../logo.png";
 import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
 import {LanguageSwitcher} from "../../i18n/LanguageSwitcher";
 import {injectIntl, WrappedComponentProps} from "react-intl";
@@ -17,14 +17,12 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
     return (
       <div className="app-header">
         <div className={"header-container"}>
-          <img
-            className={"logo"}
-            src={logo}
-            alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
-          />
-          <NavLink to={"/"}><h1>{this.props.intl.formatMessage({
-            id: 'project.name'
-          })}</h1></NavLink>
+          <NavLink to={"/"}>
+            <img
+              className={"logo"}
+              src={logo}
+              alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
+            /></NavLink>
         </div>
         <Menu/>
         <div className="user-panel">

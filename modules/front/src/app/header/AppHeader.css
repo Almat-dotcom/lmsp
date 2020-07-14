@@ -28,5 +28,5 @@ header.ant-layout-header {
 }
 .app-header img.logo{
   height: 100px;
-  width: 100px;
+  /*width: 100px;*/
 }

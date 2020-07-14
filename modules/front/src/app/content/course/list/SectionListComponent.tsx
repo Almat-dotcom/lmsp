@@ -57,7 +57,7 @@ class SectionListComponent extends React.Component<SectionListComponentProps & W
     return <div className={"sections-container"}>
       <img src={imgSrc}/>
       <ul className={"sections-list"}>
-        {course.hasEnrollment ?
+        {course.enrollmentId != null ?
           course.sections!.map((section: CourseSectionItem) => (
             <li
               className={"list" + (section.isPassed ? " passed" : "") + (selectedCourseSection ? selectedCourseSection.id === section.id ? " section-active" : "" : "")}
