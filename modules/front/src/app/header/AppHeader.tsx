@@ -3,6 +3,7 @@ import * as React from "react";
 import {observer} from "mobx-react";
 import "./AppHeader.css";
 import logo from "../logo.png";
+import smallLogo from "../logo-small.png";
 import {injectMainStore, MainStoreInjected} from "@cuba-platform/react";
 import {LanguageSwitcher} from "../../i18n/LanguageSwitcher";
 import {injectIntl, WrappedComponentProps} from "react-intl";
@@ -21,6 +22,10 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
             <img
               className={"logo"}
               src={logo}
+              alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
+            /><img
+              className={"logo-small"}
+              src={smallLogo}
               alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
             /></NavLink>
         </div>

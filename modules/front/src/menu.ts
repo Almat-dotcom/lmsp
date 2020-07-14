@@ -77,7 +77,8 @@ topMenu.push({
       id: 'videos',
       caption: 'videos',
       disabled: true,
-      path: '/knowledge/videos'
+      path: '/knowledge/videos',
+      component: Courses
     }]
 });
 

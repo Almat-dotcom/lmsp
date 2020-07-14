@@ -58,6 +58,13 @@ export var restServices = {
         {...params},
         fetchOpts
       );
+    },
+    loadVideos: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadVideos",
+        fetchOpts
+      );
     }
   }
 };

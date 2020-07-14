@@ -20,13 +20,34 @@ header.ant-layout-header {
   display: inline-flex;
 }
 
-.app-header .header-container h1{
+.app-header .header-container h1 {
   margin: 0 0 0 50px;
   color: #000;
   font-size: 32px;
   text-transform: uppercase;
 }
-.app-header img.logo{
+
+.app-header .header-container img {
   height: 100px;
   /*width: 100px;*/
+}
+
+.app-header .header-container img.logo-small {
+  display: none;
+}
+
+@media only screen and (max-width: 1700px) {
+  header.ant-layout-header {
+    padding: 0;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .app-header .header-container img.logo-small {
+    display: inline-flex;
+  }
+
+  .app-header img.logo {
+    display: none;
+  }
 }

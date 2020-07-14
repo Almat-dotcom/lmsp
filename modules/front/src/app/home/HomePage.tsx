@@ -10,6 +10,8 @@ import {observer} from "mobx-react";
 import {RouteComponentProps} from "react-router";
 import {withRouter} from 'react-router-dom'
 import {restServices} from "../../cuba/services";
+import styles from './style.module.css'
+
 
 @observer
 class HomePage extends React.Component<RouteComponentProps> {
@@ -41,7 +43,7 @@ class HomePage extends React.Component<RouteComponentProps> {
     return (
       <div className={""}>
         <WelcomeComponent/>
-        {BodyComponent}
+        <div className={styles["content-wrapper"]}>{BodyComponent}</div>
       </div>
     );
   }
