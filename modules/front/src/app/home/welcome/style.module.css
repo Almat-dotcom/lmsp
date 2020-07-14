@@ -1,0 +1,43 @@
+section.ant-layout {
+  background-color: #fff;
+}
+
+.welcome-container {
+  height: auto;
+  width: 100%;
+  display: inline-block;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden
+}
+
+.welcome-container div.title {
+  padding: 30px;
+}
+
+.welcome-container img {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.welcome-container h1 {
+  font-size: 32px;
+}
+
+/*@media only screen and (max-width: 1650px) {*/
+/*  .welcome-container {*/
+/*    height: 600px;*/
+/*  }*/
+/*}*/
+
+/*@media only screen and (max-width: 1400px) {*/
+/*  .welcome-container {*/
+/*    height: 500px;*/
+/*  }*/
+/*}*/
+
+/*@media only screen and (max-width: 1000px) {*/
+/*  .welcome-container {*/
+/*    height: 400px;*/
+/*  }*/
+/*}*/
