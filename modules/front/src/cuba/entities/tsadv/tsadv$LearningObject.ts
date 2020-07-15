@@ -2,7 +2,7 @@ import {AbstractParentEntity} from "../base/uco/AbstractParentEntity";
 import {Course} from "./tsadv$Course";
 
 export class LearningObject extends AbstractParentEntity {
-  static NAME = "tsadv$CourseSection";
+  static NAME = "tsadv$LearningObject";
   objectName?: string | null = null;
   description?: string | null = null;
   url?: string | null = null;

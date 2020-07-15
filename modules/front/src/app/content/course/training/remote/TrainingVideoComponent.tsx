@@ -17,10 +17,8 @@ class TrainingVideoComponent extends React.Component<TrainingVideoComponentProps
 
   @observable videoUrl: string | null | undefined = undefined;
 
-  //TODO: исправить
   componentDidMount(): void {
-    // const videoFileId: string = this.props.content.file.id;
-    const videoFileId: string = 'dfe561eb-4269-9754-ea4a-33ca4e4d8a10';
+    const videoFileId: string = this.props.content.file.id;
     getCubaREST()!.getFile(videoFileId).then((value: Blob) => {
       this.setVideoUrl(URL.createObjectURL(value));
     }).catch(() => {

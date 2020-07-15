@@ -9,7 +9,13 @@ export enum CourseType {
   NO_BUTTON = "NO-BUTTON"
 }
 
-type CourseDataType = Course | SerializedEntity<Course>
+export type ComponentItemModel = {
+  id: string,
+  name: string,
+  logo: string | undefined
+}
+
+type CourseDataType = Course | SerializedEntity<Course> | ComponentItemModel
 
 export interface CourseProps {
   courses: Array<CourseDataType>,
@@ -31,7 +37,8 @@ class CourseComponent extends React.Component<CourseProps & CourseHandlers> {
         <div className={containerClassName}>
           <div className={"course-items"}>
             {courses.map((course: CourseDataType) => (
-              <CourseItemComponent course={course} courseItemType={this.props.courseType}
+              <CourseItemComponent id={course.id!} name={course.name!} logo={course.logo}
+                                   courseItemType={this.props.courseType}
                                    onButtonClickHandler={this.props.onButtonClickHandler}
                                    boxType={this.props.boxType}
                                    courseClickHandler={this.props.courseClickHandler}/>))}

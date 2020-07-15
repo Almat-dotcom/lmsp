@@ -104,5 +104,7 @@
   "follow": "Пройти",
   "address": "Адрес",
   "startDate": "Дата начала",
-  "endDate": "Дата окончания"
+  "endDate": "Дата окончания",
+  "modal.error.title": "Ошибка",
+  "video.error.load": "Не удалось загрузить видео"
 }

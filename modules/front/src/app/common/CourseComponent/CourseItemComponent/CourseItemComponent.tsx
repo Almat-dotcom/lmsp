@@ -11,7 +11,9 @@ export enum BoxType {
 }
 
 export interface CourseComponentProps {
-  course: Course,
+  id: string,
+  name: string,
+  logo: string | undefined,
   courseItemType: CourseType,
   boxType: BoxType
 }
@@ -23,16 +25,18 @@ export interface CourseHandlers {
 
 class CourseItemComponent extends React.Component<CourseComponentProps & CourseHandlers> {
   render() {
-    const {course} = this.props;
-    const imgSrc = course.logo ? "data:image/png;base64," + course.logo : defaultImgSrc;
+    const {id, name, logo} = this.props;
+    const imgSrc = logo ? "data:image/png;base64," + logo : defaultImgSrc;
     const courseItemClassName = "course-item course-item-" + this.props.boxType.toLowerCase();
 
     return (
-      <div className={courseItemClassName} onMouseUp={this.props.courseClickHandler} data-id={course.id}><img src={imgSrc} alt={course.name!}/>
+      <div className={courseItemClassName} onMouseUp={this.props.courseClickHandler} data-id={id}><img src={imgSrc}
+                                                                                                       alt={name!}/>
         <div className={"course-item-title"}><span
-          title={course.name!}>{course.name}</span></div>
+          title={name!}>{name}</span></div>
         {this.props.courseItemType === CourseType.DEFAULT ? <div className={"registration-button-container"}>
-          <Button ghost={false} type={'primary'} onClick={this.props.onButtonClickHandler}>Пройти</Button></div> : <></>}
+          <Button ghost={false} type={'primary'} onClick={this.props.onButtonClickHandler}>Пройти</Button>
+        </div> : <></>}
       </div>)
   }
 }

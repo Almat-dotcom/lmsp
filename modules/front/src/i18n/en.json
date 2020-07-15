@@ -104,5 +104,7 @@
   "follow": "Follow",
   "address": "Address",
   "startDate": "Start date",
-  "endDate": "End date"
+  "endDate": "End date",
+  "modal.error.title": "Error",
+  "video.error.load": "Error load video"
 }
