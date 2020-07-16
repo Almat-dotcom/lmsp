@@ -20,7 +20,8 @@ class RemoteComponent extends React.Component<RemoteComponentProps & WrappedComp
     const contentType: ContentType = ContentType[content.contentType!] as ContentType;
     const props = {...this.props.sectionObject};
     return <>
-      <h2>{this.props.intl.formatMessage({id: "description"})}: {content.description}</h2>
+      <h2>{this.props.intl.formatMessage({id: "description"})}: <span
+        dangerouslySetInnerHTML={{__html: content.description!}}/></h2>
       {React.createElement(remoteMap.get(contentType), {...props, sectionId: this.props.sectionObject.id})}
     </>
   }

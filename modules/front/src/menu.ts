@@ -3,6 +3,7 @@ import CurrentCourses from "./app/content/training/current/CurrentCourses";
 import HistoryComponent from "./app/content/training/history/HistoryComponent";
 import VideosComponent from "./app/content/knowledge/video/VideosComponent";
 import BooksComponent from "./app/content/knowledge/books/BooksComponent";
+import ArticlesComponent from "./app/content/knowledge/articles/ArticlesComponent";
 
 export interface IMenuItem {
   id: string,
@@ -72,8 +73,8 @@ topMenu.push({
     }, {
       id: 'articles',
       caption: 'articles',
-      disabled: true,
-      path: '/knowledge/articles'
+      path: '/knowledge/articles',
+      component: ArticlesComponent
     },
     {
       id: 'videos',

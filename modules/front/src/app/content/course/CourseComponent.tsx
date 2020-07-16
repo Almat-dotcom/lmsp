@@ -70,13 +70,6 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
     }
   };
 
-  passCourseSection = (enrollmentId: string): void => {
-    restServices.tsadv_LmsService.loadCourseData(getCubaREST()!, {courseId: this.props.match.params.id})().then(response => {
-      const course: CourseData = JSON.parse(response as string);
-      this.refreshCourseCard();
-    });
-  };
-
   render() {
     const CourseComponent = (course: CourseData | undefined, courseSection: CourseSection | null, selectedCourseSection: CourseSection | null) => () => {
       return <div className={"course-container"}>

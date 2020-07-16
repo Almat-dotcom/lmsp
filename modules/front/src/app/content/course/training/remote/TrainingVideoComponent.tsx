@@ -42,7 +42,7 @@ class TrainingVideoComponent extends React.Component<TrainingVideoComponentProps
       return <h2 className={styles["error"]}>Не удалось загрузить видео!</h2>
     }
 
-    return <div className={"section-container-body"}>
+    return <div className={styles["section-container-body"]}>
       <video src={this.videoUrl!} controls={true}
              onPlay={this.onPlayVideoHandler}/>
     </div>;

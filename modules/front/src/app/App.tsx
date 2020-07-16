@@ -24,6 +24,7 @@ import {
 } from "react-intl";
 import {IMenuItem, topMenu} from "../menu";
 import CourseComponent from "./content/course/CourseComponent";
+import ArticleComponent from "./content/knowledge/articles/article/ArticleComponent";
 
 @injectMainStore
 @observer
@@ -75,6 +76,7 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
               <Switch>
                 <Route exact={true} path="/" component={HomePage}/>
                 <Route exact={true} path="/course/:id" component={CourseComponent}/>
+                <Route exact={true} path="/article/:id" component={ArticleComponent}/>
                 {mapToNavigation(topMenu)}
               </Switch>
             </Layout.Content>
