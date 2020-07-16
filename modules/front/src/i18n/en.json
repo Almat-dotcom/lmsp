@@ -106,5 +106,6 @@
   "startDate": "Start date",
   "endDate": "End date",
   "modal.error.title": "Error",
-  "video.error.load": "Error load video"
+  "video.error.load": "Error load video",
+  "book.error.load": "Error open book"
 }

@@ -1,4 +1,5 @@
 import {CubaApp, EntityFilter, FetchOptions} from "@cuba-platform/rest";
+import {ContentType} from "./enums/enums";
 
 export interface Course {
   id: string,
@@ -59,10 +60,11 @@ export var restServices = {
         fetchOpts
       );
     },
-    loadVideos: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => async () => {
+    loadLearningObject: (cubaApp: CubaApp, params: { contentType: ContentType }, fetchOpts?: FetchOptions) => async () => {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
-        "loadVideos",
+        "loadLearningObject",
+        {...params},
         fetchOpts
       );
     }

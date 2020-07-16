@@ -10,80 +10,66 @@ import LoadingComponent from "../../../common/loading/LoadingComponent";
 import Content from "../../Content";
 import {LearningObject} from "../../../../cuba/entities/tsadv/tsadv$LearningObject";
 import {injectIntl, WrappedComponentProps} from "react-intl";
-import {Modal} from "antd";
-import {SerializedEntity} from "@cuba-platform/rest";
-import styles from './style.module.css'
 import {ContentType} from "../../../../cuba/enums/enums";
+import {SerializedEntity} from "@cuba-platform/rest";
+import {Modal} from "antd";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 
 }
 
 @observer
-class VideosComponent extends React.Component<Props & WrappedComponentProps> {
+class BooksComponent extends React.Component<Props & WrappedComponentProps> {
 
-  @observable videos: ComponentItemModel[];
-
-  @observable videoUrl: string | null = null;
-
-  @observable isVisibleModal: boolean = false;
+  @observable books: ComponentItemModel[];
 
   componentDidMount(): void {
-    restServices.tsadv_LmsService.loadLearningObject(getCubaREST()!, {contentType: ContentType.VIDEO})().then((response: string) => {
+    restServices.tsadv_LmsService.loadLearningObject(getCubaREST()!, {contentType: ContentType.PDF})().then((response: string) => {
       const courses: LearningObject[] = JSON.parse(response);
       this.setHistoryCourses(courses.map(el => ({...el, name: el.objectName} as ComponentItemModel)));
     })
   }
 
   @action setHistoryCourses = (value: ComponentItemModel[]) => {
-    this.videos = value;
-  };
-
-  @action setVideoUrl = (value: string | null) => {
-    this.videoUrl = value;
-  };
-
-  @action setIsVisibleModal = (value: boolean) => {
-    this.isVisibleModal = value;
+    this.books = value;
   };
 
   courseClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    this.setIsVisibleModal(true);
     getCubaREST()!.loadEntity(LearningObject.NAME, e.currentTarget.dataset.id, {view: "learningObject.browse"}).then((r: SerializedEntity<LearningObject>) => {
       const videoFileId: string = r.file.id;
       getCubaREST()!.getFile(videoFileId).then((value: Blob) => {
-        this.setVideoUrl(URL.createObjectURL(value));
+
+        const anchor = document.createElement('a');
+        anchor.href = URL.createObjectURL(value);
+        anchor.target = '_blank';
+
+        anchor.click();
       }).catch(() => {
-        this.setVideoUrl(null);
+        Modal.error({
+          title: this.props.intl.formatMessage({id: "modal.error.title"}),
+          content: this.props.intl.formatMessage({id: "book.error.load"}),
+        })
       });
     }).catch(() => {
       Modal.error({
         title: this.props.intl.formatMessage({id: "modal.error.title"}),
-        content: this.props.intl.formatMessage({id: "video.error.load"}),
+        content: this.props.intl.formatMessage({id: "book.error.load"}),
       })
     });
   };
 
   render() {
-    const VideoBody = (videos: ComponentItemModel[], videoUrl: string | null, isVisibleModal: boolean) => () => {
-      return <div>{videos ?
-        <><CourseComponent courseType={CourseType.NO_BUTTON} boxType={BoxType.DEFAULT} courses={videos}
+    const BooksBody = (books: ComponentItemModel[]) => () => {
+      return <div className={"container"}>{books ?
+        <><CourseComponent courseType={CourseType.NO_BUTTON} boxType={BoxType.DEFAULT} courses={books}
                            courseClickHandler={this.courseClickHandler}/>
-          <Modal width={"90%"} footer={null} visible={isVisibleModal} closable={true} onCancel={() => {
-            this.setVideoUrl(null);
-            this.setIsVisibleModal(false);
-          }}>
-            {videoUrl ? <div className={styles["modal-container"]}>
-              <video controls={true} src={videoUrl}/>
-            </div> : <LoadingComponent loadText={"Пожалуйста подождите, идёт загрузка видео"}/>}
-          </Modal>
         </> :
         <LoadingComponent/>}</div>
     };
 
-    const ContentComponent = Content(VideoBody(this.videos, this.videoUrl, this.isVisibleModal));
-    return <ContentComponent headerName={this.props.intl.formatMessage({id: "menu.knowledgeBase.videos"})}/>
+    const ContentComponent = Content(BooksBody(this.books));
+    return <ContentComponent headerName={this.props.intl.formatMessage({id: "menu.knowledgeBase.books"})}/>
   }
 }
 
-export default injectIntl(VideosComponent);
+export default injectIntl(BooksComponent);

@@ -106,5 +106,6 @@
   "startDate": "Дата начала",
   "endDate": "Дата окончания",
   "modal.error.title": "Ошибка",
-  "video.error.load": "Не удалось загрузить видео"
+  "video.error.load": "Не удалось загрузить видео",
+  "book.error.load": "Не удалось открыть книгу"
 }

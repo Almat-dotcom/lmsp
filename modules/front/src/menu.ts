@@ -2,6 +2,7 @@ import Courses from "./app/content/knowledge/courses/Courses";
 import CurrentCourses from "./app/content/training/current/CurrentCourses";
 import HistoryComponent from "./app/content/training/history/HistoryComponent";
 import VideosComponent from "./app/content/knowledge/video/VideosComponent";
+import BooksComponent from "./app/content/knowledge/books/BooksComponent";
 
 export interface IMenuItem {
   id: string,
@@ -66,8 +67,8 @@ topMenu.push({
     {
       id: 'books',
       caption: 'books',
-      disabled: true,
-      path: '/knowledge/books'
+      path: '/knowledge/books',
+      component: BooksComponent
     }, {
       id: 'articles',
       caption: 'articles',
