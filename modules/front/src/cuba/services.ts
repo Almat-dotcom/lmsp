@@ -1,5 +1,6 @@
 import {CubaApp, EntityFilter, FetchOptions} from "@cuba-platform/rest";
 import {ContentType} from "./enums/enums";
+import {AnsweredTest} from "../app/content/course/training/remote/test/TestComponent";
 
 export interface Course {
   id: string,
@@ -64,6 +65,37 @@ export var restServices = {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
         "loadLearningObject",
+        {...params},
+        fetchOpts
+      );
+    },
+    startAndLoadTest: (cubaApp: CubaApp, params: { courseSectionObjectId: string, enrollmentId: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "startAndLoadTest",
+        {...params},
+        fetchOpts
+      );
+    },
+    startAndLoadTestById: (cubaApp: CubaApp, params: { testId: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "startAndLoadTest",
+        {...params},
+        fetchOpts
+      );
+    },
+    loadPersonTests: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadPersonTests",
+        fetchOpts
+      );
+    },
+    finishTest: (cubaApp: CubaApp, params: { answeredTest: AnsweredTest }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "finishTest",
         {...params},
         fetchOpts
       );

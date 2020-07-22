@@ -82,6 +82,8 @@
   "menu.myTraining.current": "Текущие курсы",
   "menu.myTraining.history": "История",
   "menu.myTraining.tests": "Тесты",
+  "menu.myTraining.wikium": "Wikium",
+  "menu.myTraining.smartreading": "SmartReading",
   "menu.calendar": "Календарь",
   "menu.calendar.open": "Открыть",
   "menu.knowledgeBase": "База знаний",
@@ -107,5 +109,9 @@
   "endDate": "Дата окончания",
   "modal.error.title": "Ошибка",
   "video.error.load": "Не удалось загрузить видео",
-  "book.error.load": "Не удалось открыть книгу"
+  "book.error.load": "Не удалось открыть книгу",
+  "test.button.submit": "Завершить",
+  "test.modal.title": "Вы уверены, что хотите завершить тестирование?",
+  "tests.modal.title": "Вы действительно хотите начать тестирование?",
+  "test.result": "Вы ответили на {score} из {maxScore} ({percentage}%)"
 }

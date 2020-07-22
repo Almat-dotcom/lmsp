@@ -1,5 +1,5 @@
 import React from "react";
-import defaultImgSrc from "../../../common/CourseComponent/CourseItemComponent/course-min.png";
+import defaultImgSrc from "../../../common/materialContainer/material/default-logo.png";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import './style.css'
 import {action, observable} from "mobx";

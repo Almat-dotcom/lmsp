@@ -25,6 +25,8 @@ import {
 import {IMenuItem, topMenu} from "../menu";
 import CourseComponent from "./content/course/CourseComponent";
 import ArticleComponent from "./content/knowledge/articles/article/ArticleComponent";
+import TestDsComponent from "./content/course/training/remote/test/TestDsComponent";
+import TestPageComponent from "./content/training/test/TestPageComponent";
 
 @injectMainStore
 @observer
@@ -77,6 +79,7 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
                 <Route exact={true} path="/" component={HomePage}/>
                 <Route exact={true} path="/course/:id" component={CourseComponent}/>
                 <Route exact={true} path="/article/:id" component={ArticleComponent}/>
+                <Route exact={true} path="/test/:id" component={TestPageComponent}/>
                 {mapToNavigation(topMenu)}
               </Switch>
             </Layout.Content>

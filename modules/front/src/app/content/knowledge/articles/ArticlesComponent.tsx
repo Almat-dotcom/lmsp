@@ -4,15 +4,16 @@ import React from "react";
 import {action, observable} from "mobx";
 import {restServices} from "../../../../cuba/services";
 import {getCubaREST} from "@cuba-platform/react";
-import CourseComponent, {ComponentItemModel, CourseType} from "../../../common/CourseComponent/CourseComponent";
-import {BoxType} from "../../../common/CourseComponent/CourseItemComponent/CourseItemComponent";
+import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import Content from "../../Content";
 import {LearningObject} from "../../../../cuba/entities/tsadv/tsadv$LearningObject";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import {ContentType} from "../../../../cuba/enums/enums";
-import {SerializedEntity} from "@cuba-platform/rest";
-import {Modal} from "antd";
+import MaterialContainerComponent, {
+  MaterialModel,
+  MaterialType
+} from "../../../common/materialContainer/MaterialContainerComponent";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 
@@ -21,16 +22,16 @@ export interface Props extends RouteComponentProps<MatchParams> {
 @observer
 class ArticlesComponent extends React.Component<Props & WrappedComponentProps> {
 
-  @observable articles: ComponentItemModel[];
+  @observable articles: MaterialModel[];
 
   componentDidMount(): void {
     restServices.tsadv_LmsService.loadLearningObject(getCubaREST()!, {contentType: ContentType.TEXT})().then((response: string) => {
       const learningObjects: LearningObject[] = JSON.parse(response);
-      this.setArticles(learningObjects.map(el => ({...el, name: el.objectName} as ComponentItemModel)));
+      this.setArticles(learningObjects.map(el => ({...el, name: el.objectName} as MaterialModel)));
     })
   }
 
-  @action setArticles = (value: ComponentItemModel[]) => {
+  @action setArticles = (value: MaterialModel[]) => {
     this.articles = value;
   };
 
@@ -39,10 +40,11 @@ class ArticlesComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   render() {
-    const ArticlesBody = (articles: ComponentItemModel[]) => () => {
+    const ArticlesBody = (articles: MaterialModel[]) => () => {
       return <div className={"container"}>{articles ?
-        <><CourseComponent courseType={CourseType.NO_BUTTON} boxType={BoxType.DEFAULT} courses={articles}
-                           courseClickHandler={this.courseClickHandler}/>
+        <><MaterialContainerComponent materialType={MaterialType.NO_BUTTON} boxType={BoxType.DEFAULT}
+                                      materialData={articles}
+                                      materialClickHandler={this.courseClickHandler}/>
         </> :
         <LoadingComponent/>}</div>
     };

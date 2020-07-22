@@ -10,25 +10,29 @@ import {CourseSectionFormat} from "../../../../cuba/enums/enums";
 
 interface TrainingComponentProps {
   course: CourseData,
-  courseSection: CourseSection | null
+  courseSection: CourseSection | null,
+}
+
+export interface TrainingComponentHandlers {
+  resetSectionItem?: () => void
 }
 
 @observer
-class TrainingComponent extends React.Component<TrainingComponentProps & WrappedComponentProps> {
+class TrainingComponent extends React.Component<TrainingComponentProps & TrainingComponentHandlers & WrappedComponentProps> {
 
   render() {
     const {course, courseSection} = this.props;
     const TrainingBodyComponent: React.ReactElement = (course.enrollmentId != null && courseSection)
-      ? getTrainingBody(courseSection, course.enrollmentId)
-      : React.createElement(TrainingDescriptionComponent, {course});
+      ? getTrainingBody(courseSection, course.enrollmentId, {...this.props})
+      : React.createElement(TrainingDescriptionComponent, {...this.props});
 
     return TrainingBodyComponent
   }
 }
 
-const getTrainingBody = (courseSection: CourseSection, enrollmentId: string | null): React.ClassType<any, any, any> => {
+const getTrainingBody = (courseSection: CourseSection, enrollmentId: string | null, handlers: TrainingComponentHandlers): React.ClassType<any, any, any> => {
   const courseFormat: CourseSectionFormat = CourseSectionFormat[courseSection!.format.code!.toUpperCase()] as CourseSectionFormat;
-  return React.createElement(trainingBodyMap.get(courseFormat)!, {...courseSection, enrollmentId: enrollmentId})
+  return React.createElement(trainingBodyMap.get(courseFormat)!, {...courseSection, enrollmentId: enrollmentId, ...handlers})
 };
 
 export default injectIntl(TrainingComponent);

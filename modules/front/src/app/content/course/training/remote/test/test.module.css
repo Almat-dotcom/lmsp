@@ -1,0 +1,38 @@
+.question-block {
+  border: 2px solid #aaa;
+  border-radius: 10px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.question-block .hide-button-group {
+  position: absolute;
+  top: -14px;
+  background-color: #f0f2f5;
+  right: 1%;
+  cursor: pointer;
+  padding: 3px;
+  display: table;
+}
+
+.question-block .hide-button-group svg {
+  display: table-cell;
+}
+
+.question-block .hide-button-group span {
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 5px;
+}
+
+.question-block .question-options span {
+  padding: 5px;
+}
+
+.question-block .question-container {
+  padding: 10px;
+}
+
+.question-block .question-container.hidden {
+  display: none;
+}

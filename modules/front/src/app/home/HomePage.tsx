@@ -1,7 +1,6 @@
 import * as React from "react";
 import WelcomeComponent from "./welcome/WelcomeComponent";
-import CourseComponent, {CourseType} from "../common/CourseComponent/CourseComponent";
-import {BoxType} from "../common/CourseComponent/CourseItemComponent/CourseItemComponent";
+import {BoxType} from "../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../common/loading/LoadingComponent";
 import {action, observable} from "mobx";
 import {collection, DataCollectionStore, getCubaREST} from "@cuba-platform/react";
@@ -11,6 +10,7 @@ import {RouteComponentProps} from "react-router";
 import {withRouter} from 'react-router-dom'
 import {restServices} from "../../cuba/services";
 import styles from './style.module.css'
+import MaterialContainerComponent, {MaterialType} from "../common/materialContainer/MaterialContainerComponent";
 
 
 @observer
@@ -33,11 +33,11 @@ class HomePage extends React.Component<RouteComponentProps> {
   };
 
   render() {
-    const BodyComponent = this.currentCourses ? React.createElement(CourseComponent, {
-      courses: this.currentCourses,
+    const BodyComponent = this.currentCourses ? React.createElement(MaterialContainerComponent, {
+      materialData: this.currentCourses,
       boxType: BoxType.DEFAULT,
-      courseType: CourseType.NO_BUTTON,
-      courseClickHandler: this.courseClickHandler
+      materialType: MaterialType.NO_BUTTON,
+      materialClickHandler: this.courseClickHandler
     }) : React.createElement(LoadingComponent);
 
     return (

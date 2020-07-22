@@ -70,6 +70,10 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
     }
   };
 
+  @action resetSectionItem = () => {
+    this.selectedCourseSection = null;
+  };
+
   render() {
     const CourseComponent = (course: CourseData | undefined, courseSection: CourseSection | null, selectedCourseSection: CourseSection | null) => () => {
       return <div className={"course-container"}>
@@ -79,7 +83,8 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
                                                                            followToCourse={this.followToCourse}
                                                                            setCourseSection={this.setCourseSection}/>
             </div>
-            <div className={"section-training-wrapper"}><TrainingComponent course={course} courseSection={courseSection}/>
+            <div className={"section-training-wrapper"}><TrainingComponent course={course} courseSection={courseSection}
+                                                                           resetSectionItem={this.resetSectionItem}/>
             </div>
           </> :
           <LoadingComponent/>}

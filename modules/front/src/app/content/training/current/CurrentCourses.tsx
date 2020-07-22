@@ -6,9 +6,9 @@ import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
 import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
-import CourseComponent, {CourseType} from "../../../common/CourseComponent/CourseComponent";
-import {BoxType} from "../../../common/CourseComponent/CourseItemComponent/CourseItemComponent";
+import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import {MatchParams, RouteComponentProps} from "../../../common/model/RouteComponentProps";
+import MaterialContainerComponent, {MaterialType} from "../../../common/materialContainer/MaterialContainerComponent";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 }
@@ -29,7 +29,7 @@ class CurrentCourses extends React.Component<Props> {
     this.currentCourses = currentCourses;
   };
 
-  courseClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+  materialClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     this.props.history.push("/course/" + e.currentTarget.dataset.id);
   };
 
@@ -39,8 +39,9 @@ class CurrentCourses extends React.Component<Props> {
         <div className={"course-items-container"}>
           <div className={"course-items"}>
             {currentCourses != undefined ?
-              <CourseComponent courses={currentCourses} courseType={CourseType.NO_BUTTON} boxType={BoxType.DEFAULT}
-                               courseClickHandler={this.courseClickHandler}/> :
+              <MaterialContainerComponent materialData={currentCourses} materialType={MaterialType.NO_BUTTON}
+                                          boxType={BoxType.DEFAULT}
+                                          materialClickHandler={this.materialClickHandler}/> :
               <LoadingComponent/>}
           </div>
         </div>)

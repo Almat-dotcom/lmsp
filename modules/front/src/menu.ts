@@ -4,12 +4,16 @@ import HistoryComponent from "./app/content/training/history/HistoryComponent";
 import VideosComponent from "./app/content/knowledge/video/VideosComponent";
 import BooksComponent from "./app/content/knowledge/books/BooksComponent";
 import ArticlesComponent from "./app/content/knowledge/articles/ArticlesComponent";
+import TestsComponent from "./app/content/course/tests/TestsComponent";
+import LinkMenuComponent from "./app/content/course/links/LinkMenuComponent";
+import {links} from "./links";
 
 export interface IMenuItem {
   id: string,
   caption: string,
-  path: string,
+  path?: string,
   disabled?: boolean,
+  link?: string,
   items?: Array<IMenuItem>,
   component?: any
 }
@@ -35,8 +39,18 @@ topMenu.push({
     }, {
       id: 'tests',
       caption: 'tests',
-      disabled: true,
-      path: '/training/tests'
+      path: '/training/tests',
+      component: TestsComponent
+    }, {
+      id: 'wikium',
+      caption: 'wikium',
+      link: links.wikium,
+      component: LinkMenuComponent
+    }, {
+      id: 'tests',
+      caption: 'smartreading',
+      link: links.smartReading,
+      component: LinkMenuComponent
     }]
 });
 

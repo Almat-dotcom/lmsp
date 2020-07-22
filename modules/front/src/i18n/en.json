@@ -82,6 +82,8 @@
   "menu.myTraining.current": "Current courses",
   "menu.myTraining.history": "History",
   "menu.myTraining.tests": "Tests",
+  "menu.myTraining.wikium": "Wikium",
+  "menu.myTraining.smartreading": "SmartReading",
   "menu.calendar": "Calendar",
   "menu.calendar.open": "Open",
   "menu.knowledgeBase": "Knowledge base",
@@ -107,5 +109,9 @@
   "endDate": "End date",
   "modal.error.title": "Error",
   "video.error.load": "Error load video",
-  "book.error.load": "Error open book"
+  "book.error.load": "Error open book",
+  "test.button.submit": "Finish",
+  "test.modal.title": "Are you sure?",
+  "tests.modal.title": "Are you sure?",
+  "test.result": "You passed {score} of {maxScore} ({percentage}%)"
 }

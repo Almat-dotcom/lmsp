@@ -5,14 +5,14 @@ import {action, observable} from "mobx";
 import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
 import {getCubaREST} from "@cuba-platform/react";
 import Content from "../../Content";
-import CourseComponent, {CourseType} from "../../../common/CourseComponent/CourseComponent";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import {withRouter} from 'react-router-dom'
 import {RouteComponentProps} from "react-router";
-import {BoxType} from "../../../common/CourseComponent/CourseItemComponent/CourseItemComponent";
+import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import {Condition, EntityFilter} from "@cuba-platform/rest";
 import {restServices} from "../../../../cuba/services";
+import MaterialContainerComponent, {MaterialType} from "../../../common/materialContainer/MaterialContainerComponent";
 
 @observer
 class Courses extends React.Component<WrappedComponentProps & RouteComponentProps> {
@@ -68,11 +68,11 @@ class Courses extends React.Component<WrappedComponentProps & RouteComponentProp
 
   render() {
     const CoursesBodyComponent = (currentCourses: Course[]) => () => {
-      const BodyComponent = currentCourses ? React.createElement(CourseComponent, {
-        courses: currentCourses,
+      const BodyComponent = currentCourses ? React.createElement(MaterialContainerComponent, {
+        materialData: currentCourses,
         boxType: BoxType.DEFAULT,
-        courseType: CourseType.NO_BUTTON,
-        courseClickHandler: this.courseClickHandler
+        materialType: MaterialType.NO_BUTTON,
+        materialClickHandler: this.courseClickHandler
       }) : React.createElement(LoadingComponent);
       return <>
         <div className={"courses-container"}>

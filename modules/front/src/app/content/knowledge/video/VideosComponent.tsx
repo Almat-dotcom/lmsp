@@ -4,8 +4,7 @@ import React from "react";
 import {action, observable} from "mobx";
 import {restServices} from "../../../../cuba/services";
 import {getCubaREST} from "@cuba-platform/react";
-import CourseComponent, {ComponentItemModel, CourseType} from "../../../common/CourseComponent/CourseComponent";
-import {BoxType} from "../../../common/CourseComponent/CourseItemComponent/CourseItemComponent";
+import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import Content from "../../Content";
 import {LearningObject} from "../../../../cuba/entities/tsadv/tsadv$LearningObject";
@@ -14,6 +13,10 @@ import {Modal} from "antd";
 import {SerializedEntity} from "@cuba-platform/rest";
 import styles from './style.module.css'
 import {ContentType} from "../../../../cuba/enums/enums";
+import MaterialContainerComponent, {
+  MaterialModel,
+  MaterialType
+} from "../../../common/materialContainer/MaterialContainerComponent";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 
@@ -22,7 +25,7 @@ export interface Props extends RouteComponentProps<MatchParams> {
 @observer
 class VideosComponent extends React.Component<Props & WrappedComponentProps> {
 
-  @observable videos: ComponentItemModel[];
+  @observable videos: MaterialModel[];
 
   @observable videoUrl: string | null = null;
 
@@ -31,11 +34,11 @@ class VideosComponent extends React.Component<Props & WrappedComponentProps> {
   componentDidMount(): void {
     restServices.tsadv_LmsService.loadLearningObject(getCubaREST()!, {contentType: ContentType.VIDEO})().then((response: string) => {
       const courses: LearningObject[] = JSON.parse(response);
-      this.setHistoryCourses(courses.map(el => ({...el, name: el.objectName} as ComponentItemModel)));
+      this.setHistoryCourses(courses.map(el => ({...el, name: el.objectName} as MaterialModel)));
     })
   }
 
-  @action setHistoryCourses = (value: ComponentItemModel[]) => {
+  @action setHistoryCourses = (value: MaterialModel[]) => {
     this.videos = value;
   };
 
@@ -47,7 +50,7 @@ class VideosComponent extends React.Component<Props & WrappedComponentProps> {
     this.isVisibleModal = value;
   };
 
-  courseClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+  materialClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     this.setIsVisibleModal(true);
     getCubaREST()!.loadEntity(LearningObject.NAME, e.currentTarget.dataset.id, {view: "learningObject.browse"}).then((r: SerializedEntity<LearningObject>) => {
       const videoFileId: string = r.file.id;
@@ -65,10 +68,11 @@ class VideosComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   render() {
-    const VideoBody = (videos: ComponentItemModel[], videoUrl: string | null, isVisibleModal: boolean) => () => {
+    const VideoBody = (videos: MaterialModel[], videoUrl: string | null, isVisibleModal: boolean) => () => {
       return <div>{videos ?
-        <><CourseComponent courseType={CourseType.NO_BUTTON} boxType={BoxType.DEFAULT} courses={videos}
-                           courseClickHandler={this.courseClickHandler}/>
+        <><MaterialContainerComponent materialType={MaterialType.NO_BUTTON} boxType={BoxType.DEFAULT}
+                                      materialData={videos}
+                                      materialClickHandler={this.materialClickHandler}/>
           <Modal width={"90%"} footer={null} visible={isVisibleModal} closable={true} onCancel={() => {
             this.setVideoUrl(null);
             this.setIsVisibleModal(false);
