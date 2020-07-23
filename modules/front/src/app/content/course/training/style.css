@@ -33,9 +33,13 @@
 }
 
 #google-map-container,
-.section-container-body{
+.section-container-body {
   min-height: 800px;
   width: 100%;
+}
+
+.section-container-body iframe {
+  height: 800px;
 }
 
 .title-container span {

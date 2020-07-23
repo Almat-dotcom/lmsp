@@ -60,7 +60,8 @@ class QuestionComponent extends React.Component<TestComponentProps & TestCompone
         <div className={styles["question-options"]}>
           <Radio.Group onChange={this.answerChangeHandler}>
             {this.props.question.answers.map(el => {
-              return <Radio value={el.id} style={{display: "block"}}>{el.text}</Radio>
+              return <Radio value={el.id}
+                            style={{display: "block", wordWrap: "break-word", whiteSpace: "normal"}}>{el.text}</Radio>
             })}
           </Radio.Group>
         </div>
