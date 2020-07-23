@@ -24,15 +24,11 @@ class MenuItem extends React.Component<MenuItemProps & WrappedComponentProps> {
               const attr = {
                 disabled
               };
-              return el.path ? (<NavLink {...attr} to={el.path}>
+              return <NavLink {...attr} to={el.path!}>
                 <li key={el.id}>{this.props.intl.formatMessage({
                   id: "menu." + this.props.menuItem.caption + "." + el.caption
                 })}</li>
-              </NavLink>) : React.createElement(el.component, {
-                key: el.id, captionMessage: this.props.intl.formatMessage({
-                  id: "menu." + this.props.menuItem.caption + "." + el.caption
-                }), ...el
-              });
+              </NavLink>
             })}
           </ul> : <></>}
         </li>
