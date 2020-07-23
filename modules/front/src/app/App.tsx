@@ -101,7 +101,9 @@ function collectNavigation(menuItem: IMenuItem[], allNavigations: IMenuItem[]): 
     if (el.items) {
       collectNavigation(el.items, allNavigations);
     }
-    allNavigations.push(el);
+    if (el.path) {
+      allNavigations.push(el);
+    }
   })
 }
 

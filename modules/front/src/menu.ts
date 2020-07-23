@@ -41,6 +41,16 @@ topMenu.push({
       caption: 'tests',
       path: '/training/tests',
       component: TestsComponent
+    }, {
+      id: 'wikium',
+      caption: 'wikium',
+      link: links.wikium,
+      component: LinkMenuComponent
+    }, {
+      id: 'smartreading',
+      caption: 'smartreading',
+      link: links.smartReading,
+      component: LinkMenuComponent
     }]
 });
 
