@@ -3,7 +3,7 @@ import WelcomeComponent from "./welcome/WelcomeComponent";
 import {BoxType} from "../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../common/loading/LoadingComponent";
 import {action, observable} from "mobx";
-import {collection, DataCollectionStore, getCubaREST} from "@cuba-platform/react";
+import {getCubaREST} from "@cuba-platform/react";
 import {Course} from "../../cuba/entities/tsadv/tsadv$Course";
 import {observer} from "mobx-react";
 import {RouteComponentProps} from "react-router";

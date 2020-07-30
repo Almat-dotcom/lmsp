@@ -93,6 +93,7 @@
   "menu.knowledgeBase.videos": "Video",
   "menu.myPage": "My page",
   "menu.myPage.notifications": "Notifications",
+  "menu.myPage.certificates": "Certificates",
   "menu.myPage.password": "Password",
   "menu.myPage.progress": "My progress",
   "knowledge.courses.modal.title": "Enroll in a course?",
@@ -113,5 +114,15 @@
   "test.button.submit": "Finish",
   "test.modal.title": "Are you sure?",
   "tests.modal.title": "Are you sure?",
-  "test.result": "You passed {score} of {maxScore} ({percentage}%)"
+  "test.result": "You passed {score} of {maxScore} ({percentage}%)",
+  "myProgress": "My progress",
+  "myProgress.table.column.lineNum": "№",
+  "myProgress.table.column.date": "Date of passage test",
+  "myProgress.table.column.courseName": "Name of course",
+  "myProgress.table.column.fio": "Teacher's name",
+  "myProgress.table.column.result": "Test result",
+  "myProgress.table.column.result.of": "of",
+  "myProgress.table.column.countFailed": "Count of failed tries",
+  "myProgress.table.column.certificateUrl": "Certificate",
+  "myProgress.table.column.certificateUrl.view": "View"
 }

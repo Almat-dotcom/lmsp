@@ -7,6 +7,7 @@ import ArticlesComponent from "./app/content/knowledge/articles/ArticlesComponen
 import TestsComponent from "./app/content/course/tests/TestsComponent";
 import LinkMenuComponent from "./app/content/course/links/LinkMenuComponent";
 import {links} from "./links";
+import MyProgressDsComponent from "./app/content/mypage/progress/MyProgressDsComponent";
 
 export interface IMenuItem {
   id: string,
@@ -118,7 +119,7 @@ topMenu.push({
     {
       id: 'progress',
       caption: 'progress',
-      disabled: true,
-      path: '/me/progress'
+      path: '/me/progress',
+      component: MyProgressDsComponent
     }]
 });

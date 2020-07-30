@@ -99,6 +99,37 @@ export var restServices = {
         {...params},
         fetchOpts
       );
+    },
+    loadPersonProgress: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadPersonProgress",
+        fetchOpts
+      );
+    },
+    loadReportByCode: (cubaApp: CubaApp, params: { reportCode: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadReportByCode",
+        {...params},
+        fetchOpts
+      );
+    },
+    getCertificate: (cubaApp: CubaApp, params: { enrollmentId: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "getCertificate",
+        {...params},
+        fetchOpts
+      );
+    },
+    removeCertificate: (cubaApp: CubaApp, params: { certificateFileId: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "removeCertificate",
+        {...params},
+        fetchOpts
+      );
     }
   }
 };

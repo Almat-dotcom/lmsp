@@ -93,6 +93,7 @@
   "menu.knowledgeBase.videos": "Видео",
   "menu.myPage": "Моя страница",
   "menu.myPage.notifications": "Уведомления",
+  "menu.myPage.certificates": "Сертификаты",
   "menu.myPage.password": "Пароль",
   "menu.myPage.progress": "Мой прогресс",
   "knowledge.courses.modal.title": "Вы действительно хотите записаться на данный курс?",
@@ -113,5 +114,15 @@
   "test.button.submit": "Завершить",
   "test.modal.title": "Вы уверены, что хотите завершить тестирование?",
   "tests.modal.title": "Вы действительно хотите начать тестирование?",
-  "test.result": "Вы ответили на {score} из {maxScore} ({percentage}%)"
+  "test.result": "Вы ответили на {score} из {maxScore} ({percentage}%)",
+  "myProgress": "Мой прогресс",
+  "myProgress.table.column.lineNum": "№",
+  "myProgress.table.column.date": "Дата прохождения теста",
+  "myProgress.table.column.courseName": "Название курса",
+  "myProgress.table.column.fio": "ФИО тренера",
+  "myProgress.table.column.result": "Результат теста",
+  "myProgress.table.column.result.of": "из",
+  "myProgress.table.column.countFailed": "Количество неудачных попыток сдачи теста",
+  "myProgress.table.column.certificateUrl": "Сертификат",
+  "myProgress.table.column.certificateUrl.view": "Просмотр"
 }
