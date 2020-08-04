@@ -6,11 +6,14 @@ import {action, observable} from "mobx";
 import MinusSvgComponent from "./MinusSvgComponent";
 import PlusSvgComponent from "../PlusSvgComponent";
 import {RadioChangeEvent} from "antd/es/radio";
-import {AttemptQuestion} from "./TestComponent";
+import {AnsweredQuestion} from "./TestComponent";
+import AnswerComponent from "./answer/AnswerComponent";
+import {QuestionType} from "../../../../../../cuba/enums/enums";
 
 export type Question = {
   id: string,
   text: string,
+  type: QuestionType,
   answers: Answer[]
 }
 
@@ -21,11 +24,12 @@ export type Answer = {
 
 export interface TestComponentProps {
   question: Question,
+  testSectionId: string,
   hideButtonStyle?: CSSProperties
 }
 
 export interface TestComponentHandlers {
-  addRemoveAnswer: (a: AttemptQuestion) => void
+  addRemoveAnswer: (sectionId: string, a: AnsweredQuestion) => void
 }
 
 @observer
@@ -37,15 +41,13 @@ class QuestionComponent extends React.Component<TestComponentProps & TestCompone
     this.setIsHide(!this.isHide)
   };
 
-  answerChangeHandler = (e: RadioChangeEvent) => {
-    this.props.addRemoveAnswer({questionId: this.props.question.id, answerId: e.target.value} as AttemptQuestion);
-  };
-
   @action setIsHide = (value: boolean) => {
     this.isHide = value;
   };
 
   render() {
+    console.log();
+
     const questionContainerClass = styles["question-container"] + " " + (this.isHide ? styles["hidden"] : "");
     return <div className={styles["question-block"]}>
       <div style={this.props.hideButtonStyle} className={styles["hide-button-group"]} onClick={this.showHideOnClick}>
@@ -58,12 +60,9 @@ class QuestionComponent extends React.Component<TestComponentProps & TestCompone
       <div className={questionContainerClass}>
         <div className={styles["question-title"]}>{this.props.question.text}</div>
         <div className={styles["question-options"]}>
-          <Radio.Group onChange={this.answerChangeHandler}>
-            {this.props.question.answers.map(el => {
-              return <Radio value={el.id}
-                            style={{display: "block", wordWrap: "break-word", whiteSpace: "normal"}}>{el.text}</Radio>
-            })}
-          </Radio.Group>
+          <AnswerComponent answers={this.props.question.answers} type={this.props.question.type}
+                           addRemoveAnswer={this.props.addRemoveAnswer} questionId={this.props.question.id}
+                           testSectionId={this.props.testSectionId}/>
         </div>
       </div>
     </div>

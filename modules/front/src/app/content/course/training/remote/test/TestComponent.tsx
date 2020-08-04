@@ -2,13 +2,15 @@ import React, {CSSProperties} from "react";
 import LoadingComponent from "../../../../../common/loading/LoadingComponent";
 import {action, observable} from "mobx";
 import {observer} from "mobx-react";
-import QuestionComponent, {Question} from "./QuestionComponent";
+import {Question} from "./QuestionComponent";
 import {Button, Modal} from "antd";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from "react-intl";
 import {Statistic} from 'antd'
 import {restServices} from "../../../../../../cuba/services";
 import {getCubaREST} from "@cuba-platform/react";
 import {TestComponentHandlers} from "./TestDsComponent";
+import TestSectionComponent from "./section/TestSectionComponent";
+import styles from './test.module.css'
 
 export interface TestComponentProps {
   test: Test,
@@ -18,17 +20,28 @@ export interface TestComponentProps {
 export type Test = {
   attemptId: string,
   timer: number,
+  testSections: TestSection[]
+}
+
+export interface TestSection {
+  id: string,
+  name: string,
   questionsAndAnswers: Question[]
 }
 
 export interface AnsweredTest {
   attemptId: string
-  questionsAndAnswers?: AttemptQuestion[]
+  answeredTestSections: AnsweredTestSection[],
 }
 
-export interface AttemptQuestion {
+export interface AnsweredTestSection {
+  id: string,
+  questionsAndAnswers?: AnsweredQuestion[]
+}
+
+export interface AnsweredQuestion {
   questionId: string,
-  answerId: string
+  answer: string[]
 }
 
 export interface FinishTestResponse {
@@ -41,23 +54,38 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
 
   @observable performingFinishRequest = false;
 
-  answeredTest: AnsweredTest = {attemptId: this.props.test.attemptId, questionsAndAnswers: []};
+  testContainerRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+
+  answeredTest: AnsweredTest = {attemptId: this.props.test.attemptId, answeredTestSections: []};
 
   @action setPerformingFinishRequest = (value: boolean) => {
     this.performingFinishRequest = value;
   };
 
-  addRemoveAnswer = (a: AttemptQuestion) => {
-    for (let i = this.answeredTest.questionsAndAnswers!.length - 1; i > -1; i--) {
-      if (this.answeredTest.questionsAndAnswers![i].questionId === a.questionId) {
-        this.answeredTest.questionsAndAnswers!.splice(i, 1);
+  addRemoveAnswer = (sectionId: string, a: AnsweredQuestion) => {
+    const {answeredTest} = this;
+
+    const foundedTestSection: AnsweredTestSection[] = answeredTest.answeredTestSections.filter((testSectionAnswered: AnsweredTestSection) => testSectionAnswered.id === sectionId);
+    const answeredTestSection: AnsweredTestSection = foundedTestSection.length === 0 ? {
+      id: sectionId,
+      questionsAndAnswers: []
+    } : foundedTestSection[0];
+
+    for (let i = answeredTestSection.questionsAndAnswers!.length - 1; i > -1; i--) {
+      if (answeredTestSection.questionsAndAnswers![i].questionId === a.questionId) {
+        answeredTestSection.questionsAndAnswers!.splice(i, 1);
       }
     }
-    this.answeredTest.questionsAndAnswers!.push(a);
+    answeredTestSection.questionsAndAnswers!.push(a);
+    if (foundedTestSection.length === 0) {
+      answeredTest.answeredTestSections.push(answeredTestSection);
+    }
+    console.log(answeredTest);
   };
 
   submitTest = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {okFinishTestHandler} = this.props;
+
     Modal.confirm({
       title: this.props.intl.formatMessage({id: "test.modal.title"}),
       okText: this.props.intl.formatMessage({id: "knowledge.courses.modal.ok"}),
@@ -89,14 +117,16 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
   render() {
     const {test} = this.props;
     const {Countdown} = Statistic;
+    const timer = Date.now() + 1000 * 60 * this.props.test.timer;
 
-    return test == null ? <LoadingComponent/> : <>
-      <Countdown value={Date.now() + 1000 * 60 * this.props.test.timer} onFinish={this.props.finishTimeHandler}/>
-      {test.questionsAndAnswers.map(el => {
-        return <><QuestionComponent hideButtonStyle={this.props.hideButtonStyle}
-                                    addRemoveAnswer={this.addRemoveAnswer}
-                                    question={el}/></>
-      })}
+    return test == null ? <LoadingComponent/> : <div ref={this.testContainerRef} className={"test-container"}>
+      <div className={styles["time-block"]}>
+        <span className={styles["time-title"]}>{this.props.intl.formatMessage({id: 'test.time'})}: </span>
+        <Countdown value={timer} onFinish={this.props.finishTimeHandler}/>
+      </div>
+      {test.testSections.map(testSection => <><TestSectionComponent hideButtonStyle={this.props.hideButtonStyle}
+                                                                    addRemoveAnswer={this.addRemoveAnswer}
+                                                                    testSection={testSection}/></>)}
       <Button
         type="primary"
         htmlType="submit"
@@ -106,7 +136,7 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
       >
         <FormattedMessage id="test.button.submit"/>
       </Button>
-    </>
+    </div>
   }
 }
 

@@ -112,6 +112,7 @@
   "video.error.load": "Не удалось загрузить видео",
   "book.error.load": "Не удалось открыть книгу",
   "test.button.submit": "Завершить",
+  "test.time": "Оставшееся время",
   "test.modal.title": "Вы уверены, что хотите завершить тестирование?",
   "tests.modal.title": "Вы действительно хотите начать тестирование?",
   "test.result": "Вы ответили на {score} из {maxScore} ({percentage}%)",
