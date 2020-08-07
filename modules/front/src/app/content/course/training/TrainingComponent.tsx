@@ -1,7 +1,7 @@
 import React from "react";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import './style.css'
-import TrainingDescriptionComponent from "./TrainingDescriptionComponent";
+import TrainingDescriptionComponent from "./description/TrainingDescriptionComponent";
 import {CourseData} from "../CourseComponent";
 import {CourseSection} from "../../../../cuba/entities/tsadv/tsadv$CourseSection";
 import {observer} from "mobx-react";

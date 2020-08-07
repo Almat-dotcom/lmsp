@@ -3,7 +3,7 @@ import LoadingComponent from "../../../../../common/loading/LoadingComponent";
 import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import {Question} from "./QuestionComponent";
-import {Button, Modal} from "antd";
+import {Button, Icon, Modal} from "antd";
 import {FormattedMessage, injectIntl, WrappedComponentProps} from "react-intl";
 import {Statistic} from 'antd'
 import {restServices} from "../../../../../../cuba/services";
@@ -31,12 +31,7 @@ export interface TestSection {
 
 export interface AnsweredTest {
   attemptId: string
-  answeredTestSections: AnsweredTestSection[],
-}
-
-export interface AnsweredTestSection {
-  id: string,
-  questionsAndAnswers?: AnsweredQuestion[]
+  questionsAndAnswers: AnsweredQuestion[],
 }
 
 export interface AnsweredQuestion {
@@ -54,33 +49,26 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
 
   @observable performingFinishRequest = false;
 
+  visibleResultModal = false;
+
+  resultMessage: string = "";
+
   testContainerRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
-  answeredTest: AnsweredTest = {attemptId: this.props.test.attemptId, answeredTestSections: []};
+  answeredTest: AnsweredTest = {attemptId: this.props.test.attemptId, questionsAndAnswers: []};
 
   @action setPerformingFinishRequest = (value: boolean) => {
     this.performingFinishRequest = value;
   };
 
-  addRemoveAnswer = (sectionId: string, a: AnsweredQuestion) => {
-    const {answeredTest} = this;
 
-    const foundedTestSection: AnsweredTestSection[] = answeredTest.answeredTestSections.filter((testSectionAnswered: AnsweredTestSection) => testSectionAnswered.id === sectionId);
-    const answeredTestSection: AnsweredTestSection = foundedTestSection.length === 0 ? {
-      id: sectionId,
-      questionsAndAnswers: []
-    } : foundedTestSection[0];
-
-    for (let i = answeredTestSection.questionsAndAnswers!.length - 1; i > -1; i--) {
-      if (answeredTestSection.questionsAndAnswers![i].questionId === a.questionId) {
-        answeredTestSection.questionsAndAnswers!.splice(i, 1);
+  addRemoveAnswer = (a: AnsweredQuestion) => {
+    for (let i = this.answeredTest.questionsAndAnswers!.length - 1; i > -1; i--) {
+      if (this.answeredTest.questionsAndAnswers![i].questionId === a.questionId) {
+        this.answeredTest.questionsAndAnswers!.splice(i, 1);
       }
     }
-    answeredTestSection.questionsAndAnswers!.push(a);
-    if (foundedTestSection.length === 0) {
-      answeredTest.answeredTestSections.push(answeredTestSection);
-    }
-    console.log(answeredTest);
+    this.answeredTest.questionsAndAnswers!.push(a);
   };
 
   submitTest = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -96,19 +84,25 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
           const result: FinishTestResponse = JSON.parse(response);
 
           const percentage: number = (result.score * 100) / result.maxScore;
-          Modal.info({
-            title: this.props.intl.formatMessage({id: "test.result"}, {
-              score: result.score,
-              maxScore: result.maxScore,
-              percentage: percentage,
-            }),
-            okText: this.props.intl.formatMessage({id: "knowledge.courses.modal.ok"}),
-            onOk: () => {
-              if (okFinishTestHandler) {
-                okFinishTestHandler();
-              }
-            }
+          this.resultMessage = this.props.intl.formatMessage({id: "test.result"}, {
+            score: result.score,
+            maxScore: result.maxScore,
+            percentage: percentage,
           });
+          this.visibleResultModal = true;
+          // Modal.info({
+          //     title: this.props.intl.formatMessage({id: "test.result"}, {
+          //       score: result.score,
+          //       maxScore: result.maxScore,
+          //       percentage: percentage,
+          //     }),
+          //     okText: this.props.intl.formatMessage({id: "knowledge.courses.modal.ok"}),
+          //     onOk: () => {
+          //       if (okFinishTestHandler) {
+          //         okFinishTestHandler();
+          //       }
+          //     }
+          //   });
         }).finally(() => this.setPerformingFinishRequest(false))
       }
     });
@@ -119,7 +113,7 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
     const {Countdown} = Statistic;
     const timer = Date.now() + 1000 * 60 * this.props.test.timer;
 
-    return test == null ? <LoadingComponent/> : <div ref={this.testContainerRef} className={"test-container"}>
+    return test == null ? <LoadingComponent/> : <div ref={this.testContainerRef} className={styles["test-container"]}>
       <div className={styles["time-block"]}>
         <span className={styles["time-title"]}>{this.props.intl.formatMessage({id: 'test.time'})}: </span>
         <Countdown value={timer} onFinish={this.props.finishTimeHandler}/>
@@ -136,6 +130,25 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
       >
         <FormattedMessage id="test.button.submit"/>
       </Button>
+      <Modal
+        visible={this.visibleResultModal}
+        closable={false}
+        width={400}
+        footer={[
+          <div style={{width: '30%', margin: '0 auto'}}><Button
+            block
+            type={"primary"}
+            onClick={() => {
+              if (this.props.okFinishTestHandler) {
+                this.props.okFinishTestHandler();
+              }
+              this.visibleResultModal = false
+            }}>{this.props.intl.formatMessage({id: "cubaReact.dataTable.ok"})}</Button></div>]}>
+        <div className="ant-modal-confirm-body">
+          <Icon type={"info-circle"} theme={"twoTone"}/>
+          <span className="ant-modal-confirm-title">{this.resultMessage}</span>
+        </div>
+      </Modal>
     </div>
   }
 }

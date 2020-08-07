@@ -1,0 +1,14 @@
+.section-training-list {
+  list-style-type: decimal;
+  margin: 0;
+}
+
+.section-training-list li.list {
+  font-weight: bold;
+  padding: 5px;
+  margin: 5px;
+}
+
+.section-training-list li.list .format {
+  font-weight: normal;
+}

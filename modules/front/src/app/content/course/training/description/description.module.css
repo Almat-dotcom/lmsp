@@ -1,0 +1,30 @@
+.section-training-container .section-training-description-menu ul {
+  border-bottom: 1px solid #ccc;
+  list-style-type: none;
+}
+
+.section-training-container .section-training-description-menu ul li {
+  cursor: pointer;
+  font-size: large;
+  text-transform: uppercase;
+  line-height: 50px;
+  width: auto;
+  text-align: center;
+  display: inline-block;
+  padding: 0 20px 10px;
+  font-weight: bold;
+}
+
+.section-training-container .section-training-description-menu ul li:not(:last-child) {
+  /*border-right: 1px solid #ccc;*/
+}
+
+.section-training-container .section-training-description-menu ul li.active,
+.section-training-container .section-training-description-menu ul li:hover {
+  color: #0782ff;
+  /*background-color: rgb(230, 232, 235);*/
+}
+
+.section-training-container .section-training-description-menu ul li:active {
+  color: #ffc61a;
+}

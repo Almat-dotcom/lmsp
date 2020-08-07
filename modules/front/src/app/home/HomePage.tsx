@@ -42,7 +42,7 @@ class HomePage extends React.Component<RouteComponentProps> {
 
     return (
       <div className={""}>
-        <WelcomeComponent/>
+        {/*<WelcomeComponent/>*/}
         <div className={styles["content-wrapper"]}>{BodyComponent}</div>
       </div>
     );

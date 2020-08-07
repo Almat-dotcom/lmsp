@@ -29,7 +29,7 @@ export interface TestComponentProps {
 }
 
 export interface TestComponentHandlers {
-  addRemoveAnswer: (sectionId: string, a: AnsweredQuestion) => void
+  addRemoveAnswer: (a: AnsweredQuestion) => void
 }
 
 @observer

@@ -51,8 +51,11 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
 
     return (
       <Layout className="main-layout">
-        <Layout.Header>
+        <Layout.Header className={"app-header-fixed"}>
           <AppHeader/>
+        </Layout.Header>
+        <Layout.Header>
+          {/*<AppHeader/>*/}
         </Layout.Header>
         <Layout>
           {/*<Layout.Sider*/}

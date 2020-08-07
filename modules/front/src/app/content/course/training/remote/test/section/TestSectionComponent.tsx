@@ -9,7 +9,7 @@ export interface TestSectionProps {
 }
 
 export interface TestSectionHandlers {
-  addRemoveAnswer: (sectionId: string, a: AnsweredQuestion) => void
+  addRemoveAnswer: (a: AnsweredQuestion) => void
 }
 
 class TestSectionComponent extends React.Component<TestSectionProps & TestSectionHandlers> {

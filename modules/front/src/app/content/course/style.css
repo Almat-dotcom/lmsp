@@ -1,7 +1,3 @@
-.course-container {
-
-}
-
 .course-container .sections-list-wrapper {
   display: inline-block;
   width: 20%;
@@ -19,7 +15,7 @@
   display: inline-block;
   width: calc(80% - 5px);
   vertical-align: top;
-  background-color: #f0f2f5;
-  padding: 30px;
+  /*background-color: #f0f2f5;*/
+  /*padding: 0 30px;*/
   border-radius: 10px;
 }

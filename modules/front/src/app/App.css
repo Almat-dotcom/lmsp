@@ -2,7 +2,13 @@
   height: 100%;
 }
 
-.main-layout > section.ant-layout{
+.app-header-fixed {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+
+.main-layout > section.ant-layout {
   display: inline-block;
 }
 

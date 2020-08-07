@@ -92,7 +92,7 @@ class MyProgressComponent extends React.Component<MyProgressComponentProps & Wra
         anchor.target = '_blank';
         anchor.click();
 
-        restServices.tsadv_LmsService.removeCertificate(getCubaREST()!, {certificateFileId: certificateId})().then(response => {
+        restServices.tsadv_LmsService.removeCertificate(getCubaREST()!, {certificateFileId: fileId})().then(response => {
         }).finally(() => this.setLoadState({loading: false, message: ""}));
       }).finally(() => this.setLoadState({loading: false, message: ""}));
     }).finally(() => this.setLoadState({loading: false, message: ""}));

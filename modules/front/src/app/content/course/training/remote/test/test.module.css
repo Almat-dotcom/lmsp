@@ -1,3 +1,8 @@
+.test-container {
+  padding: 30px;
+  background-color: #f0f2f5;
+}
+
 .time-block span.time-title {
   display: inline-block;
   font-size: 20px;

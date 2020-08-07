@@ -14,20 +14,20 @@ export interface AnswerComponentProps {
 }
 
 export interface AnswerComponentHandlers {
-  addRemoveAnswer: (sectionId: string, a: AnsweredQuestion) => void
+  addRemoveAnswer: (a: AnsweredQuestion) => void
 }
 
 class AnswerComponent extends React.Component<AnswerComponentProps & AnswerComponentHandlers> {
 
   answerChangeHandler = (e: RadioChangeEvent | React.FocusEvent<HTMLInputElement>) => {
-    this.props.addRemoveAnswer(this.props.testSectionId, {
+    this.props.addRemoveAnswer({
       questionId: this.props.questionId,
       answer: [e.target.value]
     } as AnsweredQuestion);
   };
 
   answerCheckboxChangeHandler = (checkedValues: CheckboxValueType[]) => {
-    this.props.addRemoveAnswer(this.props.testSectionId, {
+    this.props.addRemoveAnswer({
       questionId: this.props.questionId,
       answer: checkedValues
     } as AnsweredQuestion);
