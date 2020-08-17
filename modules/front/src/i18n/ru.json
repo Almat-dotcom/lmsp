@@ -125,5 +125,19 @@
   "myProgress.table.column.result.of": "из",
   "myProgress.table.column.countFailed": "Количество неудачных попыток сдачи теста",
   "myProgress.table.column.certificateUrl": "Сертификат",
-  "myProgress.table.column.certificateUrl.view": "Просмотр"
+  "myProgress.table.column.certificateUrl.view": "Просмотр",
+  "years": "years",
+  "year": "year",
+  "months": "months",
+  "month": "month",
+  "days": "days",
+  "day": "day",
+  "hours": "hours",
+  "hour": "hour",
+  "minutes": "minutes",
+  "minute": "minute",
+  "seconds": "seconds",
+  "second": "second",
+  "duration": "Длительность",
+  "course": "Курс"
 }

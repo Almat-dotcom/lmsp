@@ -125,5 +125,19 @@
   "myProgress.table.column.result.of": "of",
   "myProgress.table.column.countFailed": "Count of failed tries",
   "myProgress.table.column.certificateUrl": "Certificate",
-  "myProgress.table.column.certificateUrl.view": "View"
+  "myProgress.table.column.certificateUrl.view": "View",
+  "years": "years",
+  "year": "year",
+  "months": "months",
+  "month": "month",
+  "days": "days",
+  "day": "day",
+  "hours": "hours",
+  "hour": "hour",
+  "minutes": "minutes",
+  "minute": "minute",
+  "seconds": "seconds",
+  "second": "second",
+  "duration": "Duration",
+  "course": "Course"
 }

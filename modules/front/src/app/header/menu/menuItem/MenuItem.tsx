@@ -14,9 +14,15 @@ class MenuItem extends React.Component<MenuItemProps & WrappedComponentProps> {
   render() {
     return <nav>
       <ul className={"menu-item"} key={this.props.menuItem.id}>
-        <li><a>{this.props.intl.formatMessage({
-          id: "menu." + this.props.menuItem.caption
-        })}</a>
+        <li>
+          {this.props.menuItem.path ? <NavLink to={this.props.menuItem.path} key={this.props.menuItem.id}>
+              {this.props.intl.formatMessage({
+                id: "menu." + this.props.menuItem.caption
+              })}
+            </NavLink> :
+            <a>{this.props.intl.formatMessage({
+              id: "menu." + this.props.menuItem.caption
+            })}</a>}
           {this.props.menuItem.items ? <ul>
             {this.props.menuItem.items.map(el => {
               const disabled: boolean = el.disabled === true;

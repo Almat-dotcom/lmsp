@@ -130,6 +130,14 @@ export var restServices = {
         {...params},
         fetchOpts
       );
+    },
+    personMonthEvents: (cubaApp: CubaApp, params: { date: Date }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "personMonthEvents",
+        {...params},
+        fetchOpts
+      );
     }
   }
 };

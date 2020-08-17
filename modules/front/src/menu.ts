@@ -8,6 +8,7 @@ import TestsComponent from "./app/content/course/tests/TestsComponent";
 import LinkMenuComponent from "./app/content/course/links/LinkMenuComponent";
 import {links} from "./links";
 import MyProgressDsComponent from "./app/content/mypage/progress/MyProgressDsComponent";
+import CalendarDsComponent from "./app/content/calendar/CalendarDsComponent";
 
 export interface IMenuItem {
   id: string,
@@ -59,14 +60,7 @@ topMenu.push({
   id: 'calendar',
   caption: 'calendar',
   path: '/calendar',
-  items: [
-    {
-      id: 'open',
-      caption: 'open',
-      disabled: true,
-      path: '/calendar/open'
-    }
-  ]
+  component: CalendarDsComponent
 });
 
 topMenu.push({
