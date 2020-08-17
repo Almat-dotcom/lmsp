@@ -11,6 +11,9 @@
 .menu-item a {
   color: #000;
   font-weight: bold;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .menu-item a[disabled] {
