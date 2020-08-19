@@ -1,12 +1,19 @@
 .events {
+  height: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.events .ant-badge-status {
+.events li {
   overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-  text-overflow: ellipsis;
+  height: 50%;
+  display: block;
+}
+
+.events .ant-badge-status span.ant-badge-status-text {
+  word-break: break-all;
+  /*white-space: nowrap;*/
+  /*width: 100%;*/
+  /*text-overflow: ;*/
 }

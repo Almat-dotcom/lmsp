@@ -24,6 +24,8 @@
 .section-container-body {
   min-height: 800px;
   width: 100%;
+  border-radius: 20px;
+  padding: 20px;
 }
 
 .section-container-body iframe {

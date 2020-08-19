@@ -1,6 +1,7 @@
 import React from "react";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import {action, observable} from "mobx";
+import moment from "moment";
 
 interface TrainingHtmlComponentProps {
   session: Array<any>
@@ -40,9 +41,9 @@ class WebinarComponent extends React.Component<TrainingHtmlComponentProps & Wrap
     this.setCoordinates(webinarSession.learningCenter.latitude, webinarSession.learningCenter.longitude);
     return <div className={"section-container-body"}>
       <div className={"title-container"}>
-        <span>{this.props.intl.formatMessage({id: 'address'}) + ': ' + ''}</span>
-        <span>{this.props.intl.formatMessage({id: 'startDate'}) + ': ' + webinarSession.startDate}</span>
-        <span>{this.props.intl.formatMessage({id: 'endDate'}) + ': ' + webinarSession.endDate}</span>
+        <span>{this.props.intl.formatMessage({id: 'address'}) + ': ' + (webinarSession.learningCenter.address ? webinarSession.learningCenter.address : '')}</span>
+        <span>{this.props.intl.formatMessage({id: 'startDate'}) + ': ' + (webinarSession.startDate ? moment(webinarSession.startDate).format('DD.MM.YYYY') : '')}</span>
+        <span>{this.props.intl.formatMessage({id: 'endDate'}) + ': ' + (webinarSession.endDate ? moment(webinarSession.endDate).format('DD.MM.YYYY') : '')}</span>
         <div id={"google-map-container"}/>
       </div>
     </div>

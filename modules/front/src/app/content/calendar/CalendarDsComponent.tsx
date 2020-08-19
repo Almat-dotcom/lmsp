@@ -36,7 +36,7 @@ class CalendarDsComponent extends React.Component<WrappedComponentProps> {
 
   @observable loadState: LoadState = {
     loading: false,
-    message: ""
+    message: "Пожалуйста подождите, загружаются события"
   };
 
   componentDidMount(): void {
@@ -44,7 +44,7 @@ class CalendarDsComponent extends React.Component<WrappedComponentProps> {
   }
 
   loadMonthEvents = () => {
-    // this.setLoadState({loading: true});
+    this.setLoadState({loading: true});
     restServices.tsadv_LmsService.personMonthEvents(getCubaREST()!, {date: this.selectedDate})()
       .then((response: string) => {
         const temp: Map<Date, CalendarEvent[]> = JSON.parse(response) as Map<Date, CalendarEvent[]>;
@@ -57,7 +57,7 @@ class CalendarDsComponent extends React.Component<WrappedComponentProps> {
           this.setMonthCalendarModel(monthCalendarModel)
         }
       }).finally(() => {
-      // this.setLoadState({loading: false});
+      this.setLoadState({loading: false});
     });
   };
 
@@ -66,7 +66,7 @@ class CalendarDsComponent extends React.Component<WrappedComponentProps> {
   };
 
   @action setLoadState = (value: LoadState) => {
-    this.loadState = value;
+    this.loadState = {...this.loadState, ...value};
   };
 
   @action setSelectedDate = (value: Date) => {
@@ -75,18 +75,18 @@ class CalendarDsComponent extends React.Component<WrappedComponentProps> {
   };
 
   render() {
-    const Calendar = (monthCalendarModel: Map<number, CalendarEvent[]> | null, selectedDate: Date) => () => {
+    const Calendar = (monthCalendarModel: Map<number, CalendarEvent[]> | null, selectedDate: Date, loadState: LoadState) => () => {
       return <div>
-        <Spin spinning={this.loadState.loading} tip={this.loadState.message}>
+        <Spin spinning={loadState.loading} tip={loadState.message}>
           <CalendarComponent monthCalendarDays={monthCalendarModel} setCalendarMonth={this.setSelectedDate}
                              selectedDate={selectedDate}/>
         </Spin>
       </div>
     };
 
-    const ContentComponent = Content(Calendar(this.monthCalendarModel, this.selectedDate));
+    const ContentComponent = Content(Calendar(this.monthCalendarModel, this.selectedDate, this.loadState));
     return <ContentComponent headerName={this.props.intl.formatMessage({id: "menu.calendar"})}
-                             contentWrapperCss={{padding: '50px'}}/>;
+                                   contentWrapperCss={{padding: '50px'}}/>;
   }
 }
 

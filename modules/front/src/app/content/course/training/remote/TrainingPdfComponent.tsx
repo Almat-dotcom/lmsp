@@ -5,6 +5,7 @@ import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import LoadingComponent from "../../../../common/loading/LoadingComponent";
 import styles from './style.module.css'
+import {Spin} from "antd";
 
 interface TrainingVideoComponentProps {
   sectionId: string,
@@ -34,11 +35,11 @@ class TrainingPdfComponent extends React.Component<TrainingVideoComponentProps> 
   };
 
   render() {
-    return <div className={"section-container-body"}>
-      {this.fileBlobUrl ?
-        <a href={this.fileBlobUrl!} target={"_blank"} onClick={this.onClickLinkHandler}>Просмотреть книгу</a>
-        : <LoadingComponent loadText={"Пожалуйста подождите, загружается PDF файл"}/>}
-    </div>;
+    return <Spin spinning={this.fileBlobUrl == null} tip={"Пожалуйста подождите, загружается файл"}>
+      <div className={"section-container-body"}>
+        <a href={this.fileBlobUrl!} target={"_blank"} onClick={this.onClickLinkHandler}>Открыть файл</a>
+      </div>
+    </Spin>
   }
 }
 

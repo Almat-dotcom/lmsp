@@ -39,6 +39,24 @@ durationCasesEn.set("hours", {Multiple: "hours", Nominative: "hour"});
 durationCasesEn.set("minutes", {Multiple: "minutes", Nominative: "minute"});
 durationCasesEn.set("seconds", {Multiple: "seconds", Nominative: "second"});
 
+const getEvents = (events: CalendarEvent[]) => {
+  const twoEvents: CalendarEvent[] = [];
+  for (let i = 0; i < (events.length < 2 ? events.length : 2); i++) {
+    twoEvents.push(events[i]);
+  }
+
+  const badgeColor: string = '#' + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
+  console.log(badgeColor);
+  return <ul className={"events"}>
+    {twoEvents.map(course => (
+      <li key={course.name} title={course.name}>
+        <Badge color={badgeColor} text={course.name}/>
+      </li>
+    ))}
+  </ul>
+};
+
+
 @injectMainStore
 class CalendarComponent extends React.Component<CalendarComponentProps & CalendarComponentHandlers & MainStoreInjected & WrappedComponentProps> {
   dateCellRender = (value: moment.Moment) => {
@@ -48,13 +66,7 @@ class CalendarComponent extends React.Component<CalendarComponentProps & Calenda
 
       const events: CalendarEvent[] | undefined = this.props.monthCalendarDays.get(calendarDayDate.getTime());
       if (events) {
-        return <ul className={"events"}>
-          {events.map(course => (
-            <li key={course.name} title={course.name}>
-              <Badge status={"success"} text={course.name}/>
-            </li>
-          ))}
-        </ul>
+        return getEvents(events);
       }
     }
     return <></>
