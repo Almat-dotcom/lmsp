@@ -9,6 +9,7 @@ import LinkMenuComponent from "./app/content/course/links/LinkMenuComponent";
 import {links} from "./links";
 import MyProgressDsComponent from "./app/content/mypage/progress/MyProgressDsComponent";
 import CalendarDsComponent from "./app/content/calendar/CalendarDsComponent";
+import NotificationsDsComponent from "./app/content/mypage/notifications/NotificationsDsComponent";
 
 export interface IMenuItem {
   id: string,
@@ -101,8 +102,8 @@ topMenu.push({
     {
       id: 'notifications',
       caption: 'notifications',
-      disabled: true,
-      path: '/me/notifications'
+      path: '/me/notifications',
+      component: NotificationsDsComponent
     },
     {
       id: 'password',

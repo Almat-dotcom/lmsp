@@ -1,0 +1,22 @@
+.content {
+  border: 0;
+  width: 100%;
+  height: 25px;
+}
+
+.notification-table tr {
+  cursor: pointer;
+}
+
+.notification-table tr.unread td:first-child {
+  border-left: 3px solid #334181;
+}
+
+.modal-section:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.modal-section-name {
+  font-weight: bold;
+  margin-right: 5px;
+}

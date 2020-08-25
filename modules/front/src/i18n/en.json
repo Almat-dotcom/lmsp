@@ -139,5 +139,11 @@
   "seconds": "seconds",
   "second": "second",
   "duration": "Duration",
-  "course": "Course"
+  "course": "Course",
+  "notifications": "Notifications",
+  "notifications.table.column.caption": "Caption",
+  "notifications.table.column.notification": "Notification",
+  "notifications.table.column.date": "Date",
+  "close": "Close",
+  "theme": "Caption"
 }

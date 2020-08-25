@@ -139,5 +139,11 @@
   "seconds": "seconds",
   "second": "second",
   "duration": "Длительность",
-  "course": "Курс"
+  "course": "Курс",
+  "notifications": "Уведомления",
+  "notifications.table.column.caption": "Тема",
+  "notifications.table.column.notification": "Уведомление",
+  "notifications.table.column.date": "Дата",
+  "close": "Закрыть",
+  "theme": "Тема"
 }

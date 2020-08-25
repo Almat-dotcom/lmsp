@@ -138,6 +138,21 @@ export var restServices = {
         {...params},
         fetchOpts
       );
+    },
+    getPersonNotifications: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "getPersonNotifications",
+        fetchOpts
+      );
+    },
+    getNotification: (cubaApp: CubaApp, params: { notificationId: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "getNotification",
+        {...params},
+        fetchOpts
+      );
     }
   }
 };
