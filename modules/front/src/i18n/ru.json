@@ -145,5 +145,10 @@
   "notifications.table.column.notification": "Уведомление",
   "notifications.table.column.date": "Дата",
   "close": "Закрыть",
-  "theme": "Тема"
+  "theme": "Тема",
+  "password.field.old.notFilled": "Текущий пароль не заполнен",
+  "password.field.new.notFilled": "Новый пароль не заполнен",
+  "password.field.retry.notFilled": "Повторный пароль не заполнен",
+  "password.changed": "Пароль успешно изменен!",
+  "password.differentPasswords": "Новый и повторный пароль отличаются"
 }

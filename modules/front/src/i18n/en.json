@@ -145,5 +145,10 @@
   "notifications.table.column.notification": "Notification",
   "notifications.table.column.date": "Date",
   "close": "Close",
-  "theme": "Caption"
+  "theme": "Caption",
+  "password.field.old.notFilled": "Current password not filled",
+  "password.field.new.notFilled": "Old password not filled",
+  "password.field.retry.notFilled": "Retry password not filled",
+  "password.changed": "Password successfully changed",
+  "password.differentPasswords": "Passwords are differences"
 }

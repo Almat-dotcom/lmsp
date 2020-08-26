@@ -11,6 +11,11 @@ interface CourseRegisteredParams {
   courseId: string
 }
 
+export interface Response {
+  status: string,
+  message: string,
+}
+
 export var restServices = {
   tsadv_LmsService: {
     getPersonCourses: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
@@ -150,6 +155,14 @@ export var restServices = {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
         "getNotification",
+        {...params},
+        fetchOpts
+      );
+    },
+    changePassword: (cubaApp: CubaApp, params: { oldPassword: string, newPassword: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "changePassword",
         {...params},
         fetchOpts
       );

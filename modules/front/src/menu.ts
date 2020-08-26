@@ -10,6 +10,7 @@ import {links} from "./links";
 import MyProgressDsComponent from "./app/content/mypage/progress/MyProgressDsComponent";
 import CalendarDsComponent from "./app/content/calendar/CalendarDsComponent";
 import NotificationsDsComponent from "./app/content/mypage/notifications/NotificationsDsComponent";
+import PasswordComponent from "./app/content/mypage/password/PasswordDsComponent";
 
 export interface IMenuItem {
   id: string,
@@ -108,8 +109,8 @@ topMenu.push({
     {
       id: 'password',
       caption: 'password',
-      disabled: true,
-      path: '/me/password'
+      path: '/me/password',
+      component: PasswordComponent
     },
     {
       id: 'progress',

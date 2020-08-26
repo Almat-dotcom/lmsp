@@ -1,0 +1,9 @@
+.password-container .title {
+  font-weight: bold;
+  margin: 10px;
+  line-height: 2em;
+}
+
+.password-container input {
+  width: auto;
+}
