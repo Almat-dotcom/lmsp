@@ -60,17 +60,17 @@ class PasswordComponent extends React.Component<WrappedComponentProps & FormComp
               required: true,
               message: this.props.intl.formatMessage({id: "password.field.old.notFilled"})
             }]
-          })(<Input/>)}
+          })(<Input type={"password"}/>)}
         </FormItem>
         <FormItem required={true} label={"Новый пароль:"} className={styles["title"]}>
           {getFieldDecorator('new', {
             rules: [{required: true, message: this.props.intl.formatMessage({id: "password.field.new.notFilled"})}]
-          })(<Input/>)}
+          })(<Input type={"password"}/>)}
         </FormItem>
         <FormItem required={true} label={"Повторите ещё раз:"} className={styles["title"]}>
           {getFieldDecorator('retry', {
             rules: [{required: true, message: this.props.intl.formatMessage({id: "password.field.retry.notFilled"})}]
-          })(<Input/>)}
+          })(<Input type={"password"}/>)}
         </FormItem>
         <FormItem>
           <Button className={styles["title"]} type="primary" htmlType={"submit"}>
