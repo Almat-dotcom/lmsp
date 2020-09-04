@@ -90,19 +90,6 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
             percentage: percentage,
           });
           this.visibleResultModal = true;
-          // Modal.info({
-          //     title: this.props.intl.formatMessage({id: "test.result"}, {
-          //       score: result.score,
-          //       maxScore: result.maxScore,
-          //       percentage: percentage,
-          //     }),
-          //     okText: this.props.intl.formatMessage({id: "knowledge.courses.modal.ok"}),
-          //     onOk: () => {
-          //       if (okFinishTestHandler) {
-          //         okFinishTestHandler();
-          //       }
-          //     }
-          //   });
         }).finally(() => this.setPerformingFinishRequest(false))
       }
     });
@@ -113,7 +100,7 @@ class TestComponent extends React.Component<TestComponentProps & TestComponentHa
     const {Countdown} = Statistic;
     const timer = Date.now() + 1000 * 60 * this.props.test.timer;
 
-    return test == null ? <LoadingComponent/> : <div ref={this.testContainerRef} className={styles["test-container"]}>
+    return <div ref={this.testContainerRef} className={styles["test-container"]}>
       <div className={styles["time-block"]}>
         <span className={styles["time-title"]}>{this.props.intl.formatMessage({id: 'test.time'})}: </span>
         <Countdown value={timer} onFinish={this.props.finishTimeHandler}/>

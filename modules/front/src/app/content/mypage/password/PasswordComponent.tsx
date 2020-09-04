@@ -53,24 +53,24 @@ class PasswordComponent extends React.Component<WrappedComponentProps & FormComp
   render() {
     const {getFieldDecorator} = this.props.form;
     return <div className={styles["password-container"]}>
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit} autoComplete={"off"}>
         <FormItem required={true} label={"Текущий пароль:"} className={styles["title"]}>
           {getFieldDecorator('old', {
             rules: [{
               required: true,
               message: this.props.intl.formatMessage({id: "password.field.old.notFilled"})
             }]
-          })(<Input type={"password"}/>)}
+          })(<Input type={"password"} autoComplete={"none"}/>)}
         </FormItem>
         <FormItem required={true} label={"Новый пароль:"} className={styles["title"]}>
           {getFieldDecorator('new', {
             rules: [{required: true, message: this.props.intl.formatMessage({id: "password.field.new.notFilled"})}]
-          })(<Input type={"password"}/>)}
+          })(<Input type={"password"} autoComplete={"none"}/>)}
         </FormItem>
         <FormItem required={true} label={"Повторите ещё раз:"} className={styles["title"]}>
           {getFieldDecorator('retry', {
             rules: [{required: true, message: this.props.intl.formatMessage({id: "password.field.retry.notFilled"})}]
-          })(<Input type={"password"}/>)}
+          })(<Input type={"password"} autoComplete={"none"}/>)}
         </FormItem>
         <FormItem>
           <Button className={styles["title"]} type="primary" htmlType={"submit"}>

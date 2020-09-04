@@ -56,8 +56,8 @@ class MyProgressComponent extends React.Component<MyProgressComponentProps & Wra
     dataIndex: 'certificateUrl',
     key: 'certificateUrl',
     render: (url: string) => {
-      return <a data-certificate-id={url}
-                onClick={this.certificateClick}>{this.props.intl.formatMessage({id: 'myProgress.table.column.certificateUrl.view'})}</a>
+      return url ? <a data-certificate-id={url}
+                      onClick={this.certificateClick}>{this.props.intl.formatMessage({id: 'myProgress.table.column.certificateUrl.view'})}</a> : <></>
     }
   }];
 

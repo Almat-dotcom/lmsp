@@ -7,9 +7,8 @@ import {AnsweredQuestion} from "../TestComponent";
 import CheckboxGroup, {CheckboxValueType} from "antd/es/checkbox/Group";
 
 export interface AnswerComponentProps {
-  answers: Answer[],
+  answers?: Answer[],
   type: QuestionType,
-  testSectionId: string,
   questionId: string
 }
 
@@ -36,7 +35,7 @@ class AnswerComponent extends React.Component<AnswerComponentProps & AnswerCompo
     switch (type) {
       case QuestionType.ONE: {
         return <Radio.Group onChange={this.answerChangeHandler}>
-          {this.props.answers.map(el => {
+          {this.props.answers!.map(el => {
             return <Radio value={el.id}
                           style={{display: "block", wordWrap: "break-word", whiteSpace: "normal"}}>{el.text}</Radio>
           })}
@@ -44,7 +43,7 @@ class AnswerComponent extends React.Component<AnswerComponentProps & AnswerCompo
       }
       case QuestionType.MANY: {
         return <CheckboxGroup onChange={this.answerCheckboxChangeHandler}>
-          {this.props.answers.map(el => {
+          {this.props.answers!.map(el => {
             return <Checkbox value={el.id}
                              style={{
                                display: "block",

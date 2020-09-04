@@ -37,11 +37,10 @@ class WebinarComponent extends React.Component<TrainingHtmlComponentProps & Wrap
   render() {
     const {session} = this.props;
     const webinarSession = session[0];
-    console.log(session);
     this.setCoordinates(webinarSession.learningCenter.latitude, webinarSession.learningCenter.longitude);
     return <div className={"section-container-body"}>
       <div className={"title-container"}>
-        <span>{this.props.intl.formatMessage({id: 'address'}) + ': ' + (webinarSession.learningCenter.address ? webinarSession.learningCenter.address : '')}</span>
+        <span>{this.props.intl.formatMessage({id: 'address'}) + ': ' + webinarSession.learningCenter.langValue1 + (webinarSession.learningCenter.address ? ', ' + webinarSession.learningCenter.address : '')}</span>
         <span>{this.props.intl.formatMessage({id: 'startDate'}) + ': ' + (webinarSession.startDate ? moment(webinarSession.startDate).format('DD.MM.YYYY') : '')}</span>
         <span>{this.props.intl.formatMessage({id: 'endDate'}) + ': ' + (webinarSession.endDate ? moment(webinarSession.endDate).format('DD.MM.YYYY') : '')}</span>
         <div id={"google-map-container"}/>

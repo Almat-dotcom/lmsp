@@ -35,9 +35,6 @@ class TrainingVideoComponent extends React.Component<TrainingVideoComponentProps
   };
 
   render() {
-    if (this.videoUrl === undefined) {
-      return <LoadingComponent/>
-    }
     if (this.videoUrl === null) {
       return <h2 className={styles["error"]}>Не удалось загрузить видео!</h2>
     }

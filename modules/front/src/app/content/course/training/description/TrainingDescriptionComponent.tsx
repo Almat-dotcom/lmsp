@@ -21,9 +21,6 @@ class TrainingDescriptionComponent extends React.Component<TrainingComponentProp
     id: 'description',
     name: this.props.intl.formatMessage({id: "description"})
   }, {
-    id: 'sections',
-    name: this.props.intl.formatMessage({id: "sections"})
-  }, {
     id: 'author',
     name: this.props.intl.formatMessage({id: "course.author"})
   }];

@@ -150,5 +150,9 @@
   "password.field.new.notFilled": "Old password not filled",
   "password.field.retry.notFilled": "Retry password not filled",
   "password.changed": "Password successfully changed",
-  "password.differentPasswords": "Passwords are differences"
+  "password.differentPasswords": "Passwords are differences",
+  "fullName": "Full name",
+  "professionalData": "Professional data",
+  "additionalData": "Additional information",
+  "feedback.modal.title": "Thanks for feedback"
 }

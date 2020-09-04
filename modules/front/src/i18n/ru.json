@@ -150,5 +150,9 @@
   "password.field.new.notFilled": "Новый пароль не заполнен",
   "password.field.retry.notFilled": "Повторный пароль не заполнен",
   "password.changed": "Пароль успешно изменен!",
-  "password.differentPasswords": "Новый и повторный пароль отличаются"
+  "password.differentPasswords": "Новый и повторный пароль отличаются",
+  "fullName": "ФИО",
+  "professionalData": "Профессиональные данные",
+  "additionalData": "Дополнительная информация",
+  "feedback.modal.title": "Благодарим за отзыв!"
 }

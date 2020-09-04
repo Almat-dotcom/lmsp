@@ -34,11 +34,21 @@
 }
 
 .material-item .material-item-title {
-  height: 42px;
   margin-bottom: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.material-item.material-item-btn-no-button .material-item-title {
+  height: 70px;
+  -webkit-line-clamp: 3;
+}
+
+.material-item.material-item-btn-default .material-item-title {
+  height: 42px;
+  -webkit-line-clamp: 2;
 }
 
 .material-item .material-item-title span {

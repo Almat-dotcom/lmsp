@@ -1,0 +1,8 @@
+.section-training-author:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.section-training-author .title {
+  font-weight: bold;
+  margin-right: 5px;
+}

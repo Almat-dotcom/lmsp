@@ -3,34 +3,37 @@ import defaultImgSrc from "../../../common/materialContainer/material/default-lo
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import './style.css'
 import {action, observable} from "mobx";
-import {CourseData, CourseSectionItem} from "../CourseComponent";
+import {CourseData, CourseFeedback, CourseSectionItem, MenuType, SelectedMenu} from "../CourseComponent";
 import {Modal} from "antd";
-import {CourseSection} from "../../../../cuba/entities/tsadv/tsadv$CourseSection";
 
 interface SectionListComponentProps {
   course: CourseData,
-  selectedCourseSection: CourseSection | null
+  selectedMenu: SelectedMenu | null
 }
 
 interface SectionListComponentHandlers {
   followToCourse: () => void,
-  setCourseSection: (courseSectionId: string | null) => void
+  setSelectedMenu: (selectedMenu: SelectedMenu | null) => void
 }
 
 class SectionListComponent extends React.Component<SectionListComponentProps & WrappedComponentProps & SectionListComponentHandlers> {
 
   @observable selectedSectionElement: HTMLLIElement | null = null;
 
-  @action setSelectedSectionElement(value: HTMLLIElement) {
-    if (this.props.selectedCourseSection && (this.props.selectedCourseSection.id === value.dataset.id)) {
-      this.props.setCourseSection(null);
+  @action setSelectedSectionElement(value: HTMLLIElement, menuType: MenuType) {
+    if (this.props.selectedMenu && (this.props.selectedMenu.id === value.dataset.id)) {
+      this.props.setSelectedMenu(null);
     } else {
-      this.props.setCourseSection(value.dataset.id as string);
+      const selectedMenu: SelectedMenu = {
+        id: value.dataset.id as string,
+        menuType: menuType
+      };
+      this.props.setSelectedMenu(selectedMenu);
     }
   }
 
   sectionClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
-    this.setSelectedSectionElement(e.currentTarget);
+    this.setSelectedSectionElement(e.currentTarget, MenuType.SECTION);
   };
 
   followClickHandler = () => {
@@ -44,8 +47,12 @@ class SectionListComponent extends React.Component<SectionListComponentProps & W
     });
   };
 
+  feedbackClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
+    this.setSelectedSectionElement(e.currentTarget, MenuType.FEEDBACK);
+  };
+
   render() {
-    const {course, selectedCourseSection} = this.props;
+    const {course, selectedMenu} = this.props;
 
     let imgSrc: string;
     if (course.logo) {
@@ -56,20 +63,42 @@ class SectionListComponent extends React.Component<SectionListComponentProps & W
 
     return <div className={"sections-container"}>
       <img src={imgSrc}/>
-      <ul className={"sections-list"}>
-        {course.enrollmentId != null ?
-          course.sections!.map((section: CourseSectionItem) => (
-            <li
-              className={"list" + (section.isPassed ? " passed" : "") + (selectedCourseSection ? selectedCourseSection.id === section.id ? " section-active" : "" : "")}
-              onMouseUp={this.sectionClickHandler}
-              data-id={section.id}>
-              <div className={"title"}>{section.sectionName}</div>
-              <div className={"format"}>{section.langValue1}</div>
-            </li>)) :
-          <li className={"button-list"}>
-            <button onClick={this.followClickHandler}>{this.props.intl.formatMessage({id: "follow"})}</button>
-          </li>}
-      </ul>
+      <div className="section-container">
+        <div className={"section-title"}>
+          Разделы
+        </div>
+        <ul className={"sections-list"}>
+          {course.enrollmentId != null ?
+            course.sections!.map((section: CourseSectionItem) => (
+              <li
+                key={section.id}
+                className={"list" + (section.isPassed ? " passed" : "") + (selectedMenu ? selectedMenu.id === section.id ? " section-active" : "" : "")}
+                onMouseUp={this.sectionClickHandler}
+                data-id={section.id}>
+                <div className={"title"}>{section.sectionName}</div>
+                <div className={"format"}>{section.langValue1}</div>
+              </li>)) :
+            <li className={"button-list"}>
+              <button onClick={this.followClickHandler}>{this.props.intl.formatMessage({id: "follow"})}</button>
+            </li>}
+        </ul>
+      </div>
+      {course.enrollmentId != null && course.courseFeedbacks && course.courseFeedbacks.length > 0 ?
+        <div className="section-container">
+          <div className={"section-title"}>
+            Анкеты обратной связи
+          </div>
+          <ul className={"sections-list"}>
+            {course.courseFeedbacks.map((courseFeedback: CourseFeedback) => (
+              <li
+                key={courseFeedback.id}
+                className={"list" + (selectedMenu ? selectedMenu.id === courseFeedback.id ? " section-active" : "" : "")}
+                onMouseUp={this.feedbackClickHandler}
+                data-id={courseFeedback.id}>
+                <div className={"title"}>{courseFeedback.name}</div>
+              </li>))}
+          </ul>
+        </div> : <></>}
     </div>
 
   }

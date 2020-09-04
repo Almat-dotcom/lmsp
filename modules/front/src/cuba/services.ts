@@ -1,6 +1,7 @@
 import {CubaApp, EntityFilter, FetchOptions} from "@cuba-platform/rest";
 import {ContentType} from "./enums/enums";
 import {AnsweredTest} from "../app/content/course/training/remote/test/TestComponent";
+import {AnsweredFeedback} from "../app/content/course/training/feedback/FeedbackQuestionAnswerComponent";
 
 export interface Course {
   id: string,
@@ -163,6 +164,30 @@ export var restServices = {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
         "changePassword",
+        {...params},
+        fetchOpts
+      );
+    },
+    getCourseTrainers: (cubaApp: CubaApp, params: { courseId: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "getCourseTrainers",
+        {...params},
+        fetchOpts
+      );
+    },
+    loadFeedbackData: (cubaApp: CubaApp, params: { feedbackTemplateId: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadFeedbackData",
+        {...params},
+        fetchOpts
+      );
+    },
+    finishFeedback: (cubaApp: CubaApp, params: { answeredFeedback: AnsweredFeedback }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "finishFeedback",
         {...params},
         fetchOpts
       );

@@ -11,6 +11,8 @@ import TrainingComponent from "./training/TrainingComponent";
 import SectionListComponent from "./list/SectionListComponent";
 import {restServices} from "../../../cuba/services";
 import {CourseSection} from "../../../cuba/entities/tsadv/tsadv$CourseSection";
+import {Spin} from "antd";
+import FeedbackComponent, {FeedbackCourse} from "./training/feedback/FeedbackComponent";
 
 interface Props extends RouteComponentProps<MatchParams> {
 }
@@ -22,6 +24,7 @@ export interface CourseData {
   description: string,
   logo?: string,
   sections?: CourseSectionItem[]
+  courseFeedbacks?: CourseFeedback[]
 }
 
 export interface CourseSectionItem {
@@ -32,12 +35,33 @@ export interface CourseSectionItem {
   langValue1: string
 }
 
+export interface CourseFeedback {
+  id: string,
+  name: string
+}
+
+export enum MenuType {
+  SECTION = "SECTION",
+  FEEDBACK = "FEEDBACK"
+}
+
+export interface SelectedMenu {
+  id: string,
+  menuType: MenuType
+}
+
 @observer
 class CourseComponent extends React.Component<Props & WrappedComponentProps> {
 
   @observable course: CourseData | undefined = undefined;
 
-  @observable selectedCourseSection: CourseSection | null = null;
+  @observable selectedMenu: SelectedMenu | null = null;
+
+  @observable courseSection: CourseSection | null = null;
+
+  @observable loadingTrainingBody: boolean = false;
+
+  @observable courseFeedback: FeedbackCourse[] | null = null;
 
   componentDidMount(): void {
     this.refreshCourseCard();
@@ -45,6 +69,20 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
 
   @action setCourse = (value: CourseData) => {
     this.course = value;
+  };
+
+  @action setSelectedMenu = (value: SelectedMenu | null) => {
+    this.selectedMenu = value;
+    this.setCourseSection(this.selectedMenu);
+  };
+
+  @action setLoadingTrainingBody = (value: boolean) => {
+    this.loadingTrainingBody = value;
+  };
+
+
+  @action setCourseFeedback = (value: FeedbackCourse[] | null) => {
+    this.courseFeedback = value;
   };
 
   @action refreshCourseCard = () => {
@@ -60,39 +98,68 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
     });
   };
 
-  @action setCourseSection = (courseSectionId: string | null) => {
-    if (courseSectionId) {
-      getCubaREST()!.loadEntity<CourseSection>(CourseSection.NAME, courseSectionId, {view: 'course.section.with.format.session'}).then((response: CourseSection) => {
-        this.selectedCourseSection = response;
-      });
+  @action resetSectionItem = () => {
+    this.setSelectedMenu(null);
+  };
+
+  @action setCourseSection = (selectedMenu: SelectedMenu | null) => {
+    if (selectedMenu) {
+      this.setLoadingTrainingBody(true);
+      switch (selectedMenu.menuType) {
+        case MenuType.SECTION: {
+          getCubaREST()!.loadEntity<CourseSection>(CourseSection.NAME, selectedMenu.id, {view: 'course.section.with.format.session'}).then((response: CourseSection) => {
+            this.courseSection = response;
+          }).finally(() => this.setLoadingTrainingBody(false));
+          break;
+        }
+        case MenuType.FEEDBACK: {
+          restServices.tsadv_LmsService.loadFeedbackData(getCubaREST()!, {feedbackTemplateId: selectedMenu.id})()
+            .then((response: string) => {
+              this.setCourseFeedback(JSON.parse(response))
+              // this.courseSection = response;
+            }).finally(() => this.setLoadingTrainingBody(false));
+          break;
+        }
+      }
     } else {
-      this.selectedCourseSection = null;
+      this.courseSection = null;
     }
   };
 
-  @action resetSectionItem = () => {
-    this.selectedCourseSection = null;
-  };
-
   render() {
-    const CourseComponent = (course: CourseData | undefined, courseSection: CourseSection | null, selectedCourseSection: CourseSection | null) => () => {
+    const CourseComponent = (
+      course: CourseData | undefined,
+      selectedMenu: SelectedMenu | null,
+      courseSection: CourseSection | null,
+      loadingTrainingBody: boolean,
+      courseFeedback: FeedbackCourse[] | null) => () => {
       return <div className={"course-container"}>
         {course ? <>
             <div className={"sections-list-wrapper"}><SectionListComponent course={course}
-                                                                           selectedCourseSection={selectedCourseSection}
+                                                                           selectedMenu={selectedMenu}
                                                                            followToCourse={this.followToCourse}
-                                                                           setCourseSection={this.setCourseSection}/>
+                                                                           setSelectedMenu={this.setSelectedMenu}/>
             </div>
-            <div className={"section-training-wrapper"}><TrainingComponent course={course} courseSection={courseSection}
-                                                                           resetSectionItem={this.resetSectionItem}/>
+            <div className={"section-training-wrapper"}>
+              <Spin spinning={loadingTrainingBody}>
+                {selectedMenu != null && selectedMenu.menuType === MenuType.FEEDBACK
+                  ? <FeedbackComponent courseId={course.id} feedbacks={courseFeedback} templateId={selectedMenu.id}
+                                       okFinishFeedbackHandler={this.resetSectionItem}/>
+                  : <TrainingComponent
+                    course={course}
+                    courseSection={courseSection}
+                    resetSectionItem={this.resetSectionItem}/>}
+              </Spin>
             </div>
           </> :
           <LoadingComponent/>}
       </div>
     };
 
-    const ContentComponent = Content(CourseComponent(this.course, this.selectedCourseSection, this.selectedCourseSection));
-    return <ContentComponent headerName={"Курс: " + (this.course ? this.course.name! : "")} wrapperCss={{padding: 0}}
+    const ContentComponent = Content(CourseComponent(this.course, this.selectedMenu, this.courseSection,
+      this.loadingTrainingBody, this.courseFeedback));
+    return <ContentComponent headerName={"Курс: " + (this.course ? this.course.name! : "")}
+                             wrapperCss={{padding: 0}}
                              contentWrapperCss={{padding: '50px'}}/>;
   }
 }
