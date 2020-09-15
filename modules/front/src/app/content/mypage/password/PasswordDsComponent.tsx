@@ -6,12 +6,10 @@ import PasswordComponent from "./PasswordComponent";
 class PasswordDsComponent extends React.Component<WrappedComponentProps> {
 
   render() {
-    const PasswordContentComponent = () => () => {
-      return <PasswordComponent />;
-    };
-
-    const ContentComponent = Content(PasswordContentComponent());
-    return <ContentComponent headerName={this.props.intl.formatMessage({id: "menu.myPage.password"})}/>;
+    const ContentComponent = Content(<PasswordComponent/>, {
+      headerName: this.props.intl.formatMessage({id: "menu.myPage.password"}),
+    });
+    return <ContentComponent/>;
   }
 }
 

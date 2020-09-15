@@ -1,6 +1,10 @@
 import React, {CSSProperties} from "react";
 import ContentHeader from "./ContentHeader";
 import './content.css'
+import {observer} from "mobx-react";
+import {action, observable} from "mobx";
+import styles from "../common/hideSection/style.module.css";
+import PlusSvgComponent, {HideSectionComponentHocProps} from "../common/hideSection/HideSectionComponentHoc";
 
 export interface ContentProps {
   headerName: string,
@@ -8,17 +12,22 @@ export interface ContentProps {
   contentWrapperCss?: CSSProperties
 }
 
-export function Content<T extends ContentProps>(BodyComponent: React.ComponentType<T>) {
-  return (props: T) => {
-    return <div className={"wrapper"} style={props.wrapperCss}>
-      <div className={"content-wrapper"} style={props.contentWrapperCss}>
-        <div className={"content-container"}>
-          <ContentHeader headerName={props.headerName}/>
-          <BodyComponent {...props}/>
+export function ContentHoc(Child: JSX.Element, props: ContentProps): React.ComponentClass {
+
+  class InnerContentComponent extends React.Component<ContentProps, {}> {
+    render() {
+      return <div className={"wrapper"} style={props.wrapperCss}>
+        <div className={"content-wrapper"} style={props.contentWrapperCss}>
+          <div className={"content-container"}>
+            <ContentHeader headerName={props.headerName}/>
+            {Child}
+          </div>
         </div>
       </div>
-    </div>
+    }
   }
+
+  return InnerContentComponent;
 }
 
-export default Content;
+export default ContentHoc;

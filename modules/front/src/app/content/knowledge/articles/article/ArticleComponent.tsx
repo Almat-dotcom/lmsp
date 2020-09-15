@@ -52,17 +52,17 @@ class ArticleComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   render() {
-    const CourseComponent = (article: LearningObject | null) => () => {
-      return <div className={"course-container"}>
-        {article ? <>
-            <div dangerouslySetInnerHTML={{__html: article.text!}}/>
-          </> :
-          <LoadingComponent/>}
-      </div>
-    };
+    const CourseComponent = <div className={"course-container"}>
+      {this.article ? <>
+          <div dangerouslySetInnerHTML={{__html: this.article.text!}}/>
+        </> :
+        <LoadingComponent/>}
+    </div>;
 
-    const ContentComponent = Content(CourseComponent(this.article));
-    return <ContentComponent headerName={"Статья: " + (this.article ? this.article.objectName! : "")}/>;
+    const ContentComponent = Content(CourseComponent, {
+      headerName: "Статья: " + (this.article ? this.article.objectName! : ""),
+    });
+    return <ContentComponent/>;
   }
 }
 

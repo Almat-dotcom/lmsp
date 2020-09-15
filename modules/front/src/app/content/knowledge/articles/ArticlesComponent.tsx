@@ -40,17 +40,17 @@ class ArticlesComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   render() {
-    const ArticlesBody = (articles: MaterialModel[]) => () => {
-      return <div className={"container"}>{articles ?
-        <><MaterialContainerComponent materialType={MaterialType.NO_BUTTON} boxType={BoxType.DEFAULT}
-                                      materialData={articles}
-                                      materialClickHandler={this.courseClickHandler}/>
-        </> :
-        <LoadingComponent/>}</div>
-    };
+    const ArticlesBody = <div className={"container"}>{this.articles ?
+      <><MaterialContainerComponent boxType={BoxType.DEFAULT}
+                                    materialData={this.articles}
+                                    materialClickHandler={this.courseClickHandler}/>
+      </> :
+      <LoadingComponent/>}</div>;
 
-    const ContentComponent = Content(ArticlesBody(this.articles));
-    return <ContentComponent headerName={this.props.intl.formatMessage({id: "menu.knowledgeBase.articles"})}/>
+    const ContentComponent = Content(ArticlesBody, {
+      headerName: this.props.intl.formatMessage({id: "menu.knowledgeBase.articles"}),
+    });
+    return <ContentComponent/>
   }
 }
 

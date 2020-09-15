@@ -41,14 +41,9 @@
   -webkit-box-orient: vertical;
 }
 
-.material-item.material-item-btn-no-button .material-item-title {
+.material-item .material-item-title {
   height: 70px;
   -webkit-line-clamp: 3;
-}
-
-.material-item.material-item-btn-default .material-item-title {
-  height: 42px;
-  -webkit-line-clamp: 2;
 }
 
 .material-item .material-item-title span {
@@ -69,18 +64,18 @@
   border: 0;
 }
 
-.material-item {
+.material-item.clickable {
   cursor: pointer;
 }
 
-.material-item:hover {
+.material-item.clickable:hover {
   border: 2px solid #ffc61a;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
 
-.material-item:active:hover {
+.material-item.clickable:active:hover {
   border: 2px solid rgba(255, 198, 26, .3);
   -webkit-box-shadow: 0 2px 10px 0 rgba(255, 198, 26, 0.745);
   -moz-box-shadow: 0 2px 10px 0 rgba(255, 198, 26, 0.4);

@@ -75,18 +75,18 @@ class CalendarDsComponent extends React.Component<WrappedComponentProps> {
   };
 
   render() {
-    const Calendar = (monthCalendarModel: Map<number, CalendarEvent[]> | null, selectedDate: Date, loadState: LoadState) => () => {
-      return <div>
-        <Spin spinning={loadState.loading} tip={loadState.message}>
-          <CalendarComponent monthCalendarDays={monthCalendarModel} setCalendarMonth={this.setSelectedDate}
-                             selectedDate={selectedDate}/>
-        </Spin>
-      </div>
-    };
+    const Calendar = <div>
+      <Spin spinning={this.loadState.loading} tip={this.loadState.message}>
+        <CalendarComponent monthCalendarDays={this.monthCalendarModel} setCalendarMonth={this.setSelectedDate}
+                           selectedDate={this.selectedDate}/>
+      </Spin>
+    </div>;
 
-    const ContentComponent = Content(Calendar(this.monthCalendarModel, this.selectedDate, this.loadState));
-    return <ContentComponent headerName={this.props.intl.formatMessage({id: "menu.calendar"})}
-                                   contentWrapperCss={{padding: '50px'}}/>;
+    const ContentComponent = Content(Calendar, {
+      headerName: this.props.intl.formatMessage({id: "menu.calendar"}),
+      contentWrapperCss: {padding: '50px'}
+    });
+    return <ContentComponent />;
   }
 }
 

@@ -68,25 +68,25 @@ class VideosComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   render() {
-    const VideoBody = (videos: MaterialModel[], videoUrl: string | null, isVisibleModal: boolean) => () => {
-      return <div>{videos ?
-        <><MaterialContainerComponent materialType={MaterialType.NO_BUTTON} boxType={BoxType.DEFAULT}
-                                      materialData={videos}
-                                      materialClickHandler={this.materialClickHandler}/>
-          <Modal width={"90%"} footer={null} visible={isVisibleModal} closable={true} onCancel={() => {
-            this.setVideoUrl(null);
-            this.setIsVisibleModal(false);
-          }}>
-            {videoUrl ? <div className={styles["modal-container"]}>
-              <video controls={true} src={videoUrl}/>
-            </div> : <LoadingComponent loadText={"Пожалуйста подождите, идёт загрузка видео"}/>}
-          </Modal>
-        </> :
-        <LoadingComponent/>}</div>
-    };
+    const VideoBody = <div>{this.videos ?
+      <><MaterialContainerComponent boxType={BoxType.DEFAULT}
+                                    materialData={this.videos}
+                                    materialClickHandler={this.materialClickHandler}/>
+        <Modal width={"90%"} footer={null} visible={this.isVisibleModal} closable={true} onCancel={() => {
+          this.setVideoUrl(null);
+          this.setIsVisibleModal(false);
+        }}>
+          {this.videoUrl ? <div className={styles["modal-container"]}>
+            <video controls={true} src={this.videoUrl}/>
+          </div> : <LoadingComponent loadText={"Пожалуйста подождите, идёт загрузка видео"}/>}
+        </Modal>
+      </> :
+      <LoadingComponent/>}</div>;
 
-    const ContentComponent = Content(VideoBody(this.videos, this.videoUrl, this.isVisibleModal));
-    return <ContentComponent headerName={this.props.intl.formatMessage({id: "menu.knowledgeBase.videos"})}/>
+    const ContentComponent = Content(VideoBody, {
+      headerName: this.props.intl.formatMessage({id: "menu.knowledgeBase.videos"}),
+    });
+    return <ContentComponent/>
   }
 }
 

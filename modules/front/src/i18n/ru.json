@@ -154,5 +154,6 @@
   "fullName": "ФИО",
   "professionalData": "Профессиональные данные",
   "additionalData": "Дополнительная информация",
-  "feedback.modal.title": "Благодарим за отзыв!"
+  "feedback.modal.title": "Благодарим за отзыв!",
+  "download": "Скачать"
 }

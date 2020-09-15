@@ -47,15 +47,15 @@ class TestsComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   render() {
-    const TestsBody = (tests: MaterialModel[] | null) => () => {
-      return <div>{tests ?
-        <MaterialContainerComponent materialType={MaterialType.NO_BUTTON} boxType={BoxType.DEFAULT}
-                                    materialData={tests} materialClickHandler={this.materialClickHandler}/> :
-        <LoadingComponent/>}</div>
-    };
+    const TestsBody = <div>{this.tests ?
+      <MaterialContainerComponent boxType={BoxType.DEFAULT}
+                                  materialData={this.tests} materialClickHandler={this.materialClickHandler}/> :
+      <LoadingComponent/>}</div>;
 
-    const ContentComponent = Content(TestsBody(this.tests));
-    return <ContentComponent headerName={this.props.intl.formatMessage({id: 'menu.myTraining.tests'})}/>
+    const ContentComponent = Content(TestsBody, {
+      headerName: this.props.intl.formatMessage({id: "menu.myTraining.tests"}),
+    });
+    return <ContentComponent/>
   }
 }
 

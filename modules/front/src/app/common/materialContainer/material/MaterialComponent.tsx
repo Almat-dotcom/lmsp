@@ -9,11 +9,17 @@ export enum BoxType {
   NO_BOX = "NO-BOX",
 }
 
+export enum LogoType {
+  URL = "URL",
+  BASE64 = "BASE64"
+}
+
 export interface MaterialComponentProps {
   id: string,
   name: string,
-  logo: string | undefined,
-  materialType: MaterialType,
+  logo?: string,
+  logoType?: LogoType,
+  Footer?: JSX.Element,
   boxType: BoxType
 }
 
@@ -24,19 +30,21 @@ export interface MaterialHandlers {
 
 class MaterialComponent extends React.Component<MaterialComponentProps & MaterialHandlers> {
   render() {
-    const {id, name, logo} = this.props;
-    const imgSrc = logo ? "data:image/png;base64," + logo : defaultImgSrc;
-    const materialClassName = styles['material-item'] + " "
-      + styles["material-item-" + this.props.boxType.toLowerCase()] + " "
-      + styles["material-item-btn-" + this.props.materialType.toLowerCase()];
+    const {id, name, logo, logoType, Footer, materialClickHandler} = this.props;
+    const imgSrc =
+      logo && logoType
+        ? logoType === LogoType.BASE64
+        ? "data:image/png;base64," + logo
+        : logo
+        : defaultImgSrc;
+    const materialClassName = styles['material-item'] + " " + (materialClickHandler ? styles['clickable'] + " " : "")
+      + styles["material-item-" + this.props.boxType.toLowerCase()];
     return (
       <div className={materialClassName} onMouseUp={this.props.materialClickHandler} data-id={id}><img
         src={imgSrc}
         alt={name!}/>
         <div className={styles["material-item-title"]}>{name}</div>
-        {this.props.materialType === MaterialType.DEFAULT ? <div className={styles["registration-button-container"]}>
-          <Button ghost={false} type={'primary'} onClick={this.props.onButtonClickHandler}>Пройти</Button>
-        </div> : <></>}
+        {Footer ? <div className={styles["footer"]}>{Footer}</div> : <></>}
       </div>)
   }
 }

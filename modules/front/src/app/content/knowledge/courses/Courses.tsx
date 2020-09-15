@@ -67,22 +67,21 @@ class Courses extends React.Component<WrappedComponentProps & RouteComponentProp
   };
 
   render() {
-    const CoursesBodyComponent = (currentCourses: Course[]) => () => {
-      const BodyComponent = currentCourses ? React.createElement(MaterialContainerComponent, {
-        materialData: currentCourses,
-        boxType: BoxType.DEFAULT,
-        materialType: MaterialType.NO_BUTTON,
-        materialClickHandler: this.courseClickHandler
-      }) : React.createElement(LoadingComponent);
-      return <>
-        <div className={"courses-container"}>
-          <Search placeholder={"Введите название курса"} onSearch={this.onSearch}/>
-          {BodyComponent}
-        </div>
-      </>
-    };
-    const CoursesComponent = Content(CoursesBodyComponent(this.courses));
-    return <CoursesComponent headerName={"курсы"}/>;
+    const BodyComponent = this.courses ? React.createElement(MaterialContainerComponent, {
+      materialData: this.courses,
+      boxType: BoxType.DEFAULT,
+      materialClickHandler: this.courseClickHandler
+    }) : React.createElement(LoadingComponent);
+
+    const CoursesBodyComponent = <div className={"courses-container"}>
+        <Search placeholder={"Введите название курса"} onSearch={this.onSearch}/>
+        {BodyComponent}
+      </div>;
+
+    const CoursesComponent = Content(CoursesBodyComponent, {
+      headerName: "курсы",
+    });
+    return <CoursesComponent />;
   }
 }
 

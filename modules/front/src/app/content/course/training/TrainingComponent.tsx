@@ -17,9 +17,7 @@ export interface TrainingComponentHandlers {
   resetSectionItem?: () => void
 }
 
-@observer
 class TrainingComponent extends React.Component<TrainingComponentProps & TrainingComponentHandlers & WrappedComponentProps> {
-
   render() {
     const {course, courseSection} = this.props;
     const TrainingBodyComponent: React.ReactElement = (course.enrollmentId != null && courseSection)
@@ -32,7 +30,10 @@ class TrainingComponent extends React.Component<TrainingComponentProps & Trainin
 
 const getTrainingBody = (courseSection: CourseSection, enrollmentId: string | null, handlers: TrainingComponentHandlers): React.ClassType<any, any, any> => {
   const courseFormat: CourseSectionFormat = CourseSectionFormat[courseSection!.format.code!.toUpperCase()] as CourseSectionFormat;
-  return React.createElement(trainingBodyMap.get(courseFormat)!, {...courseSection, enrollmentId: enrollmentId, ...handlers})
+  return React.createElement(trainingBodyMap.get(courseFormat)!, {
+    ...courseSection,
+    enrollmentId: enrollmentId, ...handlers
+  })
 };
 
 export default injectIntl(TrainingComponent);

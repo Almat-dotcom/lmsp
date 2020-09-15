@@ -36,7 +36,6 @@ class HomePage extends React.Component<RouteComponentProps> {
     const BodyComponent = this.currentCourses ? React.createElement(MaterialContainerComponent, {
       materialData: this.currentCourses,
       boxType: BoxType.DEFAULT,
-      materialType: MaterialType.NO_BUTTON,
       materialClickHandler: this.courseClickHandler
     }) : React.createElement(LoadingComponent);
 

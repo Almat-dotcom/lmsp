@@ -6,6 +6,7 @@ import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import {Test} from "./TestComponent";
 import TestComponent from "./TestComponent";
+import {Spin} from "antd";
 
 export interface TestDsComponentProps {
   courseSectionObjectId: string,
@@ -39,7 +40,7 @@ class TestDsComponent extends React.Component<TestDsComponentProps & TestCompone
   render() {
     const {test} = this;
 
-    return test == null ? <LoadingComponent/> : <TestComponent test={this.test!} {...this.props}/>
+    return <Spin spinning={test === null}>{test != null ? <TestComponent test={this.test!} {...this.props}/> : <></>}</Spin>
   }
 }
 

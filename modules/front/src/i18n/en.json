@@ -154,5 +154,6 @@
   "fullName": "Full name",
   "professionalData": "Professional data",
   "additionalData": "Additional information",
-  "feedback.modal.title": "Thanks for feedback"
+  "feedback.modal.title": "Thanks for feedback",
+  "cownload": "Download"
 }

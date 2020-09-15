@@ -191,6 +191,22 @@ export var restServices = {
         {...params},
         fetchOpts
       );
+    },
+    loadCourseSectionData: (cubaApp: CubaApp, params: { enrollmentId: string, courseSectionId: string }, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadCourseSectionData",
+        {...params},
+        fetchOpts
+      );
+    },
+    loadBooks: (cubaApp: CubaApp, params: {}, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadBooks",
+        {...params},
+        fetchOpts
+      );
     }
   }
 };

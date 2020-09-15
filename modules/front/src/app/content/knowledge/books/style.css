@@ -1,0 +1,25 @@
+.select-book {
+  width: 100%;
+}
+
+.select-book .ant-select-selection {
+  border: 0;
+  border-bottom: 1px solid #d9d9d9;
+  border-radius: 0;
+}
+
+.select-book.ant-select-open .ant-select-selection, .select-book.ant-select-focused .ant-select-selection{
+  border: 0;
+  border-bottom: 1px solid #ffc61a;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.select-book-option.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: #ffc61a;
+}
+.select-book-option.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: #ffc61a;
+}

@@ -34,15 +34,16 @@ class HistoryComponent extends React.Component<Props> {
   };
 
   render() {
-    const HistoryBody = (historyCourses: Course[]) => () => {
-      return <div>{historyCourses ?
-        <MaterialContainerComponent materialType={MaterialType.NO_BUTTON} boxType={BoxType.DEFAULT}
-                                    materialData={historyCourses} materialClickHandler={this.materialClickHandler}/> :
-        <LoadingComponent/>}</div>
-    };
+    const HistoryBody = <div>{this.historyCourses ?
+      <MaterialContainerComponent boxType={BoxType.DEFAULT}
+                                  materialData={this.historyCourses}
+                                  materialClickHandler={this.materialClickHandler}/> :
+      <LoadingComponent/>}</div>;
 
-    const ContentComponent = Content(HistoryBody(this.historyCourses));
-    return <ContentComponent headerName={"История"}/>
+    const ContentComponent = Content(HistoryBody, {
+      headerName: "История",
+    });
+    return <ContentComponent/>
   }
 }
 

@@ -36,16 +36,16 @@ class MyProgressDsComponent extends React.Component<WrappedComponentProps> {
   };
 
   render() {
-    const MyProgressContentComponent = (myProgress: ProgressLine[] | null) => () => {
-      return <div>
-        {myProgress ? <MyProgressComponent progress={this.myProgress!}/> :
-          <LoadingComponent/>}
-      </div>
-    };
+    const MyProgressContentComponent = <div>
+      {this.myProgress ? <MyProgressComponent progress={this.myProgress!}/> :
+        <LoadingComponent/>}
+    </div>;
 
-    const ContentComponent = Content(MyProgressContentComponent(this.myProgress));
-    return <ContentComponent headerName={this.props.intl.formatMessage({id: "myProgress"})} wrapperCss={{padding: 0}}
-                             contentWrapperCss={{padding: '50px'}}/>;
+    const ContentComponent = Content(MyProgressContentComponent, {
+      headerName: this.props.intl.formatMessage({id: "myProgress"}),
+      contentWrapperCss: {padding: '50px'}
+    });
+    return <ContentComponent/>;
   }
 }
 

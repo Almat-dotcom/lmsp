@@ -34,15 +34,17 @@ class TestPageComponent extends React.Component<Props> {
   };
 
   render() {
-    const bodyComponent = (test: Test | null) => () => {
-      return test != null ?
-        <div className={"questions-container"}><TestComponent hideButtonStyle={{backgroundColor: '#fff'}} test={test!}
-                                                              okFinishTestHandler={this.finishTestHandler}
-                                                              finishTimeHandler={this.finishTestHandler}/>
-        </div> : <LoadingComponent/>
-    };
-    const ContentComponent = Content(bodyComponent(this.test));
-    return <ContentComponent headerName={"Тест"}/>;
+    const bodyComponent = (test != null ?
+      <div className={"questions-container"}><TestComponent hideButtonStyle={{backgroundColor: '#fff'}} test={this.test!}
+                                                            okFinishTestHandler={this.finishTestHandler}
+                                                            finishTimeHandler={this.finishTestHandler}/>
+      </div> : <LoadingComponent/>);
+
+    const
+      ContentComponent = Content(bodyComponent, {
+        headerName: "Тест",
+      });
+    return <ContentComponent/>;
   }
 }
 

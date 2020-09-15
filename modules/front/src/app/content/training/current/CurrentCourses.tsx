@@ -34,20 +34,21 @@ class CurrentCourses extends React.Component<Props> {
   };
 
   render() {
-    const bodyComponent = (currentCourses: any) => () => {
-      return (
-        <div className={"course-items-container"}>
-          <div className={"course-items"}>
-            {currentCourses != undefined ?
-              <MaterialContainerComponent materialData={currentCourses} materialType={MaterialType.NO_BUTTON}
-                                          boxType={BoxType.DEFAULT}
-                                          materialClickHandler={this.materialClickHandler}/> :
-              <LoadingComponent/>}
-          </div>
-        </div>)
-    };
-    const ContentComponent = Content(bodyComponent(this.currentCourses));
-    return <ContentComponent headerName={"текущие курсы"}/>;
+    const BodyComponent = (
+      <div className={"course-items-container"}>
+        <div className={"course-items"}>
+          {this.currentCourses != undefined ?
+            <MaterialContainerComponent materialData={this.currentCourses}
+                                        boxType={BoxType.DEFAULT}
+                                        materialClickHandler={this.materialClickHandler}/> :
+            <LoadingComponent/>}
+        </div>
+      </div>);
+
+    const ContentComponent = Content(BodyComponent, {
+      headerName: "текущие курсы",
+    });
+    return <ContentComponent/>;
   }
 }
 

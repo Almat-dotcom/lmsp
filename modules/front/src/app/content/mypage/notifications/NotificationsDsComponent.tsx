@@ -48,15 +48,15 @@ class NotificationsDsComponent extends React.Component<WrappedComponentProps> {
   };
 
   render() {
-    const NotificationsContentComponent = (notifications: Notification[] | undefined) => () => {
-      return <div>
-        <NotificationComponent notifications={notifications} setReadedNotification={this.setReadedNotification}/>
-      </div>
-    };
+    const NotificationsContentComponent = <div>
+      <NotificationComponent notifications={this.notifications} setReadedNotification={this.setReadedNotification}/>
+    </div>;
 
-    const ContentComponent = Content(NotificationsContentComponent(this.notifications));
-    return <ContentComponent headerName={this.props.intl.formatMessage({id: "notifications"})}
-                             contentWrapperCss={{padding: '50px'}}/>;
+    const ContentComponent = Content(NotificationsContentComponent, {
+      headerName: this.props.intl.formatMessage({id: "notifications"}),
+      contentWrapperCss: {padding: '50px'}
+    });
+    return <ContentComponent/>;
   }
 }
 
