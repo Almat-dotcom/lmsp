@@ -52,11 +52,12 @@ class BooksComponent extends React.Component<Props & WrappedComponentProps> {
     this.books = value;
   };
 
-  downloadBook = (fileId: string) => {
+  downloadBook = (fileId: string, fileName: string, extension: string) => {
     getCubaREST()!.getFile(fileId).then((value: Blob) => {
       const anchor = document.createElement('a');
       anchor.href = URL.createObjectURL(value);
       anchor.target = '_blank';
+      anchor.download = fileName + '.' + extension;
 
       anchor.click();
     }).catch(() => {
@@ -68,16 +69,20 @@ class BooksComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   selectBookHandler = (value: string) => {
-    this.downloadBook(value);
+    const idNameExtension: string[] = value.split('.');
+    this.downloadBook(idNameExtension[0], idNameExtension[1], idNameExtension[2]);
   };
 
   downloadButtonFooter = (materialData: MaterialData): JSX.Element => {
     const fileTypes: FileType[] | undefined = (materialData as BookMaterialModel).fileTypes;
     if (fileTypes) {
-      return <Select defaultValue={this.props.intl.formatMessage({id: 'download'})} className={"select-book"}
+      return <Select defaultValue={this.props.intl.formatMessage({id: 'download'}).toUpperCase()} className={"select-book"}
                      onSelect={this.selectBookHandler}>
         {fileTypes.map(el => {
-          return <Select.Option value={el.id} className={"select-book-option"}>{el.name.toUpperCase()}</Select.Option>
+          return <Select.Option className={"select-book-option"} value={
+            el.id + '.' +
+            materialData.name + '.' +
+            el.name.toLowerCase()}>{el.name.toUpperCase()}</Select.Option>
         })}
       </Select>;
     } else {
