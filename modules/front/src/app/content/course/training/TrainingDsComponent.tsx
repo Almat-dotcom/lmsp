@@ -86,17 +86,9 @@ class TrainingDsComponent extends React.Component<TrainingDsComponentProps & Tra
       ? <FeedbackComponent courseId={course.id} feedbacks={this.courseFeedback}
                            templateId={selectedMenu.id}
                            okFinishFeedbackHandler={resetSectionItem}/>
-      : <Spin spinning={this.loadingTrainingBody}><TrainingComponent course={this.props.course}
+      : <Spin spinning={this.loadingTrainingBody}><TrainingComponent course={this.props.course} resetSectionItem={resetSectionItem}
                                                                         courseSection={this.courseSection}/></Spin>
   }
 }
-
-const getTrainingBody = (courseSection: CourseSection, enrollmentId: string | null, handlers: TrainingComponentHandlers): React.ClassType<any, any, any> => {
-  const courseFormat: CourseSectionFormat = CourseSectionFormat[courseSection!.format.code!.toUpperCase()] as CourseSectionFormat;
-  return React.createElement(trainingBodyMap.get(courseFormat)!, {
-    ...courseSection,
-    enrollmentId: enrollmentId, ...handlers
-  })
-};
 
 export default injectIntl(TrainingDsComponent);

@@ -34,7 +34,7 @@ class TestPageComponent extends React.Component<Props> {
   };
 
   render() {
-    const bodyComponent = (test != null ?
+    const bodyComponent = (this.test != null ?
       <div className={"questions-container"}><TestComponent hideButtonStyle={{backgroundColor: '#fff'}} test={this.test!}
                                                             okFinishTestHandler={this.finishTestHandler}
                                                             finishTimeHandler={this.finishTestHandler}/>
