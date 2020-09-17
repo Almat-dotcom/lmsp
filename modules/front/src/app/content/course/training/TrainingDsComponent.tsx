@@ -38,10 +38,6 @@ class TrainingDsComponent extends React.Component<TrainingDsComponentProps & Tra
       this.setLoadingTrainingBody(true);
       switch (selectedMenu.menuType) {
         case MenuType.SECTION: {
-          // getCubaREST()!.loadEntity<CourseSection>(CourseSection.NAME, selectedMenu.id, {view: 'course.section.with.format.session'}).then((response: CourseSection) => {
-          //   this.courseSection = response;
-          // }).finally(() => this.setLoadingTrainingBody(false));
-          // break;
           restServices.tsadv_LmsService.loadCourseSectionData(getCubaREST()!, {
             enrollmentId: this.props.course!.enrollmentId!,
             courseSectionId: selectedMenu.id

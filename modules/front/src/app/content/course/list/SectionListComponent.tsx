@@ -64,26 +64,29 @@ class SectionListComponent extends React.Component<SectionListComponentProps & W
     return <div className={"sections-container"}>
       <img src={imgSrc}/>
       <div className="section-container">
-        <div className={"section-title"}>
-          Разделы
-        </div>
-        <ul className={"sections-list"}>
-          {course.enrollmentId != null ?
-            course.sections!.map((section: CourseSectionItem) => (
-              <li
-                key={section.id}
-                className={"list" + (section.isPassed ? " passed" : "") + (selectedMenu ? selectedMenu.id === section.id ? " section-active" : "" : "")}
-                onMouseUp={this.sectionClickHandler}
-                data-id={section.id}>
-                <div className={"title"}>{section.sectionName}</div>
-                <div className={"format"}>{section.langValue1}</div>
-              </li>)) :
-            <li className={"button-list"}>
-              <button onClick={this.followClickHandler}>{this.props.intl.formatMessage({id: "follow"})}</button>
-            </li>}
-        </ul>
+        {course.enrollmentId != null
+          ? <>
+            <div className={"section-title"}>
+              Разделы
+            </div>
+            <ul className={"sections-list"}>
+              {course.sections!.map((section: CourseSectionItem) => (
+                <li
+                  key={section.id}
+                  className={"list" + (section.isPassed ? " passed" : "") + (selectedMenu ? selectedMenu.id === section.id ? " section-active" : "" : "")}
+                  onMouseUp={this.sectionClickHandler}
+                  data-id={section.id}>
+                  <div className={"title"}>{section.sectionName}</div>
+                  <div className={"format"}>{section.langValue1}</div>
+                </li>))}
+            </ul>
+          </>
+          : course.selfEnrollment
+            ? <button className="follow-btn" onClick={this.followClickHandler}>{this.props.intl.formatMessage({id: "follow"})}</button>
+            : <></>}
       </div>
-      {course.enrollmentId != null && course.courseFeedbacks && course.courseFeedbacks.length > 0 ?
+      {course.enrollmentId != null && course.courseFeedbacks && course.courseFeedbacks.length > 0
+        ?
         <div className="section-container">
           <div className={"section-title"}>
             Анкеты обратной связи

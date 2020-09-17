@@ -18,6 +18,7 @@ export interface CourseData {
   id: string,
   name?: string,
   enrollmentId: string | null,
+  selfEnrollment: boolean,
   description: string,
   logo?: string,
   sections?: CourseSectionItem[]
