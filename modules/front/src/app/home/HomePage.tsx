@@ -5,10 +5,9 @@ import MaterialComponent, {
   LogoType
 } from "../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../common/loading/LoadingComponent";
-<<<<<<< HEAD
 import { action, observable } from "mobx";
 import { getCubaREST } from "@cuba-platform/react";
-import { Course } from "../../cuba/entities/tsadv/tsadv$Course";
+import { Course } from "../../cuba/entities/base/tsadv$Course";
 import { observer } from "mobx-react";
 import { RouteComponentProps } from "react-router";
 import { withRouter } from "react-router-dom";
@@ -19,6 +18,9 @@ import MaterialContainerComponent, {
 } from "../common/materialContainer/MaterialContainerComponent";
 import { Button, Carousel, Icon } from "antd";
 import CSS from "csstype";
+import {LmsSliderImage} from "../../cuba/entities/base/tsadv$LmsSliderImage";
+import {LmsSliderPosition} from "../../cuba/enums/enums";
+import {wrapFileUrl} from "../common/global";
 const carouselContentStyle: CSS.Properties = {
   height: "160px",
   color: "#fff",
@@ -26,27 +28,11 @@ const carouselContentStyle: CSS.Properties = {
   textAlign: "center",
   background: "#364d79"
 };
-=======
-import {action, observable} from "mobx";
-import {getCubaREST} from "@cuba-platform/react";
-import {Course} from "../../cuba/entities/base/tsadv$Course";
-import {observer} from "mobx-react";
-import {RouteComponentProps} from "react-router";
-import {withRouter} from 'react-router-dom'
-import {restServices} from "../../cuba/services";
-import styles from './style.module.css'
-import MaterialContainerComponent, {MaterialType} from "../common/materialContainer/MaterialContainerComponent";
-import {LmsSliderImage} from "../../cuba/entities/base/tsadv$LmsSliderImage";
-import {LmsSliderPosition} from "../../cuba/enums/enums";
-import {wrapFileUrl} from "../common/global";
-
->>>>>>> d86aa9f52c0aa57651a39439bb3d33883ab1c5cc
 
 @observer
 class HomePage extends React.Component<RouteComponentProps> {
   @observable currentCourses: Course[];
-
-<<<<<<< HEAD
+  @observable sliderFiles: string[] = [];
   coursesCarousel: Carousel | null;
   readonly elementsPerSlideCount: number = 4;
 
@@ -57,28 +43,17 @@ class HomePage extends React.Component<RouteComponentProps> {
         const courses: Course[] = JSON.parse(response);
         this.setCurrentCourses(courses);
       });
-=======
-  @observable sliderFiles: string[] = [];
-
-  componentDidMount(): void {
-    restServices.tsadv_LmsService.loadCourses(getCubaREST()!, {conditions: []})().then((response: string) => {
-      const courses: Course[] = JSON.parse(response);
-      this.setCurrentCourses(courses);
-    });
-
-    getCubaREST()!.searchEntities(LmsSliderImage.NAME, {
-      conditions: [
-        {
-          property: "slider.position",
-          operator: "=",
-          value: LmsSliderPosition.HOME
-        }
-      ]
-    }, {view: "lmsSliderImage.with.image"}).then((response: LmsSliderImage[]) => {
-      this.setSliderFiles(response.map(sliderImage => wrapFileUrl(sliderImage.image!.id!)));
-    });
-
->>>>>>> d86aa9f52c0aa57651a39439bb3d33883ab1c5cc
+      getCubaREST()!.searchEntities(LmsSliderImage.NAME, {
+        conditions: [
+          {
+            property: "slider.position",
+            operator: "=",
+            value: LmsSliderPosition.HOME
+          }
+        ]
+      }, {view: "lmsSliderImage.with.image"}).then((response: LmsSliderImage[]) => {
+        this.setSliderFiles(response.map(sliderImage => wrapFileUrl(sliderImage.image!.id!)));
+      });
   }
 
   @action setSliderFiles = (value: string[]) => {
