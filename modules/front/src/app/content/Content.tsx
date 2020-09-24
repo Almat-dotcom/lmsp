@@ -9,7 +9,8 @@ import PlusSvgComponent, {HideSectionComponentHocProps} from "../common/hideSect
 export interface ContentProps {
   headerName: string,
   wrapperCss?: CSSProperties,
-  contentWrapperCss?: CSSProperties
+  contentWrapperCss?: CSSProperties,
+  onHeaderClick?: () => void
 }
 
 export function ContentHoc(Child: JSX.Element, props: ContentProps): React.ComponentClass {
@@ -19,7 +20,7 @@ export function ContentHoc(Child: JSX.Element, props: ContentProps): React.Compo
       return <div className={"wrapper"} style={props.wrapperCss}>
         <div className={"content-wrapper"} style={props.contentWrapperCss}>
           <div className={"content-container"}>
-            <ContentHeader headerName={props.headerName}/>
+            <ContentHeader headerName={props.headerName} onContentHeaderClick={props.onHeaderClick}/>
             {Child}
           </div>
         </div>

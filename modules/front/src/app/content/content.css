@@ -19,9 +19,26 @@
   font-size: 50px;
 }
 
+.main-menu-carousel {
+  height: 300px;
+  border: 2px solid black;
+  border-bottom: white;
+  color: black;
+  align-items: baseline;
+  text-align: center;
+}
+.main-carousel-bottom-menu {
+  text-align: center;
+  border-bottom: 2px solid black;
+}
+.main-carousel-bottom-menu-arrow {
+  margin: 15px;
+  margin-bottom: 20px;
+  font-size: x-large;
+}
+
 .content-container hr {
   margin: 40px 0;
   opacity: 1;
   border-top: 0;
 }
-

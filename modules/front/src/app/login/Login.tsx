@@ -12,10 +12,16 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
-
+import { IconComponent } from "antd/lib/icon";
+import { RouteComponentProps } from "react-router-dom";
+import { MatchParams } from "../common/model/RouteComponentProps";
+import H from "history";
+export interface HistoryProp {
+  history: H.History;
+}
 @injectMainStore
 @observer
-class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
+class Login extends React.Component<MainStoreInjected & WrappedComponentProps & HistoryProp> {
   @observable login: string;
   @observable password: string;
   @observable performingLoginRequest = false;
@@ -74,17 +80,17 @@ class Login extends React.Component<MainStoreInjected & WrappedComponentProps> {
             />
           </Form.Item>
           <Form.Item>
-            <Input
+            <Input.Password
               id="input_password"
               placeholder={this.props.intl.formatMessage({
                 id: "login.placeholder.password"
               })}
               onChange={this.changePassword}
               value={this.password}
-              type="password"
               prefix={<Icon type="lock" style={{color: "rgba(0,0,0,1)"}}/>}
               size="large"
             />
+            <span><a onClick={() => this.props.history.push("/restore")}>Забыли пароль?</a></span>
           </Form.Item>
           <Form.Item>
             <div style={{float: "right"}}>

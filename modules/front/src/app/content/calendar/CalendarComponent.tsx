@@ -1,43 +1,83 @@
 import React from "react";
-import {Badge, Calendar, Modal} from "antd";
-import {CalendarEvent, Duration} from "./CalendarDsComponent";
+import { Badge, Calendar, Modal } from "antd";
+import { CalendarEvent, Duration } from "./CalendarDsComponent";
 import moment from "moment";
-import './calendar.css'
-import {getCubaREST, injectMainStore, MainStoreInjected} from "@cuba-platform/react";
-import {injectIntl, WrappedComponentProps} from "react-intl";
-import styles from './style.module.css'
+import "./calendar.css";
+import {
+  getCubaREST,
+  injectMainStore,
+  MainStoreInjected
+} from "@cuba-platform/react";
+import { injectIntl, WrappedComponentProps } from "react-intl";
+import styles from "./style.module.css";
+import { RouteComponentProps } from "react-router-dom";
+import { MatchParams } from "../../common/model/RouteComponentProps";
 
 export interface CalendarComponentProps {
-  monthCalendarDays: Map<number, CalendarEvent[]> | null,
-  selectedDate: Date
+  monthCalendarDays: Map<number, CalendarEvent[]> | null;
+  selectedDate: Date;
 }
-
-interface Case { //Падеж
-  Nominative: string, //Именительный
-  Genitive?: string, //Родительный
-  Multiple: string, //Во множественном склонении
+export interface HistoryProp {
+  browseHistory: any;
+}
+interface Case {
+  //Падеж
+  Nominative: string; //Именительный
+  Genitive?: string; //Родительный
+  Multiple: string; //Во множественном склонении
 }
 
 export interface CalendarComponentHandlers {
-  setCalendarMonth: (value: Date) => void
+  setCalendarMonth: (value: Date) => void;
 }
 
-const durationCasesRu: Map<string, Case> = new Map;
-durationCasesRu.set("years", {Genitive: "года", Multiple: "лет", Nominative: "год"});
-durationCasesRu.set("months", {Genitive: "месяца", Multiple: "месяцев", Nominative: "месяц"});
-durationCasesRu.set("days", {Genitive: "дней", Multiple: "дня", Nominative: "день"});
-durationCasesRu.set("hours", {Genitive: "часов", Multiple: "часа", Nominative: "час"});
-durationCasesRu.set("minutes", {Genitive: "минут", Multiple: "минуты", Nominative: "минута"});
-durationCasesRu.set("seconds", {Genitive: "секунд", Multiple: "секунды", Nominative: "секунда"});
+const durationCasesRu: Map<string, Case> = new Map();
+durationCasesRu.set("years", {
+  Genitive: "года",
+  Multiple: "лет",
+  Nominative: "год"
+});
+durationCasesRu.set("months", {
+  Genitive: "месяца",
+  Multiple: "месяцев",
+  Nominative: "месяц"
+});
+durationCasesRu.set("days", {
+  Genitive: "дней",
+  Multiple: "дня",
+  Nominative: "день"
+});
+durationCasesRu.set("hours", {
+  Genitive: "часов",
+  Multiple: "часа",
+  Nominative: "час"
+});
+durationCasesRu.set("minutes", {
+  Genitive: "минут",
+  Multiple: "минуты",
+  Nominative: "минута"
+});
+durationCasesRu.set("seconds", {
+  Genitive: "секунд",
+  Multiple: "секунды",
+  Nominative: "секунда"
+});
 
+const durationCasesKz: Map<string, string> = new Map();
+durationCasesKz.set("years", "жыл");
+durationCasesKz.set("months", "ай");
+durationCasesKz.set("days", "күн");
+durationCasesKz.set("hours", "сағат");
+durationCasesKz.set("minutes", "минут");
+durationCasesKz.set("seconds", "секунд");
 
-const durationCasesEn: Map<string, Case> = new Map;
-durationCasesEn.set("years", {Multiple: "years", Nominative: "year"});
-durationCasesEn.set("months", {Multiple: "months", Nominative: "month"});
-durationCasesEn.set("days", {Multiple: "days", Nominative: "day"});
-durationCasesEn.set("hours", {Multiple: "hours", Nominative: "hour"});
-durationCasesEn.set("minutes", {Multiple: "minutes", Nominative: "minute"});
-durationCasesEn.set("seconds", {Multiple: "seconds", Nominative: "second"});
+const durationCasesEn: Map<string, Case> = new Map();
+durationCasesEn.set("years", { Multiple: "years", Nominative: "year" });
+durationCasesEn.set("months", { Multiple: "months", Nominative: "month" });
+durationCasesEn.set("days", { Multiple: "days", Nominative: "day" });
+durationCasesEn.set("hours", { Multiple: "hours", Nominative: "hour" });
+durationCasesEn.set("minutes", { Multiple: "minutes", Nominative: "minute" });
+durationCasesEn.set("seconds", { Multiple: "seconds", Nominative: "second" });
 
 const getEvents = (events: CalendarEvent[]) => {
   const twoEvents: CalendarEvent[] = [];
@@ -45,31 +85,43 @@ const getEvents = (events: CalendarEvent[]) => {
     twoEvents.push(events[i]);
   }
 
-  const badgeColor: string = '#' + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
+  const badgeColor: string =
+    "#" + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
   console.log(badgeColor);
-  return <ul className={"events"}>
-    {twoEvents.map(course => (
-      <li key={course.name} title={course.name}>
-        <Badge color={badgeColor} text={course.name}/>
-      </li>
-    ))}
-  </ul>
+  return (
+    <ul className={"events"}>
+      {twoEvents.map(course => (
+        <li key={course.name} title={course.name}>
+          <Badge color={badgeColor} text={course.name} />
+        </li>
+      ))}
+    </ul>
+  );
 };
 
-
 @injectMainStore
-class CalendarComponent extends React.Component<CalendarComponentProps & CalendarComponentHandlers & MainStoreInjected & WrappedComponentProps> {
+class CalendarComponent extends React.Component<
+  CalendarComponentProps &
+    CalendarComponentHandlers &
+    MainStoreInjected &
+    WrappedComponentProps &
+    HistoryProp
+> {
   dateCellRender = (value: moment.Moment) => {
     if (this.props.monthCalendarDays && this.props.monthCalendarDays.size > 0) {
       const calendarDayDate: Date = value.toDate();
       calendarDayDate.setHours(0, 0, 0, 0);
 
-      const events: CalendarEvent[] | undefined = this.props.monthCalendarDays.get(calendarDayDate.getTime());
+      const events:
+        | CalendarEvent[]
+        | undefined = this.props.monthCalendarDays.get(
+        calendarDayDate.getTime()
+      );
       if (events) {
         return getEvents(events);
       }
     }
-    return <></>
+    return <></>;
   };
 
   onChangeMonth = (value: moment.Moment) => {
@@ -81,29 +133,47 @@ class CalendarComponent extends React.Component<CalendarComponentProps & Calenda
       const calendarDayDate: Date = value.toDate();
       calendarDayDate.setHours(0, 0, 0, 0);
 
-      const events: CalendarEvent[] | undefined = this.props.monthCalendarDays.get(calendarDayDate.getTime());
+      const events:
+        | CalendarEvent[]
+        | undefined = this.props.monthCalendarDays.get(
+        calendarDayDate.getTime()
+      );
       if (events) {
         Modal.info({
-          title: value.format('D MMMM'),
+          title: value.format("D MMMM"),
           content: (
             <div>
               {events.map(e => {
-                return <div className={styles["modal-calendar-container"]}>
-                  <div>
-                    <span
-                      className={styles["title"]}>{this.props.intl.formatMessage({id: 'course'})}: </span><span>{e.name}</span>
+                return (
+                  <div className={styles["modal-calendar-container"]}>
+                    <div>
+                      <span className={styles["title"]}>
+                        {this.props.intl.formatMessage({ id: "course" })}:
+                      </span>
+                      <a
+                        onClick={() => {
+                          this.props.browseHistory.push(
+                            "/course/" + e.courseId
+                          );
+                          Modal.destroyAll();
+                        }}
+                      >
+                        {e.name}
+                      </a>
+                    </div>
+                    <div>
+                      <span className={styles["title"]}>
+                        {this.props.intl.formatMessage({ id: "duration" })}:
+                      </span>
+                      <span>{this.parseDurationToString(e.duration)}</span>
+                    </div>
+                    <br />
                   </div>
-                  <div>
-                    <span
-                      className={styles["title"]}>{this.props.intl.formatMessage({id: 'duration'})}:</span><span>{this.parseDurationToString(e.duration)}</span>
-                  </div>
-                  <br/>
-                </div>
+                );
               })}
             </div>
           ),
-          onOk() {
-          }
+          onOk() {}
         });
       }
     }
@@ -111,23 +181,43 @@ class CalendarComponent extends React.Component<CalendarComponentProps & Calenda
 
   render() {
     let m: moment.Moment = moment(this.props.selectedDate.toISOString());
-    return <Calendar onSelect={this.onChangeDay} onChange={this.onChangeMonth} dateCellRender={this.dateCellRender}
-                     value={m}/>
+    return (
+      <Calendar
+        onSelect={this.onChangeDay}
+        onChange={this.onChangeMonth}
+        dateCellRender={this.dateCellRender}
+        value={m}
+      />
+    );
   }
 
   parseDurationToString = (duration: Duration): string => {
     let locale: string | undefined = this.props.mainStore!.locale;
     if (!locale) {
-      locale = 'ru';
+      locale = "ru";
     }
     switch (locale) {
       case "en":
         return this.parseDurationToStringEn(duration);
+      case "kz":
+        return this.parseDurationToStringKz(duration);
       default:
         return this.parseDurationToStringRu(duration);
     }
   };
+  parseDurationToStringKz = (duration: Duration): string => {
+    let durationString: string = "";
+    const durationCases: Map<string, string> = durationCasesKz;
 
+    Object.keys(duration).forEach(k => {
+      const value: number = duration[k];
+      if (value != 0) {
+        durationString = durationString + " " + value;
+        durationString = durationString + " " + durationCases!.get(k);
+      }
+    });
+    return durationString;
+  };
   parseDurationToStringRu = (duration: Duration): string => {
     let durationString: string = "";
     const durationCases: Map<string, Case> = durationCasesRu;
@@ -136,16 +226,20 @@ class CalendarComponent extends React.Component<CalendarComponentProps & Calenda
       if (value != 0) {
         durationString = durationString + " " + value;
         switch (true) {
-          case (value != 11 && (getDecimal(value / 10) == 0.1)): {
-            durationString = durationString + " " + durationCases.get(k)!.Nominative;
+          case value != 11 && getDecimal(value / 10) == 0.1: {
+            durationString =
+              durationString + " " + durationCases.get(k)!.Nominative;
             break;
           }
-          case (value >= 5 && value <= 20) || (getDecimal(value / 10) > 0.4 || value % 10 == 0): {
-            durationString = durationString + " " + durationCases.get(k)!.Genitive;
+          case (value >= 5 && value <= 20) ||
+            (getDecimal(value / 10) > 0.4 || value % 10 == 0): {
+            durationString =
+              durationString + " " + durationCases.get(k)!.Genitive;
             break;
           }
           default: {
-            durationString = durationString + " " + durationCases.get(k)!.Multiple;
+            durationString =
+              durationString + " " + durationCases.get(k)!.Multiple;
             break;
           }
         }
@@ -153,7 +247,7 @@ class CalendarComponent extends React.Component<CalendarComponentProps & Calenda
     });
 
     return durationString;
-  }
+  };
 
   parseDurationToStringEn = (duration: Duration): string => {
     let durationString: string = "";
@@ -164,12 +258,14 @@ class CalendarComponent extends React.Component<CalendarComponentProps & Calenda
       if (value != 0) {
         durationString = durationString + " " + value;
         switch (true) {
-          case (value === 1): {
-            durationString = durationString + " " + durationCases.get(k)!.Nominative;
+          case value === 1: {
+            durationString =
+              durationString + " " + durationCases.get(k)!.Nominative;
             break;
           }
           default: {
-            durationString = durationString + " " + durationCases.get(k)!.Multiple;
+            durationString =
+              durationString + " " + durationCases.get(k)!.Multiple;
             break;
           }
         }
@@ -177,7 +273,7 @@ class CalendarComponent extends React.Component<CalendarComponentProps & Calenda
     });
 
     return durationString;
-  }
+  };
 }
 
 const getDecimal = (num: number) => {

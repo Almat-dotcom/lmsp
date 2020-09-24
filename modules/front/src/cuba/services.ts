@@ -168,6 +168,14 @@ export var restServices = {
         fetchOpts
       );
     },
+    restorePassword: (cubaApp: CubaApp, params : {userLogin: string}, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "restorePassword",
+        {...params},
+        fetchOpts
+      );
+    },
     getCourseTrainers: (cubaApp: CubaApp, params: { courseId: string }, fetchOpts?: FetchOptions) => async () => {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
