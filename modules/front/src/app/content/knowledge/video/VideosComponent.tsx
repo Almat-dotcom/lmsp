@@ -7,7 +7,7 @@ import {getCubaREST} from "@cuba-platform/react";
 import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import Content from "../../Content";
-import {LearningObject} from "../../../../cuba/entities/tsadv/tsadv$LearningObject";
+import {LearningObject} from "../../../../cuba/entities/base/tsadv$LearningObject";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import {Modal} from "antd";
 import {SerializedEntity} from "@cuba-platform/rest";
@@ -53,7 +53,7 @@ class VideosComponent extends React.Component<Props & WrappedComponentProps> {
   materialClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     this.setIsVisibleModal(true);
     getCubaREST()!.loadEntity(LearningObject.NAME, e.currentTarget.dataset.id, {view: "learningObject.browse"}).then((r: SerializedEntity<LearningObject>) => {
-      const videoFileId: string = r.file.id;
+      const videoFileId: string = r.file!.id!;
       getCubaREST()!.getFile(videoFileId).then((value: Blob) => {
         this.setVideoUrl(URL.createObjectURL(value));
       }).catch(() => {

@@ -31,6 +31,7 @@ export type UserViewName =
   | "app"
   | "group.browse"
   | "scheduling"
+  | "user-view"
   | "user.browse"
   | "user.changePassword"
   | "user.changepassw"
@@ -91,6 +92,27 @@ export type UserView<V extends UserViewName> = V extends "_base"
   ? Pick<User, "id" | "name" | "login" | "group">
   : V extends "scheduling"
   ? Pick<User, "id" | "login" | "name">
+  : V extends "user-view"
+  ? Pick<
+      User,
+      | "id"
+      | "login"
+      | "loginLowerCase"
+      | "password"
+      | "passwordEncryption"
+      | "name"
+      | "firstName"
+      | "lastName"
+      | "middleName"
+      | "position"
+      | "email"
+      | "language"
+      | "timeZone"
+      | "timeZoneAuto"
+      | "active"
+      | "changePasswordAtNextLogon"
+      | "ipMask"
+    >
   : V extends "user.browse"
   ? Pick<
       User,

@@ -1,5 +1,5 @@
 import React, {SyntheticEvent} from "react";
-import {LearningObject} from "../../../../../cuba/entities/tsadv/tsadv$LearningObject";
+import {LearningObject} from "../../../../../cuba/entities/base/tsadv$LearningObject";
 import {observer} from "mobx-react";
 
 interface TrainingVideoComponentProps {

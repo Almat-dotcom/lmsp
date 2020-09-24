@@ -1,0 +1,22 @@
+import { AbstractParentEntity } from "./AbstractParentEntity";
+import { PersonExt } from "./base$PersonExt";
+import { Microtraum } from "./tsadv$Microtraum";
+export class MicrotraumaWitnesses extends AbstractParentEntity {
+  static NAME = "tsadv$MicrotraumaWitnesses";
+  person?: PersonExt | null;
+  microtraum?: Microtraum | null;
+}
+export type MicrotraumaWitnessesViewName =
+  | "_base"
+  | "_local"
+  | "_minimal"
+  | "microtraumaWitnesses-view";
+export type MicrotraumaWitnessesView<
+  V extends MicrotraumaWitnessesViewName
+> = V extends "_base"
+  ? Pick<MicrotraumaWitnesses, "id" | "legacyID">
+  : V extends "_local"
+  ? Pick<MicrotraumaWitnesses, "id" | "legacyID">
+  : V extends "microtraumaWitnesses-view"
+  ? Pick<MicrotraumaWitnesses, "id" | "person">
+  : never;

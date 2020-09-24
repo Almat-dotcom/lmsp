@@ -1,5 +1,5 @@
 import React from "react";
-import {Course} from "../../../cuba/entities/tsadv/tsadv$Course";
+import {Course} from "../../../cuba/entities/base/tsadv$Course";
 import styles from './style.module.css';
 import MaterialComponent, {BoxType, LogoType} from "./material/MaterialComponent";
 import {SerializedEntity} from "@cuba-platform/rest";

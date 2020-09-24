@@ -1,5 +1,5 @@
 import React, {SyntheticEvent} from "react";
-import {LearningObject} from "../../../../../cuba/entities/tsadv/tsadv$LearningObject";
+import {LearningObject} from "../../../../../cuba/entities/base/tsadv$LearningObject";
 import {getCubaREST} from "@cuba-platform/react";
 import {action, observable} from "mobx";
 import {observer} from "mobx-react";
@@ -17,7 +17,7 @@ class TrainingPdfComponent extends React.Component<TrainingVideoComponentProps> 
   @observable fileBlobUrl: string | null = null;
 
   componentDidMount(): void {
-    const videoFileId: string = this.props.content.file.id;
+    const videoFileId: string = this.props.content.file!.id!;
     getCubaREST()!.getFile(videoFileId).then((value: Blob) => {
       this.setFileBlobUrl(URL.createObjectURL(value));
     }).catch(() => {

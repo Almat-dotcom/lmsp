@@ -8,7 +8,7 @@ import {getCubaREST} from "@cuba-platform/react";
 import {BoxType, LogoType} from "../../../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import Content from "../../Content";
-import {LearningObject} from "../../../../cuba/entities/tsadv/tsadv$LearningObject";
+import {LearningObject} from "../../../../cuba/entities/base/tsadv$LearningObject";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import {SerializedEntity} from "@cuba-platform/rest";
 import {Modal, Select} from "antd";
@@ -17,8 +17,9 @@ import MaterialContainerComponent, {
   MaterialModel,
   MaterialType
 } from "../../../common/materialContainer/MaterialContainerComponent";
-import {Book} from "../../../../cuba/entities/tsadv/tsadv$Book";
+import {Book} from "../../../../cuba/entities/base/tsadv$Book";
 import {file} from "@babel/types";
+import {wrapFileUrl} from "../../../common/global";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 
@@ -43,7 +44,7 @@ class BooksComponent extends React.Component<Props & WrappedComponentProps> {
       const books: BookMaterialModel[] = JSON.parse(response);
       this.setBooks(books.map(el => ({
         ...el,
-        logo: el.logo ? getCubaREST()!.getFileUploadURL() + "/" + el.logo + "?access_token=" + getCubaREST()!.restApiToken : undefined
+        logo: el.logo ? wrapFileUrl(el.logo) : undefined
       } as BookMaterialModel)));
     })
   }

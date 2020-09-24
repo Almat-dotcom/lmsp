@@ -3,7 +3,7 @@ import {injectIntl, WrappedComponentProps} from "react-intl";
 import './style.css'
 import TrainingDescriptionComponent from "./description/TrainingDescriptionComponent";
 import {CourseData} from "../CourseComponent";
-import {CourseSection} from "../../../../cuba/entities/tsadv/tsadv$CourseSection";
+import {CourseSection} from "../../../../cuba/entities/base/tsadv$CourseSection";
 import {observer} from "mobx-react";
 import {trainingBodyMap} from "./TrainingBodyMap";
 import {CourseSectionFormat} from "../../../../cuba/enums/enums";
@@ -29,7 +29,7 @@ class TrainingComponent extends React.Component<TrainingComponentProps & Trainin
 }
 
 const getTrainingBody = (courseSection: CourseSection, enrollmentId: string | null, handlers: TrainingComponentHandlers): React.ClassType<any, any, any> => {
-  const courseFormat: CourseSectionFormat = CourseSectionFormat[courseSection!.format.code!.toUpperCase()] as CourseSectionFormat;
+  const courseFormat: CourseSectionFormat = CourseSectionFormat[courseSection!.format!.code!.toUpperCase()] as CourseSectionFormat;
   return React.createElement(trainingBodyMap.get(courseFormat)!, {
     ...courseSection,
     enrollmentId: enrollmentId, ...handlers

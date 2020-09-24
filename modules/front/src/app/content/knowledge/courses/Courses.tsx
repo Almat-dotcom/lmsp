@@ -2,7 +2,7 @@ import React from "react";
 import Search from "../../../common/Search";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
-import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
+import {Course} from "../../../../cuba/entities/base/tsadv$Course";
 import {getCubaREST} from "@cuba-platform/react";
 import Content from "../../Content";
 import {injectIntl, WrappedComponentProps} from "react-intl";

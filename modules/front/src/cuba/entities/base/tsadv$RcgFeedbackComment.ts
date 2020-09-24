@@ -1,0 +1,42 @@
+import { AbstractParentEntity } from "./AbstractParentEntity";
+import { PersonGroupExt } from "./base$PersonGroupExt";
+import { RcgFeedback } from "./tsadv$RcgFeedback";
+export class RcgFeedbackComment extends AbstractParentEntity {
+  static NAME = "tsadv$RcgFeedbackComment";
+  text?: string | null;
+  parentComment?: RcgFeedbackComment | null;
+  textEn?: string | null;
+  textRu?: string | null;
+  author?: PersonGroupExt | null;
+  rcgFeedback?: RcgFeedback | null;
+}
+export type RcgFeedbackCommentViewName =
+  | "_base"
+  | "_local"
+  | "_minimal"
+  | "rcgFeedbackComment.edit"
+  | "rcgFeedbackComment.parse";
+export type RcgFeedbackCommentView<
+  V extends RcgFeedbackCommentViewName
+> = V extends "_base"
+  ? Pick<RcgFeedbackComment, "id" | "text" | "textEn" | "textRu" | "legacyID">
+  : V extends "_local"
+  ? Pick<RcgFeedbackComment, "id" | "text" | "textEn" | "textRu" | "legacyID">
+  : V extends "rcgFeedbackComment.edit"
+  ? Pick<
+      RcgFeedbackComment,
+      "id" | "text" | "textEn" | "textRu" | "legacyID" | "author" | "createTs"
+    >
+  : V extends "rcgFeedbackComment.parse"
+  ? Pick<
+      RcgFeedbackComment,
+      | "id"
+      | "text"
+      | "textEn"
+      | "textRu"
+      | "legacyID"
+      | "author"
+      | "rcgFeedback"
+      | "createTs"
+    >
+  : never;

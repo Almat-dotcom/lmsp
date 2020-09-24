@@ -2,7 +2,7 @@ import React from 'react'
 import {getCubaREST} from "@cuba-platform/react";
 import Content from "../../Content";
 import {restServices} from "../../../../cuba/services";
-import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
+import {Course} from "../../../../cuba/entities/base/tsadv$Course";
 import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import LoadingComponent from "../../../common/loading/LoadingComponent";

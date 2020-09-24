@@ -3,7 +3,7 @@ import {injectIntl, WrappedComponentProps} from "react-intl";
 import './style.css'
 import TrainingDescriptionComponent from "./description/TrainingDescriptionComponent";
 import {CourseData, MenuType, SelectedMenu} from "../CourseComponent";
-import {CourseSection} from "../../../../cuba/entities/tsadv/tsadv$CourseSection";
+import {CourseSection} from "../../../../cuba/entities/base/tsadv$CourseSection";
 import {observer} from "mobx-react";
 import {trainingBodyMap} from "./TrainingBodyMap";
 import {CourseSectionFormat} from "../../../../cuba/enums/enums";
@@ -42,7 +42,8 @@ class TrainingDsComponent extends React.Component<TrainingDsComponentProps & Tra
             enrollmentId: this.props.course!.enrollmentId!,
             courseSectionId: selectedMenu.id
           })().then((response: string) => {
-            this.courseSection = JSON.parse(response);
+            const courseSection: CourseSection = JSON.parse(response) as CourseSection;
+            this.setCourseSection(courseSection);
             if (this.props.course && this.props.course.sections) {
               this.props.course.sections.find(s => s.id === this.props.selectedMenu!.id)!.isPassed = true;
             }
@@ -64,6 +65,7 @@ class TrainingDsComponent extends React.Component<TrainingDsComponentProps & Tra
   }
 
   @action setCourseSection = (value: CourseSection) => {
+    debugger;
     this.courseSection = value;
   };
 
@@ -82,8 +84,9 @@ class TrainingDsComponent extends React.Component<TrainingDsComponentProps & Tra
       ? <FeedbackComponent courseId={course.id} feedbacks={this.courseFeedback}
                            templateId={selectedMenu.id}
                            okFinishFeedbackHandler={resetSectionItem}/>
-      : <Spin spinning={this.loadingTrainingBody}><TrainingComponent course={this.props.course} resetSectionItem={resetSectionItem}
-                                                                        courseSection={this.courseSection}/></Spin>
+      : <Spin spinning={this.loadingTrainingBody}><TrainingComponent course={this.props.course}
+                                                                     resetSectionItem={resetSectionItem}
+                                                                     courseSection={this.courseSection}/></Spin>
   }
 }
 

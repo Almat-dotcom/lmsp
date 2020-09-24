@@ -7,7 +7,7 @@ import {getCubaREST} from "@cuba-platform/react";
 import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import Content from "../../Content";
-import {LearningObject} from "../../../../cuba/entities/tsadv/tsadv$LearningObject";
+import {LearningObject} from "../../../../cuba/entities/base/tsadv$LearningObject";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import {ContentType} from "../../../../cuba/enums/enums";
 import MaterialContainerComponent, {
