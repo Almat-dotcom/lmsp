@@ -1,0 +1,27 @@
+import { AbstractParentEntity } from "./AbstractParentEntity";
+import { Buildings } from "./tsadv$Buildings";
+export class BuildingCost extends AbstractParentEntity {
+  static NAME = "tsadv$BuildingCost";
+  costDate?: any | null;
+  balanceCost?: any | null;
+  residualValue?: any | null;
+  buildings?: Buildings | null;
+}
+export type BuildingCostViewName =
+  | "_base"
+  | "_local"
+  | "_minimal"
+  | "buildingCost-view";
+export type BuildingCostView<V extends BuildingCostViewName> = V extends "_base"
+  ? Pick<
+      BuildingCost,
+      "id" | "costDate" | "balanceCost" | "residualValue" | "legacyID"
+    >
+  : V extends "_local"
+  ? Pick<
+      BuildingCost,
+      "id" | "costDate" | "balanceCost" | "residualValue" | "legacyID"
+    >
+  : V extends "buildingCost-view"
+  ? Pick<BuildingCost, "id" | "costDate" | "balanceCost" | "residualValue">
+  : never;

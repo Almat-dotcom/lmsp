@@ -1,5 +1,5 @@
 import React from "react";
-import {Course} from "../../../../../../cuba/entities/tsadv/tsadv$Course";
+import {Course} from "../../../../../../cuba/entities/base/tsadv$Course";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";

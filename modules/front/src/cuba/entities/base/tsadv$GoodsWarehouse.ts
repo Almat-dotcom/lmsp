@@ -1,0 +1,21 @@
+import { AbstractParentEntity } from "./AbstractParentEntity";
+import { Goods } from "./tsadv$Goods";
+export class GoodsWarehouse extends AbstractParentEntity {
+  static NAME = "tsadv$GoodsWarehouse";
+  goods?: Goods | null;
+  quantity?: any | null;
+}
+export type GoodsWarehouseViewName =
+  | "_base"
+  | "_local"
+  | "_minimal"
+  | "goodsWarehouse.edit";
+export type GoodsWarehouseView<
+  V extends GoodsWarehouseViewName
+> = V extends "_base"
+  ? Pick<GoodsWarehouse, "id" | "quantity" | "legacyID">
+  : V extends "_local"
+  ? Pick<GoodsWarehouse, "id" | "quantity" | "legacyID">
+  : V extends "goodsWarehouse.edit"
+  ? Pick<GoodsWarehouse, "id" | "quantity" | "legacyID" | "goods">
+  : never;

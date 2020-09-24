@@ -1,6 +1,7 @@
-import { StandardEntity } from "./sys$StandardEntity";
-import { FileDescriptor } from "./sys$FileDescriptor";
-import { SendingAttachment } from "./sys$SendingAttachment";
+import {StandardEntity} from "./sys$StandardEntity";
+import {FileDescriptor} from "./sys$FileDescriptor";
+import {SendingAttachment} from "./sys$SendingAttachment";
+
 export class SendingMessage extends StandardEntity {
   static NAME = "sys$SendingMessage";
   address?: string | null;
@@ -20,37 +21,34 @@ export class SendingMessage extends StandardEntity {
   headers?: string | null;
   bodyContentType?: string | null;
 }
+
 export type SendingMessageViewName =
   | "_base"
   | "_local"
   | "_minimal"
+  | "notifications.message.lmsp"
   | "sendingMessage.browse"
   | "sendingMessage.loadContentText"
   | "sendingMessage.loadFromQueue";
-export type SendingMessageView<
-  V extends SendingMessageViewName
-> = V extends "_base"
-  ? Pick<
-      SendingMessage,
-      | "id"
-      | "address"
-      | "from"
-      | "cc"
-      | "bcc"
-      | "caption"
-      | "contentText"
-      | "status"
-      | "dateSent"
-      | "attachmentsName"
-      | "deadline"
-      | "attemptsCount"
-      | "attemptsMade"
-      | "headers"
-      | "bodyContentType"
-    >
+export type SendingMessageView<V extends SendingMessageViewName> = V extends "_base"
+  ? Pick<SendingMessage,
+    | "id"
+    | "address"
+    | "from"
+    | "cc"
+    | "bcc"
+    | "caption"
+    | "contentText"
+    | "status"
+    | "dateSent"
+    | "attachmentsName"
+    | "deadline"
+    | "attemptsCount"
+    | "attemptsMade"
+    | "headers"
+    | "bodyContentType">
   : V extends "_local"
-  ? Pick<
-      SendingMessage,
+    ? Pick<SendingMessage,
       | "id"
       | "address"
       | "from"
@@ -65,54 +63,51 @@ export type SendingMessageView<
       | "attemptsCount"
       | "attemptsMade"
       | "headers"
-      | "bodyContentType"
-    >
-  : V extends "sendingMessage.browse"
-  ? Pick<
-      SendingMessage,
-      | "id"
-      | "address"
-      | "cc"
-      | "bcc"
-      | "attachmentsName"
-      | "attemptsCount"
-      | "attemptsMade"
-      | "caption"
-      | "dateSent"
-      | "deadline"
-      | "from"
-      | "status"
-      | "updateTs"
-      | "bodyContentType"
-    >
-  : V extends "sendingMessage.loadContentText"
-  ? Pick<SendingMessage, "id" | "contentTextFile" | "contentText">
-  : V extends "sendingMessage.loadFromQueue"
-  ? Pick<
-      SendingMessage,
-      | "id"
-      | "version"
-      | "createTs"
-      | "createdBy"
-      | "updateTs"
-      | "updatedBy"
-      | "deleteTs"
-      | "deletedBy"
-      | "address"
-      | "from"
-      | "cc"
-      | "bcc"
-      | "caption"
-      | "contentText"
-      | "status"
-      | "dateSent"
-      | "attachmentsName"
-      | "deadline"
-      | "attemptsCount"
-      | "attemptsMade"
-      | "headers"
-      | "bodyContentType"
-      | "attachments"
-      | "contentTextFile"
-    >
-  : never;
+      | "bodyContentType">
+    : V extends "notifications.message.lmsp"
+      ? Pick<SendingMessage, "id" | "contentText" | "caption">
+      : V extends "sendingMessage.browse"
+        ? Pick<SendingMessage,
+          | "id"
+          | "address"
+          | "cc"
+          | "bcc"
+          | "attachmentsName"
+          | "attemptsCount"
+          | "attemptsMade"
+          | "caption"
+          | "dateSent"
+          | "deadline"
+          | "from"
+          | "status"
+          | "updateTs"
+          | "bodyContentType">
+        : V extends "sendingMessage.loadContentText"
+          ? Pick<SendingMessage, "id" | "contentTextFile" | "contentText">
+          : V extends "sendingMessage.loadFromQueue"
+            ? Pick<SendingMessage,
+              | "id"
+              | "version"
+              | "createTs"
+              | "createdBy"
+              | "updateTs"
+              | "updatedBy"
+              | "deleteTs"
+              | "deletedBy"
+              | "address"
+              | "from"
+              | "cc"
+              | "bcc"
+              | "caption"
+              | "contentText"
+              | "status"
+              | "dateSent"
+              | "attachmentsName"
+              | "deadline"
+              | "attemptsCount"
+              | "attemptsMade"
+              | "headers"
+              | "bodyContentType"
+              | "attachments"
+              | "contentTextFile">
+            : never;

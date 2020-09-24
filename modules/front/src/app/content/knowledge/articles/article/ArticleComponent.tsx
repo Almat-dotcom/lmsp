@@ -4,7 +4,7 @@ import {action, observable} from "mobx";
 import {getCubaREST} from "@cuba-platform/react";
 import {MatchParams, RouteComponentProps} from "../../../../common/model/RouteComponentProps";
 import {injectIntl, WrappedComponentProps} from "react-intl";
-import {LearningObject} from "../../../../../cuba/entities/tsadv/tsadv$LearningObject";
+import {LearningObject} from "../../../../../cuba/entities/base/tsadv$LearningObject";
 import LoadingComponent from "../../../../common/loading/LoadingComponent";
 import {SerializedEntity} from "@cuba-platform/rest";
 import {Modal} from "antd";

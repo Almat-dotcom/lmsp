@@ -1,5 +1,5 @@
 import React from "react";
-import {LearningObject} from "../../../../../cuba/entities/tsadv/tsadv$LearningObject";
+import {LearningObject} from "../../../../../cuba/entities/base/tsadv$LearningObject";
 
 interface TrainingHtmlComponentProps {
   sectionId: string,

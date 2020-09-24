@@ -1,0 +1,36 @@
+import { AbstractParentEntity } from "./AbstractParentEntity";
+import { PersonGroupExt } from "./base$PersonGroupExt";
+import { CalibrationComission } from "./tsadv$CalibrationComission";
+import { AssessmentTemplate } from "./tsadv$AssessmentTemplate";
+export class CalibrationSession extends AbstractParentEntity {
+  static NAME = "tsadv$CalibrationSession";
+  name?: string | null;
+  date?: any | null;
+  administrator?: PersonGroupExt | null;
+  status?: string | null;
+  comissions?: CalibrationComission[] | null;
+  template?: AssessmentTemplate | null;
+}
+export type CalibrationSessionViewName =
+  | "_base"
+  | "_local"
+  | "_minimal"
+  | "calibrationSession.browse";
+export type CalibrationSessionView<
+  V extends CalibrationSessionViewName
+> = V extends "_base"
+  ? Pick<CalibrationSession, "id" | "name" | "date" | "status" | "legacyID">
+  : V extends "_local"
+  ? Pick<CalibrationSession, "id" | "name" | "date" | "status" | "legacyID">
+  : V extends "calibrationSession.browse"
+  ? Pick<
+      CalibrationSession,
+      | "id"
+      | "name"
+      | "date"
+      | "administrator"
+      | "status"
+      | "comissions"
+      | "template"
+    >
+  : never;

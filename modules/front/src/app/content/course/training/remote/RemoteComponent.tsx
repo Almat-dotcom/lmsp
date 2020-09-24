@@ -1,7 +1,7 @@
 import React from "react";
 import {remoteMap} from "./RemoteMap";
 import {ContentType} from "../../../../../cuba/enums/enums";
-import {CourseSectionObject} from "../../../../../cuba/entities/tsadv/tsadv$CourseSectionObject";
+import {CourseSectionObject} from "../../../../../cuba/entities/base/tsadv$CourseSectionObject";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import TestDsComponent from "./test/TestDsComponent";
 import {TrainingComponentHandlers} from "../TrainingComponent";

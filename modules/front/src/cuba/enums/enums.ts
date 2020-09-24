@@ -489,3 +489,7 @@ export enum TimecardHeaderTypeEnum {
   PLAN = "PLAN",
   BASE = "BASE"
 }
+
+export enum LmsSliderPosition {
+  HOME = "HOME",
+}
