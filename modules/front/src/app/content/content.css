@@ -20,13 +20,14 @@
 }
 
 .main-menu-carousel {
-  height: 300px;
+  height: auto;
   border: 2px solid black;
-  border-bottom: white;
-  color: black;
+  border-right: white;
+  border-left: white;
   align-items: baseline;
   text-align: center;
 }
+
 .main-carousel-bottom-menu {
   text-align: center;
   border-bottom: 2px solid black;
@@ -36,7 +37,12 @@
   margin-bottom: 20px;
   font-size: x-large;
 }
-
+.main-menu-carousel-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 .content-container hr {
   margin: 40px 0;
   opacity: 1;

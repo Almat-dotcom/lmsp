@@ -1,26 +1,21 @@
 import * as React from "react";
-import WelcomeComponent from "./welcome/WelcomeComponent";
-import MaterialComponent, {
-  BoxType,
-  LogoType
-} from "../common/materialContainer/material/MaterialComponent";
+import MaterialComponent, {BoxType, LogoType} from "../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../common/loading/LoadingComponent";
-import { action, observable } from "mobx";
-import { getCubaREST } from "@cuba-platform/react";
-import { Course } from "../../cuba/entities/base/tsadv$Course";
-import { observer } from "mobx-react";
-import { RouteComponentProps } from "react-router";
-import { withRouter } from "react-router-dom";
-import { restServices } from "../../cuba/services";
+import {action, observable} from "mobx";
+import {getCubaREST} from "@cuba-platform/react";
+import {Course} from "../../cuba/entities/base/tsadv$Course";
+import {observer} from "mobx-react";
+import {RouteComponentProps} from "react-router";
+import {withRouter} from "react-router-dom";
+import {restServices} from "../../cuba/services";
 import styles from "./style.module.css";
-import MaterialContainerComponent, {
-  MaterialType
-} from "../common/materialContainer/MaterialContainerComponent";
-import { Button, Carousel, Icon } from "antd";
+import MaterialContainerComponent from "../common/materialContainer/MaterialContainerComponent";
+import {Carousel, Icon} from "antd";
 import CSS from "csstype";
 import {LmsSliderImage} from "../../cuba/entities/base/tsadv$LmsSliderImage";
 import {LmsSliderPosition} from "../../cuba/enums/enums";
 import {wrapFileUrl} from "../common/global";
+
 const carouselContentStyle: CSS.Properties = {
   height: "160px",
   color: "#fff",
@@ -33,27 +28,28 @@ const carouselContentStyle: CSS.Properties = {
 class HomePage extends React.Component<RouteComponentProps> {
   @observable currentCourses: Course[];
   @observable sliderFiles: string[] = [];
-  coursesCarousel: Carousel | null;
+  imagesCarousel: Carousel | null;
   readonly elementsPerSlideCount: number = 4;
 
   componentDidMount(): void {
     restServices.tsadv_LmsService
-      .loadCourses(getCubaREST()!, { conditions: [] })()
+      .loadCourses(getCubaREST()!, {conditions: []})()
       .then((response: string) => {
         const courses: Course[] = JSON.parse(response);
         this.setCurrentCourses(courses);
       });
-      getCubaREST()!.searchEntities(LmsSliderImage.NAME, {
-        conditions: [
-          {
-            property: "slider.position",
-            operator: "=",
-            value: LmsSliderPosition.HOME
-          }
-        ]
-      }, {view: "lmsSliderImage.with.image"}).then((response: LmsSliderImage[]) => {
-        this.setSliderFiles(response.map(sliderImage => wrapFileUrl(sliderImage.image!.id!)));
-      });
+    getCubaREST()!.searchEntities(LmsSliderImage.NAME, {
+      conditions: [
+        {
+          property: "slider.position",
+          operator: "=",
+          value: LmsSliderPosition.HOME
+        }
+      ]
+    }, {view: "lmsSliderImage.with.image"}).then((response: LmsSliderImage[]) => {
+      this.setSliderFiles(response.map(sliderImage => wrapFileUrl(sliderImage.image!.id!)));
+      this.sliderFiles.forEach(slider => console.log(slider));
+    });
   }
 
   @action setSliderFiles = (value: string[]) => {
@@ -91,60 +87,53 @@ class HomePage extends React.Component<RouteComponentProps> {
         </div>
       ));
   };
-  render() {
-    const BodyComponent = this.currentCourses
-      ? React.createElement(MaterialContainerComponent, {
-          materialData: this.currentCourses,
-          boxType: BoxType.DEFAULT,
-          materialClickHandler: this.courseClickHandler
-        })
-      : React.createElement(LoadingComponent);
-    const carouselElements = this.currentCourses
-      ? this.currentCourses.map((material: Course) => (
-          <MaterialComponent
-            id={material.id!}
-            name={material.name!}
-            logo={material.logo}
-            Footer={<></>}
-            logoType={LogoType.BASE64}
-            boxType={BoxType.DEFAULT}
-            materialClickHandler={this.courseClickHandler}
-          />
-        ))
-      : React.createElement(LoadingComponent);
 
-    const carouselNextArrow = (
-      <Icon
-        type="right"
-        className="main-carousel-bottom-menu-arrow"
-        onClick={() => this.coursesCarousel!.next()}
-      />
-    );
-    const carouselPreviousArrow = (
-      <Icon
-        type="left"
-        className="main-carousel-bottom-menu-arrow"
-        onClick={() => this.coursesCarousel!.prev()}
-      />
-    );
+  render() {
+    const BodyComponent = this.currentCourses ? React.createElement(MaterialContainerComponent, {
+      materialData: this.currentCourses,
+      boxType: BoxType.DEFAULT,
+      materialClickHandler: this.courseClickHandler
+    }) : React.createElement(LoadingComponent);
+    const imagesCarouselElements = this.sliderFiles
+      ? this.sliderFiles.map((sliderImageSrc) => (
+        <div>
+          <img className="main-menu-carousel-image" src={sliderImageSrc}/>
+        </div>
+      ))
+      : React.createElement(LoadingComponent);
+    // const carouselNextArrow = (
+    //   <Icon
+    //     type="right"
+    //     className="main-carousel-bottom-menu-arrow"
+    //     onClick={() => this.imagesCarousel!.next()}
+    //   />
+    // );
+    // const carouselPreviousArrow = (
+    //   <Icon
+    //     type="left"
+    //     className="main-carousel-bottom-menu-arrow"
+    //     onClick={() => this.imagesCarousel!.prev()}
+    //   />
+    // );
+
     return (
       <div className={""}>
         <div className={styles["content-wrapper"]}>
           <Carousel
             className="main-menu-carousel"
-            dotsClass="main-menu-carousel-dot"
             infinite
-            autoplay={false}
-            dots={false}
-            ref={prop => (this.coursesCarousel = prop)}
+            autoplay
+            dots
+            ref={prop => (this.imagesCarousel = prop)}
           >
-            {this.splitCurrentCourses()}
+            {imagesCarouselElements}
           </Carousel>
-          <div className="main-carousel-bottom-menu">
-            {carouselPreviousArrow}
-            {carouselNextArrow}
-          </div>
+          {/*<div className="main-carousel-bottom-menu">*/}
+          {/*  {carouselPreviousArrow}*/}
+          {/*  {carouselNextArrow}*/}
+          {/*</div>*/}
         </div>
+        <div className={styles["content-wrapper"]}>{BodyComponent}</div>
       </div>
     );
   }
