@@ -7,7 +7,8 @@ import TrainingVideoComponent from "./TrainingVideoComponent";
 import TrainingPdfComponent from "./TrainingPdfComponent";
 import TrainingTextComponent from "./TrainingTextComponent";
 
-export const remoteMap = new Map<ContentType, React.ClassType<any, any, any>>();
+export const remoteMap = new Map<ContentType | undefined, React.ClassType<any, any, any>>();
+remoteMap.set(undefined, TrainingUrlComponent); // IF SCORM
 remoteMap.set(ContentType.HTML, TrainingHtmlComponent);
 remoteMap.set(ContentType.URL, TrainingUrlComponent);
 remoteMap.set(ContentType.FILE, TrainingPdfComponent);
