@@ -8,8 +8,7 @@ interface TrainingUrlComponentProps {
 
 class TrainingUrlComponent extends React.Component<TrainingUrlComponentProps> {
   render() {
-    const url = this.props.content.url!.replace(window.location.origin, "");
-    return <iframe src={url} className={"section-container-body"}/>
+    return <iframe src={this.props.content.url!} className={"section-container-body"}/>
   }
 }
 
