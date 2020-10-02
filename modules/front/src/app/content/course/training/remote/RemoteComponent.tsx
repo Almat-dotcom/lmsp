@@ -21,7 +21,7 @@ class RemoteComponent extends React.Component<RemoteComponentProps & TrainingCom
     }
 
     const content = this.props.sectionObject.content!;
-    const contentType: ContentType = ContentType[content.contentType!] as ContentType;
+    const contentType: ContentType | undefined = ContentType[content.contentType] as ContentType;
     const props = {...this.props.sectionObject};
     return <>
       <h2>{this.props.intl.formatMessage({id: "description"}) + ': '}
