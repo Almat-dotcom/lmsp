@@ -1,12 +1,9 @@
 import React from "react";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import './style.css'
-import TrainingDescriptionComponent from "./description/TrainingDescriptionComponent";
 import {CourseData, MenuType, SelectedMenu} from "../CourseComponent";
 import {CourseSection} from "../../../../cuba/entities/base/tsadv$CourseSection";
 import {observer} from "mobx-react";
-import {trainingBodyMap} from "./TrainingBodyMap";
-import {CourseSectionFormat} from "../../../../cuba/enums/enums";
 import {action, observable} from "mobx";
 import TrainingComponent from "./TrainingComponent";
 import {Spin} from "antd";
@@ -65,7 +62,6 @@ class TrainingDsComponent extends React.Component<TrainingDsComponentProps & Tra
   }
 
   @action setCourseSection = (value: CourseSection) => {
-    debugger;
     this.courseSection = value;
   };
 

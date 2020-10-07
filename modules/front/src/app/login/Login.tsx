@@ -12,13 +12,11 @@ import {
   injectIntl,
   WrappedComponentProps
 } from "react-intl";
-import { IconComponent } from "antd/lib/icon";
-import { RouteComponentProps } from "react-router-dom";
-import { MatchParams } from "../common/model/RouteComponentProps";
 import H from "history";
 export interface HistoryProp {
   history: H.History;
 }
+
 @injectMainStore
 @observer
 class Login extends React.Component<MainStoreInjected & WrappedComponentProps & HistoryProp> {

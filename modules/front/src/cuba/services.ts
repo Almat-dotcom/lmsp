@@ -168,7 +168,7 @@ export var restServices = {
         fetchOpts
       );
     },
-    restorePassword: (cubaApp: CubaApp, params : {userLogin: string}, fetchOpts?: FetchOptions) => async () => {
+    restorePassword: (cubaApp: CubaApp, params: { userLogin: string }, fetchOpts?: FetchOptions) => async () => {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
         "restorePassword",
