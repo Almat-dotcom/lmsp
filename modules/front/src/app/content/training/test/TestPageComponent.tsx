@@ -7,12 +7,14 @@ import {restServices} from "../../../../cuba/services";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import Content from "../../Content";
 import {MatchParams, RouteComponentProps} from "../../../common/model/RouteComponentProps";
-
+import { notification } from "antd";
+import { injectIntl, WrappedComponentProps } from "react-intl";
+import { ResponsePojo, ResponsePojoStatus } from "../../../common/ResponsePojo";
 interface Props extends RouteComponentProps<MatchParams> {
 }
 
 @observer
-class TestPageComponent extends React.Component<Props> {
+class TestPageComponent extends React.Component<Props & WrappedComponentProps> {
 
   @observable test: Test | null = null;
 
@@ -21,7 +23,14 @@ class TestPageComponent extends React.Component<Props> {
       testId: this.props.match.params.id
     })().then((response: string) => {
       const test: Test = JSON.parse(response);
-      this.setTest(test);
+      if(test.attemptId){
+        this.setTest(test);
+      }
+      else {
+        const errorResponse : ResponsePojo = JSON.parse(response); 
+        notification.error({ message: this.props.intl.formatMessage({id :errorResponse.message})});
+        this.props.history.push("/training/tests");
+      }
     })
   }
 
@@ -48,4 +57,4 @@ class TestPageComponent extends React.Component<Props> {
   }
 }
 
-export default TestPageComponent;
+export default injectIntl(TestPageComponent);

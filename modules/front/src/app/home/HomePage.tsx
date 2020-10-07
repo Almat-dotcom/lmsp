@@ -1,20 +1,20 @@
 import * as React from "react";
-import MaterialComponent, {BoxType, LogoType} from "../common/materialContainer/material/MaterialComponent";
+import MaterialComponent, { BoxType, LogoType } from "../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../common/loading/LoadingComponent";
-import {action, observable} from "mobx";
-import {getCubaREST} from "@cuba-platform/react";
-import {Course} from "../../cuba/entities/base/tsadv$Course";
-import {observer} from "mobx-react";
-import {RouteComponentProps} from "react-router";
-import {withRouter} from "react-router-dom";
-import {restServices} from "../../cuba/services";
+import { action, observable } from "mobx";
+import { getCubaREST } from "@cuba-platform/react";
+import { Course } from "../../cuba/entities/base/tsadv$Course";
+import { observer } from "mobx-react";
+import { RouteComponentProps } from "react-router";
+import { withRouter } from "react-router-dom";
+import { restServices } from "../../cuba/services";
 import styles from "./style.module.css";
 import MaterialContainerComponent from "../common/materialContainer/MaterialContainerComponent";
-import {Carousel, Icon} from "antd";
+import { Carousel, Icon } from "antd";
 import CSS from "csstype";
-import {LmsSliderImage} from "../../cuba/entities/base/tsadv$LmsSliderImage";
-import {LmsSliderPosition} from "../../cuba/enums/enums";
-import {wrapFileUrl} from "../common/global";
+import { LmsSliderImage } from "../../cuba/entities/base/tsadv$LmsSliderImage";
+import { LmsSliderPosition } from "../../cuba/enums/enums";
+import { wrapFileUrl } from "../common/global";
 
 const carouselContentStyle: CSS.Properties = {
   height: "160px",
@@ -33,7 +33,7 @@ class HomePage extends React.Component<RouteComponentProps> {
 
   componentDidMount(): void {
     restServices.tsadv_LmsService
-      .loadCourses(getCubaREST()!, {conditions: []})()
+      .loadCourses(getCubaREST()!, { conditions: [] })()
       .then((response: string) => {
         const courses: Course[] = JSON.parse(response);
         this.setCurrentCourses(courses);
@@ -46,10 +46,11 @@ class HomePage extends React.Component<RouteComponentProps> {
           value: LmsSliderPosition.HOME
         }
       ]
-    }, {view: "lmsSliderImage.with.image"}).then((response: LmsSliderImage[]) => {
+    }, { view: "lmsSliderImage.with.image" }).then((response: LmsSliderImage[]) => {
       this.setSliderFiles(response.map(sliderImage => wrapFileUrl(sliderImage.image!.id!)));
       this.sliderFiles.forEach(slider => console.log(slider));
     });
+    
   }
 
   @action setSliderFiles = (value: string[]) => {
@@ -96,42 +97,44 @@ class HomePage extends React.Component<RouteComponentProps> {
     }) : React.createElement(LoadingComponent);
     const imagesCarouselElements = this.sliderFiles
       ? this.sliderFiles.map((sliderImageSrc) => (
-        <div>
-          <img className="main-menu-carousel-image" src={sliderImageSrc}/>
+        <div className="main-menu-carousel-image-container">
+          <img className="main-menu-carousel-image" src={sliderImageSrc} />
         </div>
       ))
       : React.createElement(LoadingComponent);
-    // const carouselNextArrow = (
-    //   <Icon
-    //     type="right"
-    //     className="main-carousel-bottom-menu-arrow"
-    //     onClick={() => this.imagesCarousel!.next()}
-    //   />
-    // );
-    // const carouselPreviousArrow = (
-    //   <Icon
-    //     type="left"
-    //     className="main-carousel-bottom-menu-arrow"
-    //     onClick={() => this.imagesCarousel!.prev()}
-    //   />
-    // );
+    const carouselNextArrow = (
+      <Icon
+        type="right"
+        className="main-carousel-bottom-menu-arrow"
+        onClick={() => this.imagesCarousel!.next()}
+      />
+    );
+    const carouselPreviousArrow = (
+      <Icon
+        type="left"
+        className="main-carousel-bottom-menu-arrow"
+        onClick={() => this.imagesCarousel!.prev()}
+      />
+    );
 
     return (
       <div className={""}>
-        <div className={styles["content-wrapper"]}>
+        <div className={styles["content-wrapper"] + " image-carousel"}>
           <Carousel
+            
             className="main-menu-carousel"
             infinite
             autoplay
-            dots
             ref={prop => (this.imagesCarousel = prop)}
+            dots={false}
           >
             {imagesCarouselElements}
+            
           </Carousel>
-          {/*<div className="main-carousel-bottom-menu">*/}
-          {/*  {carouselPreviousArrow}*/}
-          {/*  {carouselNextArrow}*/}
-          {/*</div>*/}
+          <div className="main-carousel-bottom-menu">
+              {carouselPreviousArrow}
+              {carouselNextArrow}
+            </div>
         </div>
         <div className={styles["content-wrapper"]}>{BodyComponent}</div>
       </div>

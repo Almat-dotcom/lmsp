@@ -4,7 +4,7 @@ import App from "./app/App";
 // import registerServiceWorker from './registerServiceWorker';
 import { CubaAppProvider } from "@cuba-platform/react";
 
-import { HashRouter, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Router } from "react-router-dom";
 import { initializeApp } from "@cuba-platform/rest";
 import { CUBA_APP_URL } from "./config";
 
@@ -27,9 +27,9 @@ ReactDOM.render(
     messagesMapping={messagesMapping}
     antdLocaleMapping={antdLocaleMapping}
   >
-    <HashRouter>
+    <BrowserRouter>
       <Route component={App} />
-    </HashRouter>
+    </BrowserRouter>
   </CubaAppProvider>,
   document.getElementById("wrapper") as HTMLElement
 );

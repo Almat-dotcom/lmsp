@@ -13,34 +13,52 @@
   border-right: 1px solid #ccc;
   padding: 50px 100px;
 }
+.ant-carousel {
+  height: 100%;
+}
 
 .content-container h1 {
   text-transform: uppercase;
   font-size: 50px;
 }
-
 .main-menu-carousel {
-  height: auto;
-  border: 2px solid black;
-  border-right: white;
-  border-left: white;
-  align-items: baseline;
+  width: 100%;
   text-align: center;
 }
-
-.main-carousel-bottom-menu {
-  text-align: center;
+.image-carousel {
+  height: 460px;
+  border-top: 2px solid black;
   border-bottom: 2px solid black;
+}
+.main-carousel-bottom-menu {
+  position: relative;
+  width: fit-content;
+  top:  auto;
+  left: 75%;
+  bottom: 90px;
+
 }
 .main-carousel-bottom-menu-arrow {
   margin: 15px;
   margin-bottom: 20px;
   font-size: x-large;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.main-carousel-bottom-menu-arrow:hover {
+  background-color: darkgrey;
+}
+.main-menu-carousel-image-container {
+  height: fit-content;
+  max-height: 450px;
 }
 .main-menu-carousel-image {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  max-height: inherit;
+  object-fit: contain;
   width: 50%;
 }
 .content-container hr {

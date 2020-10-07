@@ -155,5 +155,19 @@
   "professionalData": "Профессиональные данные",
   "additionalData": "Дополнительная информация",
   "feedback.modal.title": "Благодарим за отзыв!",
-  "download": "Скачать"
+  "download": "Скачать",
+  "resetPassword.unknownError" : "При выполнении запроса произошла неизвестная ошибка.",
+  "restorePassword.noUser.caption":"Пользователь не найден.",
+  "restorePassword.noEmail.caption" : "У указанного пользователя нет электронной почты.",
+  "restorePassword.success" : "На вашу электронную почту была отправлена ссылка для смены пароля.",
+  "restorePassword.backToLoginLabel" : "Вернуться ко входу",
+  "restorePassword.currentLoginLabel" : "Текущий логин",
+  "restorePassword.restoreBtn" : "Восстановить пароль",
+  "resetPassword.success" : "Пароль успешно изменён.",
+  "resetPassword.invalidToken" : "Ссылка неверна или просрочена.",
+  "resetPassword.emptyToken" : "Ссылка для смены пароля неверна.",
+  "resetPassword.newPasswordLabel" : "Новый пароль",
+  "resetPassword.confirmPasswordLabel" : "Подтвердите пароль",
+  "resetPassword.restoreBtn" : "Сменить пароль",
+  "tests.noAttempt.error" : "Лимит попыток на указанный тест кончился."
 }

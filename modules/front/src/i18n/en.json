@@ -155,5 +155,19 @@
   "professionalData": "Professional data",
   "additionalData": "Additional information",
   "feedback.modal.title": "Thanks for feedback",
-  "cownload": "Download"
+  "cownload": "Download",
+  "resetPassword.unknownError" : "An unknown error occured while executing the request.",
+  "restorePassword.noUser.caption":"User not found.",
+  "restorePassword.noEmail.caption" : "The user has no email.",
+  "restorePassword.success" : "The link to reset your password has been sent to your email",
+  "restorePassword.backToLoginLabel" : "Back to login",
+  "restorePassword.currentLoginLabel" : "Current login",
+  "restorePassword.restoreBtn" : "Restore password",
+  "resetPassword.success" : "Password changed successfully.",
+  "resetPassword.invalidToken" : "The link is incorrect or expired",
+  "resetPassword.emptyToken" : "The link to reset password is incorrect",
+  "resetPassword.newPasswordLabel" : "New password",
+  "resetPassword.confirmPasswordLabel" : "Confirm new password",
+  "resetPassword.restoreBtn" : "Change password",
+  "tests.noAttempt.error" : "The limit of attempts for the specified test is over."
 }

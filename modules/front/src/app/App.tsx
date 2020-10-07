@@ -6,7 +6,7 @@ import {observer} from "mobx-react";
 import Login from "./login/Login";
 import Centered from "./common/Centered";
 import AppHeader from "./header/AppHeader";
-import {NavLink, Route, RouteComponentProps, Switch} from "react-router-dom";
+import {NavLink, Route, RouteComponentProps, Router, Switch} from "react-router-dom";
 import HomePage from "./home/HomePage";
 import {menuItems} from "../routing";
 import {
@@ -27,11 +27,12 @@ import CourseComponent from "./content/course/CourseComponent";
 import ArticleComponent from "./content/knowledge/articles/article/ArticleComponent";
 import TestDsComponent from "./content/course/training/remote/test/TestDsComponent";
 import TestPageComponent from "./content/training/test/TestPageComponent";
-import PasswordRestoreComponent from "./login/PasswordRestoreComponent";
+import PasswordRestoreRequestComponent from "./login/passwordRestore/PasswordRestoreRequestComponent";
+import PasswordRestoreChangePasswordComponent from "./login/passwordRestore/PasswordRestoreChangePasswordComponent"
 import { MatchParams } from "./common/model/RouteComponentProps";
 @injectMainStore
 @observer
-class AppComponent extends React.Component<MainStoreInjected & WrappedComponentProps & RouteComponentProps<MatchParams>> {
+class AppComponent extends React.Component<MainStoreInjected & WrappedComponentProps & RouteComponentProps<{}>> {
   render() {
     const mainStore = this.props.mainStore!;
     const {initialized, locale, loginRequired} = mainStore;
@@ -43,10 +44,13 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
     if (loginRequired) {
       return (
         <Centered>
+          <Router history={this.props.history}>
           <Switch>
-            <Route exact={true} path="/" component={Login}/>
-            <Route exact={true} path="/restore" component={PasswordRestoreComponent}/>
+            <Route exact path="/" component={Login}/>
+            <Route exact path="/restore" component={PasswordRestoreRequestComponent}/>
+            <Route exact path="/reset" component={PasswordRestoreChangePasswordComponent}/>
           </Switch>
+          </Router>
         </Centered>
       );
     }
@@ -87,7 +91,6 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
                 <Route exact={true} path="/course/:id" component={CourseComponent}/>
                 <Route exact={true} path="/article/:id" component={ArticleComponent}/>
                 <Route exact={true} path="/test/:id" component={TestPageComponent}/>
-                <Route exact={true} path="/restore" component={PasswordRestoreComponent}/>
                 {mapToNavigation(topMenu)}
               </Switch>
             </Layout.Content>
