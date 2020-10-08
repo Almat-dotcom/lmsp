@@ -47,7 +47,7 @@ RouteComponentProps<MatchParams> & WrappedComponentProps & HistoryProp & MainSto
         {
           method: "POST",
           headers: {
-            origin: (window.location.origin + "/#/"),
+            LinkURL : window.origin + "/#"
           }
         }).then(response => {
           return response.json();

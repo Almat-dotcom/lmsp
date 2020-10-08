@@ -27,9 +27,9 @@ ReactDOM.render(
     messagesMapping={messagesMapping}
     antdLocaleMapping={antdLocaleMapping}
   >
-    <BrowserRouter>
+    <HashRouter>
       <Route component={App} />
-    </BrowserRouter>
+    </HashRouter>
   </CubaAppProvider>,
   document.getElementById("wrapper") as HTMLElement
 );
