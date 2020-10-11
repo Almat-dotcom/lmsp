@@ -1,21 +1,22 @@
 import React from "react";
 import Content from "../Content";
-import { observer } from "mobx-react";
-import { action, observable } from "mobx";
-import { getCubaREST } from "@cuba-platform/react";
+import {observer} from "mobx-react";
+import {action, observable} from "mobx";
+import {getCubaREST} from "@cuba-platform/react";
 import "./style.css";
 import {
   MatchParams,
   RouteComponentProps
 } from "../../common/model/RouteComponentProps";
-import { injectIntl, WrappedComponentProps } from "react-intl";
+import {injectIntl, WrappedComponentProps} from "react-intl";
 import LoadingComponent from "../../common/loading/LoadingComponent";
 import SectionListComponent from "./list/SectionListComponent";
-import { restServices } from "../../../cuba/services";
+import {restServices} from "../../../cuba/services";
 import TrainingDsComponent from "./training/TrainingDsComponent";
-import { isNullOrUndefined } from "util";
+import {isNullOrUndefined} from "util";
 
-interface Props extends RouteComponentProps<MatchParams> {}
+interface Props extends RouteComponentProps<MatchParams> {
+}
 
 export interface CourseData {
   id: string;
@@ -94,7 +95,7 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
     this.setSelectedMenu(null);
   };
 
-  goToCourseMainPage(courseId : string | undefined): void {
+  goToCourseMainPage(courseId: string | undefined): void {
     if (this.selectedMenu !== null) {
       this.resetSectionItem();
     }
@@ -122,17 +123,16 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
             </div>
           </>
         ) : (
-          <LoadingComponent />
+          <LoadingComponent/>
         )}
       </div>
     );
     const ContentComponent = Content(CourseComponent, {
       headerName: "Курс: " + (this.course ? this.course.name! : ""),
-      wrapperCss: { padding: 0 },
-      contentWrapperCss: { padding: "50px" },
+      wrapperCss: {padding: 0},
       onHeaderClick: () => this.goToCourseMainPage(this.course ? this.course.id : undefined)
     });
-    return <ContentComponent />;
+    return <ContentComponent/>;
   }
 }
 

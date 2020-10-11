@@ -1,4 +1,4 @@
-import {Button, Modal} from "antd";
+import {Button, Icon, Modal} from "antd";
 import * as React from "react";
 import {observer} from "mobx-react";
 import "./AppHeader.css";
@@ -13,23 +13,29 @@ import {NavLink} from "react-router-dom";
 @injectMainStore
 @observer
 class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProps> {
+
+  menuRef: React.RefObject<HTMLDivElement> = React.createRef();
+
   render() {
     const appState = this.props.mainStore!;
     return (
       <div className="app-header">
-        <div className={"header-container"}>
+        <Button className={"nav-button"} icon={"menu"} onClick={this.navButtonClickHandler}/>
+        <div className={"header-container nav-block"}>
           <NavLink to={"/"}>
             <img
               className={"logo"}
               src={logo}
               alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
             /><img
-              className={"logo-small"}
-              src={smallLogo}
-              alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
-            /></NavLink>
+            className={"logo-small"}
+            src={smallLogo}
+            alt={this.props.intl.formatMessage({id: "common.alt.logo"})}
+          /></NavLink>
         </div>
-        <Menu/>
+        <div ref={this.menuRef}>
+          <Menu/>
+        </div>
         <div className="user-panel">
           <LanguageSwitcher className="panelelement language-switcher -header"/>
           <span className="panelelement">{appState.userName}</span>
@@ -55,6 +61,10 @@ class AppHeader extends React.Component<MainStoreInjected & WrappedComponentProp
       }
     });
   };
+
+  navButtonClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    this.menuRef!.current!.classList.toggle("small");
+  }
 }
 
 export default injectIntl(AppHeader);

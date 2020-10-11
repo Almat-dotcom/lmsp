@@ -2,13 +2,12 @@
   text-transform: uppercase;
   padding: 0 15px;
 }
-
-.menu-item:hover {
+.menu-normal-size .menu-item:hover {
   cursor: pointer;
   background-color: #f0f0f0;
 }
 
-.menu-item a {
+.menu-normal-size .menu-item a {
   color: #000;
   font-weight: bold;
   display: block;
@@ -16,11 +15,11 @@
   height: 100%;
 }
 
-.menu-item a[disabled] {
+.menu-normal-size .menu-item a[disabled] {
   color: rgba(0, 0, 0, .25);
 }
 
-.menu-item a:hover {
+.menu-normal-size .menu-item a:hover {
   color: #000;
 }
 
@@ -32,7 +31,7 @@ ul.menu-item, ul.menu-item ul {
   list-style-type: none;
 }
 
-ul.menu-item ul {
+.menu-normal-size ul.menu-item ul {
   position: absolute;
   display: none;
   background-color: #f0f0f0;
@@ -41,7 +40,7 @@ ul.menu-item ul {
   padding: 0;
 }
 
-ul.menu-item ul li {
+.menu-normal-size ul.menu-item ul li {
   height: 50px;
   line-height: 50px;
   width: 200px;
@@ -50,23 +49,77 @@ ul.menu-item ul li {
   z-index: 999;
 }
 
-ul.menu-item ul li span {
+.menu-normal-size ul.menu-item ul li span {
   position: absolute;
 }
 
 
-ul.menu-item ul li:hover {
+.menu-normal-size ul.menu-item ul li:hover {
   color: rgb(0, 0, 0);
 }
 
-ul.menu-item:hover ul {
+.menu-normal-size ul.menu-item:hover ul {
   display: block;
 }
 
-ul.menu-item:hover ul li:hover {
+.menu-normal-size ul.menu-item:hover ul li:hover {
   /*background-color: #f0f0f0;*/
   background-color: #ffc61a;
 }
+
+
+/*SMALL DEVICES START*/
+.small .menu-small-size {
+  position: fixed;
+  left: 0;
+  top: 52px;
+  height: 100%;
+  width: 50%;
+  overflow-y: scroll;
+}
+
+.small .menu-small-size .menu-small-size-r {
+  position: relative;
+  overflow-y: scroll;
+}
+
+.small .menu-small-size .menu-small-size-r nav:last-child{
+  height: 50px;
+}
+
+.small .menu-small-size .menu-item {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+.small .menu-small-size .menu-item a {
+  /*text-align: center;*/
+  display: block;
+  height: 50px;
+  vertical-align: middle;
+  line-height: 50px;
+  padding-left: 10px;
+  border-left: 5px solid #722ed1;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.small .menu-small-size .menu-item a + ul{
+  padding: 0;
+}
+
+.small .menu-small-size .menu-item a + ul a {
+  /*text-align: center;*/
+  display: block;
+  height: 50px;
+  vertical-align: middle;
+  line-height: 50px;
+  padding-left: 30px;
+  border-left: 5px solid #ff7875;
+}
+
+/*SMALL DEVICES END*/
 
 /*.menu-item span:hover::after {*/
 /*  content: '';*/
