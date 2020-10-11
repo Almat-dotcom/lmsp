@@ -54,7 +54,7 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
         <Layout.Header className={"app-header-fixed"}>
           <AppHeader/>
         </Layout.Header>
-        <Layout.Header>
+        <Layout.Header className={"blank-space"}>
           {/*<AppHeader/>*/}
         </Layout.Header>
         <Layout>

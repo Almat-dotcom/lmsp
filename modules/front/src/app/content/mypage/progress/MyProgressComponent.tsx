@@ -101,7 +101,7 @@ class MyProgressComponent extends React.Component<MyProgressComponentProps & Wra
   render() {
     return <div>
       <Spin spinning={this.loadState.loading} tip={this.loadState.message}>
-        <Table columns={this.columns} bordered={true} dataSource={this.props.progress}/>
+        <Table style={{overflowX: 'scroll'}} columns={this.columns} bordered={true} dataSource={this.props.progress}/>
       </Spin>
     </div>
   }

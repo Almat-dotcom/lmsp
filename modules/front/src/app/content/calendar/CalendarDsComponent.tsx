@@ -83,10 +83,9 @@ class CalendarDsComponent extends React.Component<WrappedComponentProps> {
     </div>;
 
     const ContentComponent = Content(Calendar, {
-      headerName: this.props.intl.formatMessage({id: "menu.calendar"}),
-      contentWrapperCss: {padding: '50px'}
+      headerName: this.props.intl.formatMessage({id: "menu.calendar"})
     });
-    return <ContentComponent />;
+    return <ContentComponent/>;
   }
 }
 

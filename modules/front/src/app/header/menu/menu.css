@@ -1,3 +1,21 @@
-.menu-container {
+.menu-small-size {
+  display: none;
+}
+
+.small .menu-small-size {
+  display: block;
+}
+
+.menu-small-size {
+  display: none;
+}
+
+.menu-normal-size {
   display: inline-flex;
+}
+
+@media (max-width: 900px) {
+  .menu-normal-size {
+    display: none;
+  }
 }

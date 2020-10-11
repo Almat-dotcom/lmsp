@@ -101,8 +101,7 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
     const ContentComponent = Content(CourseComponent,
       {
         headerName: "Курс: " + (this.course ? this.course.name! : ""),
-        wrapperCss: {padding: 0},
-        contentWrapperCss: {padding: '50px'}
+        wrapperCss: {padding: 0}
       });
     return <ContentComponent/>;
   }

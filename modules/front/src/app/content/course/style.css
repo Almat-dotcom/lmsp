@@ -19,3 +19,13 @@
   /*padding: 0 30px;*/
   border-radius: 10px;
 }
+
+@media (max-width: 900px) {
+  .course-container .sections-list-wrapper {
+    width: 100%;
+  }
+
+  .course-container .section-training-wrapper {
+    width: 100%;
+  }
+}
