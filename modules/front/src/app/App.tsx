@@ -1,35 +1,29 @@
 import * as React from "react";
 import "./App.css";
 
-import {Icon, Layout, Menu} from "antd";
+import {Layout} from "antd";
 import {observer} from "mobx-react";
 import Login from "./login/Login";
 import Centered from "./common/Centered";
 import AppHeader from "./header/AppHeader";
-import {NavLink, Route, RouteComponentProps, Router, Switch} from "react-router-dom";
+import {Route, RouteComponentProps, Router, Switch} from "react-router-dom";
 import HomePage from "./home/HomePage";
-import {menuItems} from "../routing";
 import {
   injectMainStore,
   MainStoreInjected,
-  RouteItem,
-  SubMenu
 } from "@cuba-platform/react";
 import {CenteredLoader} from "./CenteredLoader";
 import {
-  FormattedMessage,
   injectIntl,
-  IntlFormatters,
   WrappedComponentProps
 } from "react-intl";
 import {IMenuItem, topMenu} from "../menu";
 import CourseComponent from "./content/course/CourseComponent";
 import ArticleComponent from "./content/knowledge/articles/article/ArticleComponent";
-import TestDsComponent from "./content/course/training/remote/test/TestDsComponent";
 import TestPageComponent from "./content/training/test/TestPageComponent";
 import PasswordRestoreRequestComponent from "./login/passwordRestore/PasswordRestoreRequestComponent";
 import PasswordRestoreChangePasswordComponent from "./login/passwordRestore/PasswordRestoreChangePasswordComponent"
-import { MatchParams } from "./common/model/RouteComponentProps";
+
 @injectMainStore
 @observer
 class AppComponent extends React.Component<MainStoreInjected & WrappedComponentProps & RouteComponentProps<{}>> {
@@ -62,7 +56,7 @@ class AppComponent extends React.Component<MainStoreInjected & WrappedComponentP
         <Layout.Header className={"app-header-fixed"}>
           <AppHeader/>
         </Layout.Header>
-        <Layout.Header>
+        <Layout.Header className={"blank-space"}>
           {/*<AppHeader/>*/}
         </Layout.Header>
         <Layout>

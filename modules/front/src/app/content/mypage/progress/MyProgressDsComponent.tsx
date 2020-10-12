@@ -42,8 +42,7 @@ class MyProgressDsComponent extends React.Component<WrappedComponentProps> {
     </div>;
 
     const ContentComponent = Content(MyProgressContentComponent, {
-      headerName: this.props.intl.formatMessage({id: "myProgress"}),
-      contentWrapperCss: {padding: '50px'}
+      headerName: this.props.intl.formatMessage({id: "myProgress"})
     });
     return <ContentComponent/>;
   }

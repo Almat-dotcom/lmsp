@@ -53,8 +53,7 @@ class NotificationsDsComponent extends React.Component<WrappedComponentProps> {
     </div>;
 
     const ContentComponent = Content(NotificationsContentComponent, {
-      headerName: this.props.intl.formatMessage({id: "notifications"}),
-      contentWrapperCss: {padding: '50px'}
+      headerName: this.props.intl.formatMessage({id: "notifications"})
     });
     return <ContentComponent/>;
   }

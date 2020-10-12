@@ -6,6 +6,11 @@ header.ant-layout-header {
   border-bottom: 1px solid #ccc;
 }
 
+header.ant-layout-header .app-header .nav-button {
+  display: none;
+  margin: 10px;
+}
+
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -36,13 +41,38 @@ header.ant-layout-header {
   display: none;
 }
 
-@media only screen and (max-width: 1700px) {
+@media (max-width: 900px) {
+  header.ant-layout-header.blank-space {
+    height: 53px;
+  }
+  header.ant-layout-header:not(.blank-space) {
+    height: auto;
+    line-height: normal;
+  }
+
+  header.ant-layout-header .app-header {
+    height: auto;
+    line-height: normal;
+  }
+
+
+  header.ant-layout-header .app-header .nav-button {
+    display: block;
+  }
+
+  header.ant-layout-header .app-header .nav-block {
+    display: none;
+  }
+
+}
+
+@media (max-width: 1700px) {
   header.ant-layout-header {
     padding: 0;
   }
 }
 
-@media only screen and (max-width: 1400px) {
+@media (max-width: 1400px) {
   .app-header .header-container img.logo-small {
     display: inline-flex;
   }

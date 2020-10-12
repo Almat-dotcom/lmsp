@@ -1,4 +1,4 @@
-.section-container-body{
+.section-container-body {
   background-color: #f0f2f5;
 }
 
@@ -35,4 +35,8 @@
 .title-container span {
   display: block;
   margin-bottom: 5px;
+}
+
+@media (max-width: 900px) {
+
 }
