@@ -7,6 +7,8 @@ import {CourseSection} from "../../../../cuba/entities/base/tsadv$CourseSection"
 import {observer} from "mobx-react";
 import {trainingBodyMap} from "./TrainingBodyMap";
 import {CourseSectionFormat} from "../../../../cuba/enums/enums";
+import { MatchParams, RouteComponentProps } from "../../../common/model/RouteComponentProps";
+import { History } from "history";
 
 interface TrainingComponentProps {
   course: CourseData,
@@ -16,8 +18,10 @@ interface TrainingComponentProps {
 export interface TrainingComponentHandlers {
   resetSectionItem?: () => void
 }
-
-class TrainingComponent extends React.Component<TrainingComponentProps & TrainingComponentHandlers & WrappedComponentProps> {
+interface HistoryProps {
+  history : History
+}
+class TrainingComponent extends React.Component<TrainingComponentProps & TrainingComponentHandlers & WrappedComponentProps & HistoryProps> {
   render() {
     const {course, courseSection} = this.props;
     const TrainingBodyComponent: React.ReactElement = (course.enrollmentId != null && courseSection)

@@ -115,6 +115,7 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
             </div>
             <div className={"section-training-wrapper"}>
               <TrainingDsComponent
+                history={this.props.history}
                 course={this.course}
                 resetSectionItem={this.resetSectionItem}
                 selectedMenu={this.selectedMenu}

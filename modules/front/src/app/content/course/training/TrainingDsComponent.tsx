@@ -10,6 +10,8 @@ import {Spin} from "antd";
 import {restServices} from "../../../../cuba/services";
 import {getCubaREST} from "@cuba-platform/react";
 import FeedbackComponent, {FeedbackCourse} from "./feedback/FeedbackComponent";
+import { History } from "history"
+import { MatchParams, RouteComponentProps } from "../../../common/model/RouteComponentProps";
 
 interface TrainingDsComponentProps {
   course: CourseData,
@@ -19,9 +21,12 @@ interface TrainingDsComponentProps {
 export interface TrainingComponentHandlers {
   resetSectionItem?: () => void
 }
+interface HistoryProps {
+  history : History
+}
 
 @observer
-class TrainingDsComponent extends React.Component<TrainingDsComponentProps & TrainingComponentHandlers & WrappedComponentProps> {
+class TrainingDsComponent extends React.Component<TrainingDsComponentProps & TrainingComponentHandlers & WrappedComponentProps & HistoryProps> {
 
   @observable courseSection: CourseSection | null = null;
 
@@ -80,7 +85,8 @@ class TrainingDsComponent extends React.Component<TrainingDsComponentProps & Tra
       ? <FeedbackComponent courseId={course.id} feedbacks={this.courseFeedback}
                            templateId={selectedMenu.id}
                            okFinishFeedbackHandler={resetSectionItem}/>
-      : <Spin spinning={this.loadingTrainingBody}><TrainingComponent course={this.props.course}
+      : <Spin spinning={this.loadingTrainingBody}><TrainingComponent history={this.props.history}
+                                                                     course={this.props.course}
                                                                      resetSectionItem={resetSectionItem}
                                                                      courseSection={this.courseSection}/></Spin>
   }

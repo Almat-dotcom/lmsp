@@ -5,9 +5,12 @@ import {getCubaREST} from "@cuba-platform/react";
 import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import {Test} from "./TestComponent";
+import {injectIntl, WrappedComponentProps} from "react-intl"
 import TestComponent from "./TestComponent";
-import {Spin} from "antd";
-
+import { History } from "history";
+import {notification, Spin} from "antd";
+import {ResponsePojo, ResponsePojoStatus} from "../../../../../common/ResponsePojo";
+import { RouteComponentProps, MatchParams } from "../../../../../common/model/RouteComponentProps";
 export interface TestDsComponentProps {
   courseSectionObjectId: string,
   enrollmentId: string,
@@ -17,9 +20,11 @@ export interface TestComponentHandlers {
   okFinishTestHandler?: () => void,
   finishTimeHandler?: () => void
 }
-
+interface HistoryProps {
+  history : History
+}
 @observer
-class TestDsComponent extends React.Component<TestDsComponentProps & TestComponentHandlers> {
+class TestDsComponent extends React.Component<TestDsComponentProps & TestComponentHandlers & HistoryProps & WrappedComponentProps> {
 
   @observable test: Test | null = null;
 
@@ -29,7 +34,14 @@ class TestDsComponent extends React.Component<TestDsComponentProps & TestCompone
       enrollmentId: this.props.enrollmentId
     })().then((response: string) => {
       const test: Test = JSON.parse(response);
-      this.setTest(test);
+      if(test.attemptId){
+        this.setTest(test);
+      }
+      else {
+        const errorResponse : ResponsePojo = JSON.parse(response); 
+        notification.error({ message: this.props.intl.formatMessage({id :errorResponse.message})});
+        this.props.history.goBack();
+      }    
     })
   }
 
@@ -44,4 +56,4 @@ class TestDsComponent extends React.Component<TestDsComponentProps & TestCompone
   }
 }
 
-export default TestDsComponent;
+export default injectIntl(TestDsComponent);
