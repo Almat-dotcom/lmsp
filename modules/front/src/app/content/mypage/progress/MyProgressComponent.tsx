@@ -37,10 +37,6 @@ class MyProgressComponent extends React.Component<MyProgressComponentProps & Wra
     dataIndex: 'endDate',
     key: 'endDate',
   },{
-    title: getTableTitleName(this.props.intl, 'lastTestDate'),
-    dataIndex: 'lastTestDate',
-    key: 'lastTestDate',
-  }, {
     title: getTableTitleName(this.props.intl, 'courseName'),
     dataIndex: 'courseName',
     key: 'courseName',

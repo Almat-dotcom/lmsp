@@ -34,8 +34,6 @@ class TestDsComponent extends React.Component<TestDsComponentProps & TestCompone
       enrollmentId: this.props.enrollmentId
     })().then((response: string) => {
       const errorResponse : ResponsePojo = JSON.parse(response);
-      for(let i = 0; i < 10; i++)
-        console.log(errorResponse.status); 
       if(errorResponse.status != ResponsePojoStatus.ERROR){
         const test: Test = JSON.parse(response);
         this.setTest(test);
@@ -43,7 +41,7 @@ class TestDsComponent extends React.Component<TestDsComponentProps & TestCompone
       else {
         const errorResponse : ResponsePojo = JSON.parse(response); 
         notification.error({ message: this.props.intl.formatMessage({id :errorResponse.message})});
-        this.props.history.push("/training/current");
+        this.props.history.goBack();
       }    
     })
   }
