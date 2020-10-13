@@ -33,8 +33,9 @@ class TestDsComponent extends React.Component<TestDsComponentProps & TestCompone
       courseSectionObjectId: this.props.courseSectionObjectId,
       enrollmentId: this.props.enrollmentId
     })().then((response: string) => {
-      const test: Test = JSON.parse(response);
-      if(test.attemptId){
+      const errorResponse : ResponsePojo = JSON.parse(response); 
+      if(errorResponse.status != ResponsePojoStatus.ERROR){
+        const test: Test = JSON.parse(response);
         this.setTest(test);
       }
       else {

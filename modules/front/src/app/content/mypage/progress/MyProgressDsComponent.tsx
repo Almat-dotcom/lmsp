@@ -10,7 +10,10 @@ import {getCubaREST} from "@cuba-platform/react";
 
 export interface ProgressLine {
   lineNum: number,
-  date: string,
+  lastTestDate: string,
+  lastAttemptDate: string,
+  startDate: string,
+  endDate: string,
   courseName: string,
   fio: string,
   score: number,
