@@ -41,7 +41,7 @@ class TestDsComponent extends React.Component<TestDsComponentProps & TestCompone
       else {
         const errorResponse : ResponsePojo = JSON.parse(response); 
         notification.error({ message: this.props.intl.formatMessage({id :errorResponse.message})});
-        this.props.history.goBack();
+        this.props.history.push("/training/current");
       }    
     })
   }
