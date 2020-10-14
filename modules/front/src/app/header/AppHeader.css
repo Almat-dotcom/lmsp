@@ -33,7 +33,7 @@ header.ant-layout-header .app-header .nav-button {
 }
 
 .app-header .header-container img {
-  height: 80px;
+  height: 40px;
   /*width: 100px;*/
 }
 
@@ -45,6 +45,7 @@ header.ant-layout-header .app-header .nav-button {
   header.ant-layout-header.blank-space {
     height: 53px;
   }
+
   header.ant-layout-header:not(.blank-space) {
     height: auto;
     line-height: normal;
@@ -54,7 +55,6 @@ header.ant-layout-header .app-header .nav-button {
     height: auto;
     line-height: normal;
   }
-
 
   header.ant-layout-header .app-header .nav-button {
     display: block;

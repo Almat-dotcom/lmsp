@@ -13,34 +13,42 @@ import {Modal} from "antd";
 import {SerializedEntity} from "@cuba-platform/rest";
 import styles from './style.module.css'
 import {ContentType} from "../../../../cuba/enums/enums";
-import MaterialContainerComponent, {
-  MaterialModel,
-  MaterialType
-} from "../../../common/materialContainer/MaterialContainerComponent";
+import MaterialContainerComponent, {MaterialModel} from "../../../common/materialContainer/MaterialContainerComponent";
+import PaginationLoadParent, {PageWithData, PromiseFunc} from "../../../common/PaginationLoadParent";
+import {BookMaterialModel} from "../books/BooksComponent";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 
 }
 
 @observer
-class VideosComponent extends React.Component<Props & WrappedComponentProps> {
+class VideosComponent extends PaginationLoadParent<MaterialModel, Props & WrappedComponentProps> {
 
-  @observable videos: MaterialModel[];
+  getLoadParams = (): PromiseFunc => {
+    return {
+      loadFunc: restServices.tsadv_LmsService.loadLearningObject,
+      loadParams: {contentType: ContentType.VIDEO}
+    }
+  };
+
+  parseResponseToData = (response: string): BookMaterialModel[] => {
+    const responseData: LearningObject[] = JSON.parse(response);
+    return responseData.map(el => ({...el, name: el.objectName} as MaterialModel));
+  };
+
+
+  parsePageResponseToData = (response: string): PageWithData => {
+    const responseData: PageWithData = JSON.parse(response);
+    return {
+      pageCount: responseData.pageCount,
+      data: responseData.data.map((el: LearningObject) => ({...el, name: el.objectName} as MaterialModel))
+    }
+  };
+
 
   @observable videoUrl: string | null = null;
 
   @observable isVisibleModal: boolean = false;
-
-  componentDidMount(): void {
-    restServices.tsadv_LmsService.loadLearningObject(getCubaREST()!, {contentType: ContentType.VIDEO})().then((response: string) => {
-      const courses: LearningObject[] = JSON.parse(response);
-      this.setHistoryCourses(courses.map(el => ({...el, name: el.objectName} as MaterialModel)));
-    })
-  }
-
-  @action setHistoryCourses = (value: MaterialModel[]) => {
-    this.videos = value;
-  };
 
   @action setVideoUrl = (value: string | null) => {
     this.videoUrl = value;
@@ -68,9 +76,11 @@ class VideosComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   render() {
-    const VideoBody = <div>{this.videos ?
+    const VideoBody = <div>{this.loadedData ?
       <><MaterialContainerComponent boxType={BoxType.DEFAULT}
-                                    materialData={this.videos}
+                                    materialData={this.loadedData}
+                                    hasLoadMore={this.currentPage < this.pageCount}
+                                    loadMoreClickHandler={this.incrementPage}
                                     materialClickHandler={this.materialClickHandler}/>
         <Modal width={"90%"} footer={null} visible={this.isVisibleModal} closable={true} onCancel={() => {
           this.setVideoUrl(null);

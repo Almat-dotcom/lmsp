@@ -6,15 +6,16 @@ import {getCubaREST} from "@cuba-platform/react";
 import {Course} from "../../cuba/entities/base/tsadv$Course";
 import {observer} from "mobx-react";
 import {RouteComponentProps} from "react-router";
-import {withRouter} from "react-router-dom";
+import {withRouter} from 'react-router-dom'
 import {restServices} from "../../cuba/services";
-import styles from "./style.module.css";
+import styles from './style.module.css';
 import MaterialContainerComponent from "../common/materialContainer/MaterialContainerComponent";
 import {Carousel, Icon} from "antd";
 import CSS from "csstype";
 import {LmsSliderImage} from "../../cuba/entities/base/tsadv$LmsSliderImage";
 import {LmsSliderPosition} from "../../cuba/enums/enums";
 import {wrapFileUrl} from "../common/global";
+import PaginationLoadParent, {PromiseFunc} from "../common/PaginationLoadParent";
 
 const carouselContentStyle: CSS.Properties = {
   height: "160px",
@@ -25,19 +26,14 @@ const carouselContentStyle: CSS.Properties = {
 };
 
 @observer
-class HomePage extends React.Component<RouteComponentProps> {
-  @observable currentCourses: Course[];
+class HomePage extends PaginationLoadParent<Course, RouteComponentProps> {
+
   @observable sliderFiles: string[] = [];
   imagesCarousel: Carousel | null;
   readonly elementsPerSlideCount: number = 4;
 
   componentDidMount(): void {
-    restServices.tsadv_LmsService
-      .loadCourses(getCubaREST()!, {conditions: []})()
-      .then((response: string) => {
-        const courses: Course[] = JSON.parse(response);
-        this.setCurrentCourses(courses);
-      });
+    super.componentDidMount();
     getCubaREST()!.searchEntities(LmsSliderImage.NAME, {
       conditions: [
         {
@@ -50,15 +46,16 @@ class HomePage extends React.Component<RouteComponentProps> {
       this.setSliderFiles(response.map(sliderImage => wrapFileUrl(sliderImage.image!.id!)));
       this.sliderFiles.forEach(slider => console.log(slider));
     });
-
   }
 
   @action setSliderFiles = (value: string[]) => {
     this.sliderFiles = value;
   };
 
-  @action setCurrentCourses = (currentCourses: any) => {
-    this.currentCourses = currentCourses;
+  getLoadParams = (): PromiseFunc => {
+    return {
+      loadFunc: restServices.tsadv_LmsService.loadCourses
+    }
   };
 
   courseClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -66,12 +63,12 @@ class HomePage extends React.Component<RouteComponentProps> {
   };
 
   splitCurrentCourses = () => {
-    if (!this.currentCourses) return React.createElement(LoadingComponent);
+    if (!this.loadedData) return React.createElement(LoadingComponent);
     return new Array(
-      Math.ceil(this.currentCourses.length / this.elementsPerSlideCount)
+      Math.ceil(this.loadedData.length / this.elementsPerSlideCount)
     )
       .fill(undefined)
-      .map(_ => this.currentCourses.splice(0, this.elementsPerSlideCount))
+      .map(_ => this.loadedData.splice(0, this.elementsPerSlideCount))
       .map((coursesGroup: Course[]) => (
         <div>
           {coursesGroup.map((material: Course) => (
@@ -90,10 +87,12 @@ class HomePage extends React.Component<RouteComponentProps> {
   };
 
   render() {
-    const BodyComponent = this.currentCourses ? React.createElement(MaterialContainerComponent, {
-      materialData: this.currentCourses,
+    const BodyComponent = this.loadedData ? React.createElement(MaterialContainerComponent, {
+      materialData: this.loadedData,
       boxType: BoxType.DEFAULT,
-      materialClickHandler: this.courseClickHandler
+      materialClickHandler: this.courseClickHandler,
+      loadMoreClickHandler: this.incrementPage,
+      hasLoadMore: this.currentPage < this.pageCount
     }) : React.createElement(LoadingComponent);
     const imagesCarouselElements = this.sliderFiles
       ? this.sliderFiles.map((sliderImageSrc) => (
@@ -118,7 +117,7 @@ class HomePage extends React.Component<RouteComponentProps> {
     );
 
     return (
-      <div className={""}>
+      <div>
         <div className={styles["content-wrapper"] + " image-carousel"}>
           <Carousel
 

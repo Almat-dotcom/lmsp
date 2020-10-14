@@ -3,7 +3,6 @@ import Search from "../../../common/Search";
 import {observer} from "mobx-react";
 import {action, observable} from "mobx";
 import {Course} from "../../../../cuba/entities/base/tsadv$Course";
-import {getCubaREST} from "@cuba-platform/react";
 import Content from "../../Content";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
@@ -12,39 +11,35 @@ import {RouteComponentProps} from "react-router";
 import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import {Condition, EntityFilter} from "@cuba-platform/rest";
 import {restServices} from "../../../../cuba/services";
-import MaterialContainerComponent, {MaterialType} from "../../../common/materialContainer/MaterialContainerComponent";
+import MaterialContainerComponent from "../../../common/materialContainer/MaterialContainerComponent";
+import PaginationLoadParent, {PromiseFunc} from "../../../common/PaginationLoadParent";
 
 @observer
-class Courses extends React.Component<WrappedComponentProps & RouteComponentProps> {
-  componentDidMount(): void {
-    this.reloadData();
-  }
+class Courses extends PaginationLoadParent<Course, WrappedComponentProps & RouteComponentProps> {
 
   searchProperty: string = 'name';
 
-  @observable courses: Course[];
+  @observable coursesConditions: EntityFilter | undefined;
 
-  @observable coursesConditions: EntityFilter;
-
-  @action setCurrentCourses = (currentCourses: any) => {
-    this.courses = currentCourses;
-  };
-
-  @action setCoursesConditions = (value: EntityFilter) => {
+  @action setCoursesConditions = (value: EntityFilter | undefined) => {
     this.coursesConditions = value;
   };
 
-  setSingleCondition = (value: Condition | null) => {
-    // this.setCoursesConditions({conditions: [value]});
-    const conditions = value === null ? [] : [value];
-    this.setCoursesConditions({conditions: conditions});
+  setSingleCondition = (value: Condition | undefined) => {
+    if (value) {
+      this.setCoursesConditions({conditions: [value]});
+    } else {
+      this.setCoursesConditions(undefined);
+    }
   };
 
-  reloadData = () => {
-    restServices.tsadv_LmsService.loadCourses(getCubaREST()!, this.coursesConditions)().then((response: string) => {
-      const courses: Course[] = JSON.parse(response);
-      this.setCurrentCourses(courses);
-    });
+  getLoadParams = (): PromiseFunc => {
+    return {
+      loadFunc: restServices.tsadv_LmsService.loadCourses,
+      loadParams: {
+        ...this.coursesConditions
+      }
+    };
   };
 
   courseClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -52,9 +47,11 @@ class Courses extends React.Component<WrappedComponentProps & RouteComponentProp
   };
 
   @action onSearch = (value: string, event?: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    this.resetPage();
     if (value.trim() === '') {
-      this.setSingleCondition(null);
-      this.reloadData()
+      this.setSingleCondition(undefined);
+      this.load();
+      return;
     }
 
     const searchCondition: Condition = {
@@ -63,25 +60,27 @@ class Courses extends React.Component<WrappedComponentProps & RouteComponentProp
       value: value
     };
     this.setSingleCondition(searchCondition);
-    this.reloadData();
+    this.load();
   };
 
   render() {
-    const BodyComponent = this.courses ? React.createElement(MaterialContainerComponent, {
-      materialData: this.courses,
+    const BodyComponent = this.loadedData ? React.createElement(MaterialContainerComponent, {
+      materialData: this.loadedData,
       boxType: BoxType.DEFAULT,
-      materialClickHandler: this.courseClickHandler
+      materialClickHandler: this.courseClickHandler,
+      loadMoreClickHandler: this.incrementPage,
+      hasLoadMore: this.currentPage < this.pageCount
     }) : React.createElement(LoadingComponent);
 
     const CoursesBodyComponent = <div className={"courses-container"}>
-        <Search placeholder={"Введите название курса"} onSearch={this.onSearch}/>
-        {BodyComponent}
-      </div>;
+      <Search placeholder={"Введите название курса"} onSearch={this.onSearch}/>
+      {BodyComponent}
+    </div>;
 
     const CoursesComponent = Content(CoursesBodyComponent, {
       headerName: "курсы",
     });
-    return <CoursesComponent />;
+    return <CoursesComponent/>;
   }
 }
 
