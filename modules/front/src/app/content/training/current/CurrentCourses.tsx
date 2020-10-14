@@ -1,32 +1,24 @@
 import React from 'react'
-import {getCubaREST} from "@cuba-platform/react";
 import Content from "../../Content";
 import {restServices} from "../../../../cuba/services";
 import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
-import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import {MatchParams, RouteComponentProps} from "../../../common/model/RouteComponentProps";
-import MaterialContainerComponent, {MaterialType} from "../../../common/materialContainer/MaterialContainerComponent";
+import MaterialContainerComponent from "../../../common/materialContainer/MaterialContainerComponent";
+import PaginationLoadParent, {PromiseFunc} from "../../../common/PaginationLoadParent";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 }
 
 @observer
-class CurrentCourses extends React.Component<Props> {
+class CurrentCourses extends PaginationLoadParent<Course, Props> {
 
-  @observable currentCourses: Course[];
-
-  componentDidMount(): void {
-    restServices.tsadv_LmsService.getPersonCourses(getCubaREST()!)().then((response: string) => {
-      const courses: Course[] = JSON.parse(response);
-      this.setCurrentCourses(courses);
-    });
-  }
-
-  @action setCurrentCourses = (currentCourses: any) => {
-    this.currentCourses = currentCourses;
+  getLoadParams = (): PromiseFunc => {
+    return {
+      loadFunc: restServices.tsadv_LmsService.getPersonCourses
+    }
   };
 
   materialClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -37,9 +29,10 @@ class CurrentCourses extends React.Component<Props> {
     const BodyComponent = (
       <div className={"course-items-container"}>
         <div className={"course-items"}>
-          {this.currentCourses != undefined ?
-            <MaterialContainerComponent materialData={this.currentCourses}
+          {this.loadedData != undefined ?
+            <MaterialContainerComponent materialData={this.loadedData}
                                         boxType={BoxType.DEFAULT}
+                                        hasLoadMore={this.currentPage < this.pageCount}
                                         materialClickHandler={this.materialClickHandler}/> :
             <LoadingComponent/>}
         </div>

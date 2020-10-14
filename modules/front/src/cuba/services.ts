@@ -19,19 +19,19 @@ export interface Response {
 
 export var restServices = {
   tsadv_LmsService: {
-    getPersonCourses: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+    getPersonCourses: (cubaApp: CubaApp, params: { pageNumber: number }, fetchOpts?: FetchOptions) => () => {
       return cubaApp.invokeService(
         "tsadv_LmsService",
         "getPersonCourses",
-        {},
+        {...params},
         fetchOpts
       );
     },
-    getPersonHistory: (cubaApp: CubaApp, fetchOpts?: FetchOptions) => () => {
+    getPersonHistory: (cubaApp: CubaApp, params: { pageNumber: number }, fetchOpts?: FetchOptions) => () => {
       return cubaApp.invokeService(
         "tsadv_LmsService",
         "getPersonHistory",
-        {},
+        {...params},
         fetchOpts
       );
     },
@@ -59,7 +59,7 @@ export var restServices = {
         fetchOpts
       );
     },
-    loadCourses: (cubaApp: CubaApp, params: EntityFilter, fetchOpts?: FetchOptions) => async () => {
+    loadCourses: (cubaApp: CubaApp, params: { filter?: EntityFilter, pageNumber: number }, fetchOpts?: FetchOptions) => async () => {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
         "loadCourses",
@@ -200,7 +200,7 @@ export var restServices = {
         fetchOpts
       );
     },
-    loadBooks: (cubaApp: CubaApp, params: {}, fetchOpts?: FetchOptions) => async () => {
+    loadBooks: (cubaApp: CubaApp, params: { pageNumber: number }, fetchOpts?: FetchOptions) => async () => {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
         "loadBooks",

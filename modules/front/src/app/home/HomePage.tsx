@@ -1,31 +1,23 @@
 import * as React from "react";
-import WelcomeComponent from "./welcome/WelcomeComponent";
 import {BoxType} from "../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../common/loading/LoadingComponent";
-import {action, observable} from "mobx";
-import {getCubaREST} from "@cuba-platform/react";
 import {Course} from "../../cuba/entities/tsadv/tsadv$Course";
 import {observer} from "mobx-react";
 import {RouteComponentProps} from "react-router";
 import {withRouter} from 'react-router-dom'
 import {restServices} from "../../cuba/services";
 import styles from './style.module.css'
-import MaterialContainerComponent, {MaterialType} from "../common/materialContainer/MaterialContainerComponent";
+import MaterialContainerComponent from "../common/materialContainer/MaterialContainerComponent";
+import PaginationLoadParent, {PromiseFunc} from "../common/PaginationLoadParent";
 
 
 @observer
-class HomePage extends React.Component<RouteComponentProps> {
-  @observable currentCourses: Course[];
+class HomePage extends PaginationLoadParent<Course, RouteComponentProps> {
 
-  componentDidMount(): void {
-    restServices.tsadv_LmsService.loadCourses(getCubaREST()!, {conditions: []})().then((response: string) => {
-      const courses: Course[] = JSON.parse(response);
-      this.setCurrentCourses(courses);
-    });
-  }
-
-  @action setCurrentCourses = (currentCourses: any) => {
-    this.currentCourses = currentCourses;
+  getLoadParams = (): PromiseFunc => {
+    return {
+      loadFunc: restServices.tsadv_LmsService.loadCourses
+    }
   };
 
   courseClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -33,15 +25,16 @@ class HomePage extends React.Component<RouteComponentProps> {
   };
 
   render() {
-    const BodyComponent = this.currentCourses ? React.createElement(MaterialContainerComponent, {
-      materialData: this.currentCourses,
+    const BodyComponent = this.loadedData ? React.createElement(MaterialContainerComponent, {
+      materialData: this.loadedData,
       boxType: BoxType.DEFAULT,
-      materialClickHandler: this.courseClickHandler
+      materialClickHandler: this.courseClickHandler,
+      loadMoreClickHandler: this.incrementPage,
+      hasLoadMore: this.currentPage < this.pageCount
     }) : React.createElement(LoadingComponent);
 
     return (
-      <div className={""}>
-        {/*<WelcomeComponent/>*/}
+      <div>
         <div className={styles["content-wrapper"]}>{BodyComponent}</div>
       </div>
     );

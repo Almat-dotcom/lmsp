@@ -2,23 +2,18 @@ import {MatchParams, RouteComponentProps} from "../../../common/model/RouteCompo
 import './style.css';
 import {observer} from "mobx-react";
 import React from "react";
-import {action, observable} from "mobx";
 import {restServices} from "../../../../cuba/services";
 import {getCubaREST} from "@cuba-platform/react";
 import {BoxType, LogoType} from "../../../common/materialContainer/material/MaterialComponent";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import Content from "../../Content";
-import {LearningObject} from "../../../../cuba/entities/tsadv/tsadv$LearningObject";
 import {injectIntl, WrappedComponentProps} from "react-intl";
-import {SerializedEntity} from "@cuba-platform/rest";
 import {Modal, Select} from "antd";
 import MaterialContainerComponent, {
   MaterialData,
-  MaterialModel,
-  MaterialType
+  MaterialModel
 } from "../../../common/materialContainer/MaterialContainerComponent";
-import {Book} from "../../../../cuba/entities/tsadv/tsadv$Book";
-import {file} from "@babel/types";
+import PaginationLoadParent, {PageWithData, PromiseFunc} from "../../../common/PaginationLoadParent";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 
@@ -34,22 +29,29 @@ export interface BookMaterialModel extends MaterialModel {
 }
 
 @observer
-class BooksComponent extends React.Component<Props & WrappedComponentProps> {
+class BooksComponent extends PaginationLoadParent<BookMaterialModel, Props & WrappedComponentProps> {
 
-  @observable books: BookMaterialModel[];
+  getLoadParams = (): PromiseFunc => {
+    return {loadFunc: restServices.tsadv_LmsService.loadBooks};
+  };
 
-  componentDidMount(): void {
-    restServices.tsadv_LmsService.loadBooks(getCubaREST()!, {})().then((response: string) => {
-      const books: BookMaterialModel[] = JSON.parse(response);
-      this.setBooks(books.map(el => ({
+  parseResponseToData = (response: string): BookMaterialModel[] => {
+    const books: BookMaterialModel[] = JSON.parse(response);
+    return books.map(el => ({
+      ...el,
+      logo: el.logo ? getCubaREST()!.getFileUploadURL() + "/" + el.logo + "?access_token=" + getCubaREST()!.restApiToken : undefined
+    } as BookMaterialModel));
+  };
+
+  parsePageResponseToData = (response: string): PageWithData => {
+    const responseData: PageWithData = JSON.parse(response);
+    return {
+      pageCount: responseData.pageCount,
+      data: responseData.data.map((el: MaterialData) => ({
         ...el,
         logo: el.logo ? getCubaREST()!.getFileUploadURL() + "/" + el.logo + "?access_token=" + getCubaREST()!.restApiToken : undefined
-      } as BookMaterialModel)));
-    })
-  }
-
-  @action setBooks = (value: BookMaterialModel[]) => {
-    this.books = value;
+      } as BookMaterialModel))
+    }
   };
 
   downloadBook = (fileId: string) => {
@@ -86,11 +88,13 @@ class BooksComponent extends React.Component<Props & WrappedComponentProps> {
   };
 
   render() {
-    const BooksBody = <div className={"container"}>{this.books ?
+    const BooksBody = <div className={"container"}>{this.loadedData ?
       <><MaterialContainerComponent boxType={BoxType.DEFAULT}
                                     logoType={LogoType.URL}
                                     footer={this.downloadButtonFooter}
-                                    materialData={this.books}/>
+                                    hasLoadMore={this.currentPage < this.pageCount}
+                                    materialData={this.loadedData}
+                                    loadMoreClickHandler={this.incrementPage}/>
       </> :
       <LoadingComponent/>}</div>;
 

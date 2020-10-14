@@ -1,32 +1,24 @@
 import React from "react";
 import Content from "../../Content";
-import {action, observable} from "mobx";
 import {observer} from "mobx-react";
 import {Course} from "../../../../cuba/entities/tsadv/tsadv$Course";
 import {restServices} from "../../../../cuba/services";
-import {getCubaREST} from "@cuba-platform/react";
 import LoadingComponent from "../../../common/loading/LoadingComponent";
 import {BoxType} from "../../../common/materialContainer/material/MaterialComponent";
 import {MatchParams, RouteComponentProps} from "../../../common/model/RouteComponentProps";
-import MaterialContainerComponent, {MaterialType} from "../../../common/materialContainer/MaterialContainerComponent";
+import MaterialContainerComponent from "../../../common/materialContainer/MaterialContainerComponent";
+import PaginationLoadParent, {PromiseFunc} from "../../../common/PaginationLoadParent";
 
 export interface Props extends RouteComponentProps<MatchParams> {
 }
 
 @observer
-class HistoryComponent extends React.Component<Props> {
+class HistoryComponent extends PaginationLoadParent<Course, Props> {
 
-  @observable private historyCourses: Course[];
-
-  componentDidMount(): void {
-    restServices.tsadv_LmsService.getPersonHistory(getCubaREST()!)().then((response: string) => {
-      const courses: Course[] = JSON.parse(response);
-      this.setHistoryCourses(courses);
-    })
-  }
-
-  @action setHistoryCourses = (value: Course[]) => {
-    this.historyCourses = value;
+  getLoadParams = (): PromiseFunc => {
+    return {
+      loadFunc: restServices.tsadv_LmsService.getPersonHistory
+    }
   };
 
   materialClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -34,9 +26,11 @@ class HistoryComponent extends React.Component<Props> {
   };
 
   render() {
-    const HistoryBody = <div>{this.historyCourses ?
+    const HistoryBody = <div>{this.loadedData ?
       <MaterialContainerComponent boxType={BoxType.DEFAULT}
-                                  materialData={this.historyCourses}
+                                  materialData={this.loadedData}
+                                  hasLoadMore={this.currentPage < this.pageCount}
+                                  loadMoreClickHandler={this.incrementPage}
                                   materialClickHandler={this.materialClickHandler}/> :
       <LoadingComponent/>}</div>;
 
