@@ -59,10 +59,18 @@ export var restServices = {
         fetchOpts
       );
     },
-    loadCourses: (cubaApp: CubaApp, params: { filter?: EntityFilter, pageNumber: number }, fetchOpts?: FetchOptions) => async () => {
+    loadCourses: (cubaApp: CubaApp, params: { filter: EntityFilter, pageNumber: number }, fetchOpts?: FetchOptions) => async () => {
       return await cubaApp.invokeService(
         "tsadv_LmsService",
         "loadCourses",
+        {...params},
+        fetchOpts
+      );
+    },
+    loadCourseCategories: (cubaApp: CubaApp, params: EntityFilter, fetchOpts?: FetchOptions) => async () => {
+      return await cubaApp.invokeService(
+        "tsadv_LmsService",
+        "loadCourseCategories",
         {...params},
         fetchOpts
       );
