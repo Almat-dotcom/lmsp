@@ -1,4 +1,3 @@
-import Courses from "./app/content/knowledge/courses/Courses";
 import CurrentCourses from "./app/content/training/current/CurrentCourses";
 import HistoryComponent from "./app/content/training/history/HistoryComponent";
 import VideosComponent from "./app/content/knowledge/video/VideosComponent";
@@ -11,6 +10,7 @@ import MyProgressDsComponent from "./app/content/mypage/progress/MyProgressDsCom
 import CalendarDsComponent from "./app/content/calendar/CalendarDsComponent";
 import NotificationsDsComponent from "./app/content/mypage/notifications/NotificationsDsComponent";
 import PasswordComponent from "./app/content/mypage/password/PasswordDsComponent";
+import CoursesComponent from "./app/content/knowledge/courses/CoursesComponent";
 
 export interface IMenuItem {
   id: string,
@@ -74,7 +74,7 @@ topMenu.push({
       id: 'courses',
       caption: 'courses',
       path: '/knowledge/courses',
-      component: Courses
+      component: CoursesComponent
     },
     {
       id: 'books',

@@ -4,7 +4,8 @@
   height: 225px;
   padding: 10px;
   flex-basis: 25%;
-  max-width: 250px;
+  max-width: 200px;
+  max-height: 225px;
   overflow: hidden;
   /*border: 1px solid #ccc;*/
   /*border-radius: 10px;*/
