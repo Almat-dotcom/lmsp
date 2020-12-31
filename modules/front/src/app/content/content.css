@@ -64,7 +64,7 @@
 
 .carousel-elements-group {
   display: flex !important;
-  justify-content: center;
+  justify-content: left;
 }
 
 .main-carousel-bottom-menu {
@@ -107,12 +107,14 @@
 
 .courses-main-container {
   width: 90%;
+  margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .category-title {
-  font-size: 26px;
+  font-size: 25px;
+  text-transform: uppercase;
 }
 
 @media (max-width: 900px) {
