@@ -51,9 +51,9 @@ topMenu.push({
       link: links.wikium,
       component: LinkMenuComponent
     }, {
-      id: 'smartreading',
-      caption: 'smartreading',
-      link: links.smartReading,
+      id: 'library',
+      caption: 'library',
+      link: links.library,
       component: LinkMenuComponent
     }]
 });
