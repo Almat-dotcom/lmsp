@@ -4,16 +4,12 @@ import {observer} from "mobx-react";
 import {action, observable} from "mobx";
 import {getCubaREST} from "@cuba-platform/react";
 import "./style.css";
-import {
-  MatchParams,
-  RouteComponentProps
-} from "../../common/model/RouteComponentProps";
+import {MatchParams, RouteComponentProps} from "../../common/model/RouteComponentProps";
 import {injectIntl, WrappedComponentProps} from "react-intl";
 import LoadingComponent from "../../common/loading/LoadingComponent";
 import SectionListComponent from "./list/SectionListComponent";
 import {restServices} from "../../../cuba/services";
 import TrainingDsComponent from "./training/TrainingDsComponent";
-import {isNullOrUndefined} from "util";
 
 interface Props extends RouteComponentProps<MatchParams> {
 }
@@ -99,6 +95,7 @@ class CourseComponent extends React.Component<Props & WrappedComponentProps> {
     if (this.selectedMenu !== null) {
       this.resetSectionItem();
     }
+    this.refreshCourseCard();
   }
 
   render() {

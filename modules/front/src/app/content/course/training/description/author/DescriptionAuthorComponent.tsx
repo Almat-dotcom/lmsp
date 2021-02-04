@@ -15,9 +15,9 @@ class DescriptionAuthorComponent extends React.Component<DescriptionBodyComponen
           <div className={styles["row"]}><span className={styles["title"]}>{this.props.intl.formatMessage({id: "fullName"})}:</span>
             <span>{courseTrainer.fullName}</span></div>
           <div className={styles["row"]}><span className={styles["title"]}>{this.props.intl.formatMessage({id: "professionalData"})}:</span>
-            <span>{courseTrainer.professionalData}</span></div>
+            <span dangerouslySetInnerHTML={{__html: courseTrainer.professionalData}}></span></div>
           <div className={styles["row"]}><span className={styles["title"]}>{this.props.intl.formatMessage({id: "additionalData"})}:</span>
-            <span>{courseTrainer.additionalData}</span></div>
+            <span dangerouslySetInnerHTML={{__html: courseTrainer.additionalData}}></span></div>
         </div>
       })}
     </div>

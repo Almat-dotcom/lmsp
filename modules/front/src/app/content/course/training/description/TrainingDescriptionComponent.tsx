@@ -25,25 +25,17 @@ class TrainingDescriptionComponent extends React.Component<TrainingComponentProp
     name: this.props.intl.formatMessage({id: "course.author"})
   }];
 
-  @observable selectedLi: HTMLLIElement | null = null;
-
-  @observable selectedMenuItemId: string | null = null;
+  @observable selectedMenuItemId: string | null;
 
   @action setSelectedMenuItemId = (value: string) => {
     this.selectedMenuItemId = value;
   };
 
-  @action setSelectedLi = (value: HTMLLIElement) => {
-    this.selectedLi = value;
-  };
+  componentDidMount(): void {
+    this.setSelectedMenuItemId('description');
+  }
 
-  liClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
-    if (this.selectedLi) {
-      this.selectedLi.classList.toggle(styles["active"]);
-    }
-    e.currentTarget.classList.toggle(styles["active"]);
-    this.setSelectedLi(e.currentTarget);
-
+  menuItemClickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
     const menuItemId: string = e.currentTarget.dataset['id']!;
     if (menuItemId !== this.selectedMenuItemId) {
       this.setSelectedMenuItemId(menuItemId);
@@ -56,8 +48,9 @@ class TrainingDescriptionComponent extends React.Component<TrainingComponentProp
     return <div className={styles["section-training-container"]}>
       <div className={styles["section-training-description-menu"]}>
         <ul>
-          {this.menuItems.map(menuItem => <li data-id={menuItem.id}
-                                              onClick={this.liClickHandler}>{menuItem.name}</li>)}
+          {this.menuItems.map(menuItem => <li className={menuItem.id == this.selectedMenuItemId ? styles["active"] : ""}
+                                              data-id={menuItem.id}
+                                              onClick={this.menuItemClickHandler}>{menuItem.name}</li>)}
         </ul>
       </div>
       <div>
