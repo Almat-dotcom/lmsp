@@ -116,7 +116,7 @@
   "test.modal.title": "Вы уверены, что хотите завершить тестирование?",
   "tests.modal.title": "Вы действительно хотите начать тестирование?",
   "test.result": "Вы ответили на {score} из {maxScore} ({percentage}%)",
-  "myProgress": "Мой прогресс",
+  "myProgress": "Прогресс",
   "myProgress.table.column.lineNum": "№",
   "myProgress.table.column.date": "Дата прохождения теста",
   "myProgress.table.column.courseName": "Название курса",

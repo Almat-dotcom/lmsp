@@ -116,7 +116,7 @@
   "test.modal.title": "Are you sure?",
   "tests.modal.title": "Are you sure?",
   "test.result": "You passed {score} of {maxScore} ({percentage}%)",
-  "myProgress": "My progress",
+  "myProgress": "Progress",
   "myProgress.table.column.lineNum": "№",
   "myProgress.table.column.date": "Date of passage test",
   "myProgress.table.column.courseName": "Name of course",

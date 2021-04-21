@@ -40,21 +40,12 @@ topMenu.push({
       caption: 'history',
       path: '/training/history',
       component: HistoryComponent
-    }, {
-      id: 'tests',
-      caption: 'tests',
-      path: '/training/tests',
-      component: TestsComponent
-    }, {
-      id: 'wikium',
-      caption: 'wikium',
-      link: links.wikium,
-      component: LinkMenuComponent
-    }, {
-      id: 'library',
-      caption: 'library',
-      link: links.library,
-      component: LinkMenuComponent
+    },
+    {
+      id: 'progress',
+      caption: 'progress',
+      path: '/me/progress',
+      component: MyProgressDsComponent
     }]
 });
 
@@ -71,12 +62,17 @@ topMenu.push({
   path: '/knowledge',
   items: [
     {
+      id: 'library',
+      caption: 'library',
+      link: links.library,
+      component: LinkMenuComponent
+    }, {
       id: 'courses',
       caption: 'courses',
       path: '/knowledge/courses',
       component: CoursesComponent
     },
-    {
+    /*{
       id: 'books',
       caption: 'books',
       path: '/knowledge/books',
@@ -92,7 +88,8 @@ topMenu.push({
       caption: 'videos',
       path: '/knowledge/videos',
       component: VideosComponent
-    }]
+    }*/
+  ]
 });
 
 topMenu.push({
@@ -111,11 +108,5 @@ topMenu.push({
       caption: 'password',
       path: '/me/password',
       component: PasswordComponent
-    },
-    {
-      id: 'progress',
-      caption: 'progress',
-      path: '/me/progress',
-      component: MyProgressDsComponent
     }]
 });
